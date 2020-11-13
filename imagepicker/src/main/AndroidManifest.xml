@@ -1,14 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.dhaval2404.imagepicker">
+    package="com.github.drjacky.imagepicker">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application>
 
-        <activity android:name=".ImagePickerActivity"
-                  android:theme="@style/Theme.Transparent.ImagePicker"
-                  android:screenOrientation="unspecified"/>
+        <activity
+            android:name="com.github.drjacky.imagepicker.ImagePickerActivity"
+            android:theme="@style/Theme.Transparent.ImagePicker"
+            android:screenOrientation="unspecified" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -16,7 +17,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <provider
-            android:name="com.github.dhaval2404.imagepicker.ImagePickerFileProvider"
+            android:name="com.github.drjacky.imagepicker.ImagePickerFileProvider"
             android:authorities="${applicationId}.imagepicker.provider"
             android:exported="false"
             android:grantUriPermissions="true">
