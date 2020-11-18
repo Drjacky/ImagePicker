@@ -6,18 +6,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ## [1.8.1] - 2021-03-17
-  * Added front camera
+  * Rebasing
 
 ## [1.8] - 2020-12-22
 ### Added
   * Added dialog dismiss listener (Special Thanks to [kibotu](https://github.com/kibotu))
   * Added text localization (Special Thanks to [yamin8000](https://github.com/yamin8000) and Jose Bravo)
+
 ### Changed
   * Fixed crash issue on missing camera app [#69](https://github.com/Dhaval2404/ImagePicker/issues/69)
   * Fixed issue selecting images from download folder [#86](https://github.com/Dhaval2404/ImagePicker/issues/86)
   * Fixed exif information lost issue [#121](https://github.com/Dhaval2404/ImagePicker/issues/121)
   * Fixed crash issue on large image crop [#122](https://github.com/Dhaval2404/ImagePicker/issues/122)
   * Fixed saving image in cache issue [#127](https://github.com/Dhaval2404/ImagePicker/issues/127)
+
+## [1.7.7] - 2020-11-18
+### Changed
+  * Remove extra language
+  * Update libraries version
+
+## [1.7.6] - 2020-11-13
+### Changed
+  * Added front camera
 
 ## [1.7.5] - 2020-08-30
 ### Changed
