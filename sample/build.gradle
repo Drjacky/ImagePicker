@@ -12,8 +12,8 @@ android {
         applicationId "com.github.drjacky.imagepicker.sample"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 14
-        versionName "1.7.6"
+        versionCode 15
+        versionName "1.7.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
