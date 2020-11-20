@@ -20,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Fixed crash issue on large image crop [#122](https://github.com/Dhaval2404/ImagePicker/issues/122)
   * Fixed saving image in cache issue [#127](https://github.com/Dhaval2404/ImagePicker/issues/127)
 
+## [1.7.8] - 2020-11-20
+### Changed
+  * Increase external crop library version
+  * Increase target sdk version
+  * Add oval crop feature
+
 ## [1.7.7] - 2020-11-18
 ### Changed
   * Remove extra language

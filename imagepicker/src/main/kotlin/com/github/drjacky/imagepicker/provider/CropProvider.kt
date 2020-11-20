@@ -36,6 +36,7 @@ class CropProvider(activity: ImagePickerActivity) : BaseProvider(activity) {
     private val mMaxWidth: Int
     private val mMaxHeight: Int
 
+    private val mCropOval: Boolean
     private val mCrop: Boolean
     private val mCropAspectX: Float
     private val mCropAspectY: Float
@@ -50,6 +51,7 @@ class CropProvider(activity: ImagePickerActivity) : BaseProvider(activity) {
         mMaxHeight = bundle.getInt(ImagePicker.EXTRA_MAX_HEIGHT, 0)
 
         // Get Crop Aspect Ratio parameter from Intent
+        mCropOval = bundle.getBoolean(ImagePicker.EXTRA_CROP_OVAL, false)
         mCrop = bundle.getBoolean(ImagePicker.EXTRA_CROP, false)
         mCropAspectX = bundle.getFloat(ImagePicker.EXTRA_CROP_X, 0f)
         mCropAspectY = bundle.getFloat(ImagePicker.EXTRA_CROP_Y, 0f)
@@ -85,6 +87,13 @@ class CropProvider(activity: ImagePickerActivity) : BaseProvider(activity) {
     }
 
     /**
+     * Check if it is allow dimmed layer to have a circle inside or not
+     *
+     * @return Boolean. True if it is allow dimmed layer to have a circle inside else false.
+     */
+    fun isCropOvalEnabled() = mCropOval
+
+    /**
      * Check if crop should be enabled or not
      *
      * @return Boolean. True if Crop should be enabled else false.
@@ -94,8 +103,8 @@ class CropProvider(activity: ImagePickerActivity) : BaseProvider(activity) {
     /**
      * Start Crop Activity
      */
-    fun startIntent(file: File) {
-        cropImage(file)
+    fun startIntent(file: File, cropOval: Boolean) {
+        cropImage(file, cropOval)
     }
 
     /**
@@ -103,7 +112,7 @@ class CropProvider(activity: ImagePickerActivity) : BaseProvider(activity) {
      * @throws IOException if failed to crop image
      */
     @Throws(IOException::class)
-    private fun cropImage(file: File) {
+    private fun cropImage(file: File, cropOval: Boolean) {
         val uri = Uri.fromFile(file)
         val extension = FileUriUtils.getImageExtension(uri)
         mCropImageFile = FileUtil.getImageFile(dir = mFileDir, extension = extension)
@@ -116,6 +125,7 @@ class CropProvider(activity: ImagePickerActivity) : BaseProvider(activity) {
 
         val options = UCrop.Options()
         options.setCompressionFormat(FileUtil.getCompressFormat(extension))
+        options.setCircleDimmedLayer(cropOval)
         val uCrop = UCrop.of(uri, Uri.fromFile(mCropImageFile))
             .withOptions(options)
 

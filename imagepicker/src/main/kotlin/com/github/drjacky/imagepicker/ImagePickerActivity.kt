@@ -155,7 +155,10 @@ class ImagePickerActivity : AppCompatActivity() {
     fun setImage(file: File) {
         mImageFile = file
         when {
-            mCropProvider.isCropEnabled() -> mCropProvider.startIntent(file)
+            mCropProvider.isCropEnabled() -> mCropProvider.startIntent(
+                file = file,
+                cropOval = mCropProvider.isCropOvalEnabled()
+            )
             mCompressionProvider.isCompressionRequired(file) -> mCompressionProvider.compress(file)
             else -> setResult(file)
         }
