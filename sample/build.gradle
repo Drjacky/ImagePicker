@@ -7,13 +7,13 @@ apply plugin: 'kotlin-android-extensions'
 apply from: "../ktlint.gradle"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.github.drjacky.imagepicker.sample"
         minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 15
-        versionName "1.7.7"
+        targetSdkVersion 30
+        versionCode 16
+        versionName "1.7.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

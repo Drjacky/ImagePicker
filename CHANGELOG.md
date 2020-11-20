@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.8] - 2020-11-20
+### Changed
+  * Increase external crop library version
+  * Increase target sdk version
+  * Add oval crop feature
+
 ## [1.7.7] - 2020-11-18
 ### Changed
   * Remove extra language

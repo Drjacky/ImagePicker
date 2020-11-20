@@ -31,6 +31,7 @@ open class ImagePicker {
         internal const val EXTRA_CROP = "extra.crop"
         internal const val EXTRA_CROP_X = "extra.crop_x"
         internal const val EXTRA_CROP_Y = "extra.crop_y"
+        internal const val EXTRA_CROP_OVAL = "extra.crop_oval"
         internal const val EXTRA_MAX_WIDTH = "extra.max_width"
         internal const val EXTRA_MAX_HEIGHT = "extra.max_height"
         internal const val EXTRA_SAVE_DIRECTORY = "extra.save_directory"
@@ -104,6 +105,7 @@ open class ImagePicker {
         private var cropX: Float = 0f
         private var cropY: Float = 0f
         private var crop: Boolean = false
+        private var cropOval: Boolean = false
 
         /*
          * Resize Parameters
@@ -189,6 +191,14 @@ open class ImagePicker {
          */
         fun crop(): Builder {
             this.crop = true
+            return this
+        }
+
+        /**
+         * Allow dimmed layer to have a circle inside
+         */
+        fun cropOval(): Builder {
+            this.cropOval = true
             return this
         }
 
@@ -321,6 +331,7 @@ open class ImagePicker {
                 putSerializable(EXTRA_IMAGE_PROVIDER, imageProvider)
                 putStringArray(EXTRA_MIME_TYPES, mimeTypes)
 
+                putBoolean(EXTRA_CROP_OVAL, cropOval)
                 putBoolean(EXTRA_CROP, crop)
                 putFloat(EXTRA_CROP_X, cropX)
                 putFloat(EXTRA_CROP_Y, cropY)

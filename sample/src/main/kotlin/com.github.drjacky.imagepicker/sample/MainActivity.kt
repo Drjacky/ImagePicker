@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_github -> {
                 IntentUtil.openURL(this, GITHUB_REPOSITORY)
                 return true
@@ -61,6 +61,8 @@ class MainActivity : AppCompatActivity() {
         ImagePicker.with(this)
             // Crop Square image
             .cropSquare()
+            // Allow dimmed layer to have a circle inside
+            .cropOval()
             .setImageProviderInterceptor { imageProvider -> // Intercept ImageProvider
                 Log.d("ImagePicker", "Selected ImageProvider: " + imageProvider.name)
             }
