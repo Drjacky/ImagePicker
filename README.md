@@ -1,20 +1,14 @@
 # 📸Image Picker Library for Android
 
-[![Download](https://api.bintray.com/packages/dhaval2404/maven/imagepicker/images/download.svg) ](https://bintray.com/dhaval2404/maven/imagepicker/_latestVersion) 
-[![Releases](https://img.shields.io/github/release/dhaval2404/imagePicker/all.svg?style=flat-square)](https://github.com/Dhaval2404/ImagePicker/releases)
+<!-- [![Download](https://api.bintray.com/packages/drjacky/maven/imagepicker/images/download.svg) ](https://bintray.com/drjacky/maven/imagepicker/_latestVersion) -->
+[![Releases](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
 [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
 ![Language](https://img.shields.io/badge/language-Kotlin-orange.svg)
-[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ImagePicker-green.svg?style=flat )]( https://android-arsenal.com/details/1/7510 )
-[![PRWelcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Dhaval2404/ImagePicker)
-[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/Dhaval2404)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/Dhaval2404/ImagePicker.svg?style=social)](https://twitter.com/intent/tweet?text=Check+out+an+ImagePicker+library+to+Pick+an+image+from+the+Gallery+or+Capture+an+image+with+Camera.+https%3A%2F%2Fgithub.com%2FDhaval2404%2FImagePicker+%40dhaval2404+%23Android+%23Kotlin+%23AndroidDev)
+<!-- [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ImagePicker-green.svg?style=flat )]( https://android-arsenal.com/details/1/7510 ) -->
+[![PRWelcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Drjacky/ImagePicker/pulls)
 
 <div align="center">
-  <sub>Built with ❤︎ by
-  <a href="https://twitter.com/Dhaval2404">Dhaval Patel</a> and
-  <a href="https://github.com/dhaval2404/imagepicker/graphs/contributors">
-    contributors
-  </a>
+  <sub>Based on [ImagePicker](https://github.com/Drjacky/ImagePicker)
 </div>
 <br/>
 
@@ -37,7 +31,7 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
 
    Profile Image Picker    |         Gallery Only      |       Camera Only        |
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/Dhaval2404/ImagePicker/blob/master/art/imagepicker_profile_demo.gif)  |  ![](https://github.com/Dhaval2404/ImagePicker/blob/master/art/imagepicker_gallery_demo.gif.gif)  |  ![](https://github.com/Dhaval2404/ImagePicker/blob/master/art/imagepicker_camera_demo.gif.gif)
+![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_profile_demo.gif)  |  ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_gallery_demo.gif.gif)  |  ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_camera_demo.gif.gif)
 
 # 💻Usage
 
@@ -54,8 +48,9 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
 	```
 
     ```groovy
-   implementation 'com.github.dhaval2404:imagepicker:1.7.5'
+   implementation 'com.github.Drjacky:ImagePicker:$libVersion'
     ```
+    Where [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
     
    **If you are yet to Migrate on AndroidX, Use support build artifact:**
    ```groovy
@@ -86,6 +81,7 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
 	```kotlin
     ImagePicker.with(this)
             .crop()	    			//Crop image(Optional), Check Customization for more option
+	    .cropOval()				//Allow dimmed layer to have a circle inside
             .compress(1024)			//Final image size will be less than 1 MB(Optional)
             .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
             .start()
@@ -96,6 +92,7 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
     ```kotlin
     ImagePicker.Companion.with(this)
             .crop()	    			//Crop image(Optional), Check Customization for more option
+	    .cropOval()				//Allow dimmed layer to have a circle inside
             .compress(1024)			//Final image size will be less than 1 MB(Optional)
             .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
             .start()
