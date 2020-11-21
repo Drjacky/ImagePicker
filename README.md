@@ -9,7 +9,7 @@
 
 <div align="center">
   <sub>Based on
-  <a href="https://github.com/Drjacky/ImagePicker">ImagePicker</a>
+  <a href="https://github.com/Dhaval2404/ImagePicker">ImagePicker</a>
 </div>
 
 Easy to use and configurable library to **Pick an image from the Gallery or Capture image using Camera**. It also allows to **Crop and Compresses the Image based on Aspect Ratio, Resolution and Image Size**.
