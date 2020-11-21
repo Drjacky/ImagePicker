@@ -8,10 +8,6 @@
 <!-- [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ImagePicker-green.svg?style=flat )]( https://android-arsenal.com/details/1/7510 ) -->
 
 <div align="center">
-  <sub>Based on [ImagePicker](https://github.com/Drjacky/ImagePicker)
-</div>
-<br/>
-<div align="center">
   <sub>Based on
   <a href="https://github.com/Drjacky/ImagePicker">ImagePicker</a>
 </div>
@@ -344,7 +340,7 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
 
 ### Let us know!
 
-We'll be really happy if you sent us links to your projects where you use our component. Just send an email to **dhavalpatel244@gmail.com** And do let us know if you have any questions or suggestion regarding the library.
+We'll be really happy if you sent us links to your projects where you use our component. Just send an email to **dhavalpatel244@gmail.com** (who made the library in first place and my work is just improvement around his work) And do let us know if you have any questions or suggestion regarding the library.
 
 ## License
 
