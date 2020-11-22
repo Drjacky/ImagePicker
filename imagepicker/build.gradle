@@ -1,9 +1,6 @@
 apply plugin: 'com.android.library'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply from: "../ktlint.gradle"
 
 android {
@@ -11,9 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 16
-        versionName "1.7.8"
-
+        versionCode rootProject.ext.versionCode
+        versionName = rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,22 +54,20 @@ dependencies {
 }
 
 ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'imagepicker'
+    bintrayRepo = 'ImagePicker'
+    bintrayName = 'ImagePicker'
 
     publishedGroupId = 'com.github.Drjacky'
-    libraryName = 'imagepicker'
-    artifact = 'imagepicker'
+    libraryName = 'ImagePicker'
+    artifact = 'ImagePicker'
 
     libraryDescription = 'Pick image from Gallery or Capture new image with Camera.'
 
-    siteUrl = 'https://github.com/Drjacky/ImagePicker/'
+    siteUrl = 'https://github.com/Drjacky/ImagePicker'
+    issueUrl = 'https://github.com/Drjacky/ImagePicker/issues'
     gitUrl = 'https://github.com/Drjacky/ImagePicker.git'
 
-    libraryVersion = '1.7.8'
-    //If you are uploading new library try : gradlew install
-    //If you are updating existing library then execute: gradlew bintrayUpload
-    //In both the case don't forgot to put bintray credentials in local.properties file.
+    libraryVersion = rootProject.ext.versionName
 
     developerId = 'drjacky'
     developerName = 'Hossein Abbasi'
@@ -82,8 +76,10 @@ ext {
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
+
+    gitRepo = 'Drjacky/ImagePicker' //Optional Github repository
+    readmeName = 'CHANGELOG.md' //Optional Github readme file
 }
 
-// Place it at the end of the file
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: 'https://raw.githubusercontent.com/Drjacky/ImagePicker/master/bintray-install.gradle'
+apply from: 'https://raw.githubusercontent.com/Drjacky/ImagePicker/master/bintray.gradle'

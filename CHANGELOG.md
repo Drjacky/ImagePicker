@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.9] - 2020-11-22
+### Changed
+  * Add bintray
+
 ## [1.7.8] - 2020-11-20
 ### Changed
   * Increase external crop library version
@@ -97,7 +101,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Handle Runtime Permission for Camera and Storage
   * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.7.8...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.7.9...HEAD
+[1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.8...v1.7.9
 [1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.7...v1.7.8
 [1.7.7]: https://github.com/Drjacky/ImagePicker/compare/v1.7.6...v1.7.7
 [1.7.6]: https://github.com/Drjacky/ImagePicker/compare/v1.7.5...v1.7.6
