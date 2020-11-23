@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Fixed crash issue on large image crop [#122](https://github.com/Dhaval2404/ImagePicker/issues/122)
   * Fixed saving image in cache issue [#127](https://github.com/Dhaval2404/ImagePicker/issues/127)
 
+## [1.7.10] - 2020-11-23
+### Changed
+  * Update internal libraries
+  * Use Kotlin v1.4.20
+
 ## [1.7.9] - 2020-11-22
 ### Changed
   * Add bintray
@@ -115,7 +120,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Retrieve Image Result as File, File Path as String or Uri object
 
 [Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.8.1...HEAD
-[1.8.1]: https://github.com/Drjacky/ImagePicker/compare/v1.7.9...v1.8.1
+[1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.10...v1.8.1
+[1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.9...v1.7.10
 [1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.8...v1.7.9
 [1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.7...v1.7.8
 [1.7.7]: https://github.com/Drjacky/ImagePicker/compare/v1.7.6...v1.7.7
