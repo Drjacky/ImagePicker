@@ -1,22 +1,13 @@
 # 📸Image Picker Library for Android
 
-<!-- [![Download](https://api.bintray.com/packages/drjacky/maven/imagepicker/images/download.svg) ](https://bintray.com/drjacky/maven/imagepicker/_latestVersion) -->
 [![Releases](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
 [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
-![Language](https://img.shields.io/badge/language-Kotlin-orange.svg)
+[![Language](https://img.shields.io/badge/language-Kotlin-orange.svg)
 [![PRWelcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Drjacky/ImagePicker/pulls)
-<!-- [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ImagePicker-green.svg?style=flat )]( https://android-arsenal.com/details/1/7510 ) -->
-
-<div align="center">
-  <sub>Based on
-  <a href="https://github.com/Dhaval2404/ImagePicker">ImagePicker</a>
-</div>
 
 Easy to use and configurable library to **Pick an image from the Gallery or Capture image using Camera**. It also allows to **Crop and Compresses the Image based on Aspect Ratio, Resolution and Image Size**.
 
-Almost 90% of the app that I have developed has an Image upload feature. Along with the image selection, Sometimes  I needed a crop feature for profile image for that I've used uCrop. Most of the time I need to compress the image as the image captured from the camera is more than 5-10 MBs and sometimes we have a requirement to upload images with specific resolution/size, in that case, image compress is the way to go option. To simplify the image pick/capture option I have created ImagePicker library. I hope it will be useful to all.
-
-# 🐱‍🏍Features:
+#  ‍🏍Features
 	
 * Pick Gallery Image
 * Pick Image from Google Drive
@@ -41,8 +32,8 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
 	```groovy
 	allprojects {
 	   repositories {
-	      	jcenter()
-           	maven { url "https://jitpack.io" }  //Make sure to add this in your project for uCrop
+	      	jcenter() // For ImagePicker library, this lien is enough. Although, it has been published on jitpack as well
+           	maven { url "https://jitpack.io" }  //Make sure to add this in your project for uCrop - an internal library
 	   }
 	}
 	```
@@ -51,11 +42,6 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
    implementation 'com.github.Drjacky:ImagePicker:$libVersion'
     ```
     Where [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
-    
-   **If you are yet to Migrate on AndroidX, Use support build artifact:**
-   ```groovy
-   implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
-    ```
 
     **If you want to get the activity result inline in a modern way (lambda) install [InlineActivityResult](https://github.com/florent37/InlineActivityResult) library:**
    ```groovy
@@ -81,7 +67,7 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
 	```kotlin
     ImagePicker.with(this)
             .crop()	    			//Crop image(Optional), Check Customization for more option
-	    .cropOval()				//Allow dimmed layer to have a circle inside
+	        .cropOval()				//Allow dimmed layer to have a circle inside
             .compress(1024)			//Final image size will be less than 1 MB(Optional)
             .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
             .start()
@@ -92,7 +78,7 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
     ```kotlin
     ImagePicker.Companion.with(this)
             .crop()	    			//Crop image(Optional), Check Customization for more option
-	    .cropOval()				//Allow dimmed layer to have a circle inside
+	        .cropOval()				//Allow dimmed layer to have a circle inside
             .compress(1024)			//Final image size will be less than 1 MB(Optional)
             .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
             .start()
@@ -317,10 +303,7 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
 * uCrop [https://github.com/Yalantis/uCrop](https://github.com/Yalantis/uCrop)
 * Compressor [https://github.com/zetbaitsu/Compressor](https://github.com/zetbaitsu/Compressor)
 * InlineActivityResult [https://github.com/florent37/InlineActivityResult](https://github.com/florent37/InlineActivityResult)
-
-### Let us know!
-
-We'll be really happy if you sent us links to your projects where you use our component. Just send an email to **dhavalpatel244@gmail.com** (who made the library in first place and my work is just improvement around his work) And do let us know if you have any questions or suggestion regarding the library.
+* ImagePicker [https://github.com/Dhaval2404/ImagePicker](https://github.com/Dhaval2404/ImagePicker) which my work is based on this repository.
 
 ## License
 
