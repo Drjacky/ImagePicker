@@ -7,8 +7,8 @@
 
 Easy to use and configurable library to **Pick an image from the Gallery or Capture image using Camera**. It also allows to **Crop and Compresses the Image based on Aspect Ratio, Resolution and Image Size**.
 
-#  ‍🏍Features
-	
+## ‍🏍Features
+
 * Pick Gallery Image
 * Pick Image from Google Drive
 * Capture Camera Image
@@ -17,14 +17,14 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 * Retrieve Image Result as File, File Path as String or Uri object
 * Handle Runtime Permission for Camera and Storage
 
-# 🎬Preview
+## 🎬Preview
 
 
    Profile Image Picker    |         Gallery Only      |       Camera Only        |
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_profile_demo.gif)  |  ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_gallery_demo.gif.gif)  |  ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_camera_demo.gif.gif)
 
-# 💻Usage
+## 💻Usage
 
 
 1. Gradle dependency:
@@ -136,7 +136,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
             }
     ```
 
-# 🎨Customization
+## 🎨Customization
 
  *  Pick image using Gallery
 
@@ -252,12 +252,12 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     </resources>
     ```
 
-# 💥Compatibility
+## 💥Compatibility
 
   * Library - Android Kitkat 4.4+ (API 19)
   * Sample - Android Kitkat 4.4+ (API 19)
 
-# ✔️Changelog
+## ✔️Changelog
 
 ### Version: 1.8
 
