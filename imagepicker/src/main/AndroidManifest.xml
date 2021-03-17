@@ -4,12 +4,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application>
+    <application android:requestLegacyExternalStorage="true">
 
         <activity
             android:name="com.github.drjacky.imagepicker.ImagePickerActivity"
-            android:theme="@style/Theme.Transparent.ImagePicker"
-            android:screenOrientation="unspecified" />
+            android:screenOrientation="unspecified"
+            android:theme="@style/Theme.Transparent.ImagePicker" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ## [1.8.1] - 2021-03-17
+  * Fixed camera capture not working
+  * Decrease target sdk from 30 to 29
   * Rebasing
 
 ## [1.8] - 2020-12-22

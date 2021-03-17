@@ -4,10 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply from: "../ktlint.gradle"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 29
         versionCode rootProject.ext.versionCode
         versionName = rootProject.ext.versionName
 
