@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+  * Internal improvements
+
 ## [1.8.1] - 2021-03-17
   * Fixed camera capture not working
   * Decrease target sdk from 30 to 29
@@ -21,9 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Fixed exif information lost issue [#121](https://github.com/Dhaval2404/ImagePicker/issues/121)
   * Fixed crash issue on large image crop [#122](https://github.com/Dhaval2404/ImagePicker/issues/122)
   * Fixed saving image in cache issue [#127](https://github.com/Dhaval2404/ImagePicker/issues/127)
-
-### Changed
-  *
 
 ## [1.7.10] - 2020-11-23
 ### Changed
