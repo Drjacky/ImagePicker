@@ -34,7 +34,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 	```groovy
 	allprojects {
 	   repositories {
-	      	jcenter() // For ImagePicker library, this lien is enough. Although, it has been published on jitpack as well
+	      	mavenCentral() // For ImagePicker library, this line is enough. Although, it has been published on jitpack as well
            	maven { url "https://jitpack.io" }  //Make sure to add this in your project for uCrop - an internal library
 	   }
 	}
