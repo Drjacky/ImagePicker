@@ -128,10 +128,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Handle Runtime Permission for Camera and Storage
   * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.8.1...HEAD
-[1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.10...v1.8.1
-[1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.9...v1.7.10
-[1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.8...v1.7.9
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.8.2...HEAD
+[1.8.2]: https://github.com/Drjacky/ImagePicker/compare/v1.8.1...v1.8.2
+[1.8.1]: https://github.com/Drjacky/ImagePicker/compare/v1.7.10...v1.8.1
+[1.7.10]: https://github.com/Drjacky/ImagePicker/compare/v1.7.9...v1.7.10
+[1.7.9]: https://github.com/Drjacky/ImagePicker/compare/v1.7.8...v1.7.9
 [1.7.8]: https://github.com/Drjacky/ImagePicker/compare/v1.7.7...v1.7.8
 [1.7.7]: https://github.com/Drjacky/ImagePicker/compare/v1.7.6...v1.7.7
 [1.7.6]: https://github.com/Drjacky/ImagePicker/compare/v1.7.5...v1.7.6
