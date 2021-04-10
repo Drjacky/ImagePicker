@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.2] - 2021-04-10
   * Internal improvements
   * Use Kotlin v1.4.32
   * Update AGP to 1.4.3
+  * Let developer set requestLegacyExternalStorage if needed
 
 ## [1.8.1] - 2021-03-17
   * Fixed camera capture not working
