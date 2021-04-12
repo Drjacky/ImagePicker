@@ -43,7 +43,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     ```groovy
    implementation 'com.github.Drjacky:ImagePicker:$libVersion'
     ```
-    Where [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
+    Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
 
     **If you want to get the activity result inline in a modern way (lambda) install [InlineActivityResult](https://github.com/florent37/InlineActivityResult) library:**
    ```groovy
