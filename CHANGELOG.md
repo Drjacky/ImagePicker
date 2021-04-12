@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+  * Some minor improvements
+  * Update Gradle to 7.0
+  * Add missing uCrop translation
+  * Fix cannot access androidx.lifecycle.HasDefaultViewModelProviderFactory issue
+
 ## [1.8.2] - 2021-04-10
   * Internal improvements
   * Use Kotlin v1.4.32
