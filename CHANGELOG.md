@@ -6,10 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.3] - 2021-04-14
+
   * Some minor improvements
   * Update Gradle to 7.0
   * Add missing uCrop translation
   * Fix cannot access androidx.lifecycle.HasDefaultViewModelProviderFactory issue
+  * Add italian translation
 
 ## [1.8.2] - 2021-04-10
   * Internal improvements
@@ -133,7 +136,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Handle Runtime Permission for Camera and Storage
   * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.8.2...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.8.3...HEAD
+[1.8.3]: https://github.com/Drjacky/ImagePicker/compare/v1.8.2...v1.8.3
 [1.8.2]: https://github.com/Drjacky/ImagePicker/compare/v1.8.1...v1.8.2
 [1.8.1]: https://github.com/Drjacky/ImagePicker/compare/v1.7.10...v1.8.1
 [1.7.10]: https://github.com/Drjacky/ImagePicker/compare/v1.7.9...v1.7.10
