@@ -29,6 +29,7 @@
     <string name="ucrop_label_edit_photo">Editar Foto</string>
 
     <string name="ucrop_menu_crop">Cortar</string>
+
     <string name="ucrop_rotate">Rotar</string>
     <string name="ucrop_scale">Escalar</string>
     <string name="ucrop_crop">Cortar</string>

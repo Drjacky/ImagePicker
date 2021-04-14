@@ -27,7 +27,9 @@
     <!-- uCrop string resource start -->
     <string name="ucrop_label_original">અસલ</string>
     <string name="ucrop_label_edit_photo">ફોટો સંપાદિત કરો</string>
+
     <string name="ucrop_menu_crop">કાપો</string>
+
     <string name="ucrop_rotate">ફેરવો</string>
     <string name="ucrop_scale">સ્કેલ</string>
     <string name="ucrop_crop">કાપો</string>

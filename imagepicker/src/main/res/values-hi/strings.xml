@@ -27,7 +27,9 @@
     <!-- uCrop string resource start -->
     <string name="ucrop_label_original">मूल</string>
     <string name="ucrop_label_edit_photo">फ़ोटो संपादित करें</string>
+
     <string name="ucrop_menu_crop">काटना</string>
+
     <string name="ucrop_rotate">घुमाएँ</string>
     <string name="ucrop_scale">स्केल</string>
     <string name="ucrop_crop">काटना</string>
