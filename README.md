@@ -259,68 +259,6 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
   * Library - Android Kitkat 4.4+ (API 19)
   * Sample - Android Kitkat 4.4+ (API 19)
 
-## ✔️Changelog
-
-### Version: 1.8
-
-  * Added dialog dismiss listener (Special Thanks to [kibotu](https://github.com/kibotu))
-  * Added text localization (Special Thanks to [yamin8000](https://github.com/yamin8000) and Jose Bravo)
-  * Fixed crash issue on missing camera app [#69](https://github.com/Dhaval2404/ImagePicker/issues/69)
-  * Fixed issue selecting images from download folder [#86](https://github.com/Dhaval2404/ImagePicker/issues/86)
-  * Fixed exif information lost issue [#121](https://github.com/Dhaval2404/ImagePicker/issues/121)
-  * Fixed crash issue on large image crop [#122](https://github.com/Dhaval2404/ImagePicker/issues/122)
-  * Fixed saving image in cache issue [#127](https://github.com/Dhaval2404/ImagePicker/issues/127)
-
-### Version: 1.7
-
-  * Added option to limit MIME types while choosing a gallery image (Special Thanks to [Marchuck](https://github.com/Marchuck))
-  * Introduced ImageProviderInterceptor, Can be used for analytics (Special Thanks to [Marchuck](https://github.com/Marchuck))
-  * Fixed .crop() opening gallery or camera twice [#32](https://github.com/Dhaval2404/ImagePicker/issues/32)
-  * Fixed FileProvider of the library clashes with the FileProvider of the app [#51](https://github.com/Dhaval2404/ImagePicker/issues/51) (Special Thanks to [OyaCanli](https://github.com/OyaCanli))
-  * Added option to set Storage Directory [#52](https://github.com/Dhaval2404/ImagePicker/issues/52)
-  * Fixed NullPointerException in FileUriUtils.getPathFromRemoteUri()  [#61](https://github.com/Dhaval2404/ImagePicker/issues/61) (Special Thanks to [himphen](https://github.com/himphen))
-  * Fixed UCropActivity Crash Android 4.4 (KiKat) [#82](https://github.com/Dhaval2404/ImagePicker/issues/82)
-  * Fixed PNG image saved as JPG after crop issue [#94](https://github.com/Dhaval2404/ImagePicker/issues/94)
-  * Fixed PNG image saved as JPG after compress issue [#105](https://github.com/Dhaval2404/ImagePicker/issues/105)
-  * Added Polish text translation [#115](https://github.com/Dhaval2404/ImagePicker/issues/115) (Special Thanks to [MarcelKijanka](https://github.com/MarcelKijanka))
-  * Failed to find configured root exception [#116](https://github.com/Dhaval2404/ImagePicker/issues/116)
-
-### Version: 1.6
-
-  * Improved UI/UX of sample app
-  * Removed Bitmap Deprecated Property [#33](https://github.com/Dhaval2404/ImagePicker/issues/33) (Special Thanks to [nauhalf](https://github.com/nauhalf))
-  * Camera opens twice when "Don't keep activities" option is ON [#41](https://github.com/Dhaval2404/ImagePicker/issues/41) (Special Thanks to [benji101](https://github.com/benji101))
-  * Fixed uCrop Crash Issue [#42](https://github.com/Dhaval2404/ImagePicker/issues/42)
-
-### Version: 1.5
-
-  * Fixed app crash issue, due to Camera Permission in manifest [#34](https://github.com/Dhaval2404/ImagePicker/issues/34)
-  * Added Option for Dynamic Crop Ratio. Let User choose aspect ratio [#36](https://github.com/Dhaval2404/ImagePicker/issues/36) (Special Thanks to [Dor-Sloim](https://github.com/Dor-Sloim))
-
-### Version: 1.4
-
-  * Optimized Uri to File Conversion (Inspired by [Flutter ImagePicker](https://github.com/flutter/plugins/tree/master/packages/image_picker))
-  * Removed redundant CAMERA permission [#26](https://github.com/Dhaval2404/ImagePicker/issues/26) (Special Thanks to [PerrchicK](https://github.com/PerrchicK))
-
-### Version: 1.3
-
-  * Sample app made compatible with Android Kitkat 4.4+ (API 19)
-  * Fixed Uri to File Conversion issue [#8](https://github.com/Dhaval2404/ImagePicker/issues/8) (Special Thanks to [squeeish](https://github.com/squeeish))
-
-### Version: 1.2
-
-  * Added Support for Inline Activity Result(Special Thanks to [soareseneves](https://github.com/soareseneves))
-  * Fixed issue [#6](https://github.com/Dhaval2404/ImagePicker/issues/6)
-  
-### Version: 1.1
-
-  * Optimized Compression Logic
-  * Replace white screen with transparent one.
-
-### Version: 1.0
-
-  * Initial Build
-
 ## 📃 Libraries Used
 * uCrop [https://github.com/Yalantis/uCrop](https://github.com/Yalantis/uCrop)
 * Compressor [https://github.com/zetbaitsu/Compressor](https://github.com/zetbaitsu/Compressor)
