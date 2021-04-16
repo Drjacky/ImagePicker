@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_choose_image_provider">Välja</string>
+    <string name="action_cancel">Avbryt</string>
+    <string name="title_gallery">Avbryt</string>
+    <string name="title_camera">Kamera</string>
+
+    <string name="message_gallery_permission_denied">Läs behörighet för extern lagring krävs för att välja bild. Aktivera den begärda behörigheten från Inställningar > Behörigheter.</string>
+    <string name="message_camera_permission_denied">Behörigheter för kamera och extern lagring krävs för att fånga bilden. Om du stänger av alla behörigheter kommer applikationen inte att fungera smidigt. Aktivera alla begärda behörigheter från Inställningar > Behörigheter.</string>
+    <string name="permission_gallery_denied">
+        <![CDATA[Lagringstillstånd krävs för att välja galleribild. Tillåt lagringsbehörighet från Inställningar > Behörigheter.]]></string>
+    <string name="permission_camera_extended_denied">
+        <![CDATA[Behörighet för kamera och lagring krävs för att ta en bild. Tillåt båda de begärda behörigheterna från Inställningar > Behörigheter.]]></string>
+    <string name="permission_camera_denied">
+        <![CDATA[Lagringstillstånd krävs för att ta en bild. Tillåt lagringsbehörighet från Inställningar > Behörigheter.]]></string>
+
+    <string name="error_failed_to_create_camera_image_file">Det gick inte att skapa kamerabildfilen</string>
+    <string name="error_failed_pick_gallery_image">Det gick inte att välja galleribild</string>
+    <string name="error_failed_to_crop_image">Det gick inte att beskära bilden</string>
+    <string name="error_failed_to_compress_image">Det gick inte att komprimera bilden</string>
+    <string name="error_task_cancelled">Uppgiften avbruten</string>
+    <string name="error_camera_app_not_found">Kameraprogrammet hittades inte</string>
+
+    <!-- uCrop string resource start -->
+    <string name="ucrop_label_original">Original</string>
+    <string name="ucrop_label_edit_photo">Redigera Foto</string>
+
+    <string name="ucrop_menu_crop">Avskuren</string>
+
+    <string name="ucrop_rotate">Rotera</string>
+    <string name="ucrop_scale">Klättra</string>
+    <string name="ucrop_crop">Avskuren</string>
+    <!-- uCrop string resource end -->
+
+</resources>
