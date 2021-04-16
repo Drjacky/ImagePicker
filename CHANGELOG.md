@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.4] - 2021-04-16
+
   * Add German translation
   * Add Swedish translation
 
@@ -139,7 +141,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Handle Runtime Permission for Camera and Storage
   * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.8.3...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.8.4...HEAD
+[1.8.4]: https://github.com/Drjacky/ImagePicker/compare/v1.8.3...v1.8.4
 [1.8.3]: https://github.com/Drjacky/ImagePicker/compare/v1.8.2...v1.8.3
 [1.8.2]: https://github.com/Drjacky/ImagePicker/compare/v1.8.1...v1.8.2
 [1.8.1]: https://github.com/Drjacky/ImagePicker/compare/v1.7.10...v1.8.1
