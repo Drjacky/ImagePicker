@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+  * Add German translation
+  * Add Swedish translation
+
 ## [1.8.3] - 2021-04-14
 
   * Some minor improvements
