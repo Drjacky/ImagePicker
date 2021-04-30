@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * `startActivityForResult` has been removed
   * `InlineActivityResult` dependency has been removed
   * New Android Activity Result API added
+  * Add Arabic translation
 
 ## [1.8.4] - 2021-04-16
 
