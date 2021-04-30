@@ -3,6 +3,7 @@ package com.github.drjacky.imagepicker.util
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -36,68 +37,81 @@ object FileUriUtils {
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
-            if (isExternalStorageDocument(uri)) {
-                val docId = DocumentsContract.getDocumentId(uri)
-                val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                val type = split[0]
+            when {
+                isExternalStorageDocument(uri) -> {
+                    val docId = DocumentsContract.getDocumentId(uri)
+                    val split =
+                        docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    val type = split[0]
 
-                // This is for checking Main Memory
-                return if ("primary".equals(type, ignoreCase = true)) {
-                    if (split.size > 1) {
-                        Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                    // This is for checking Main Memory
+                    return if ("primary".equals(type, ignoreCase = true)) {
+                        if (split.size > 1) {
+                            Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                        } else {
+                            Environment.getExternalStorageDirectory().toString() + "/"
+                        }
+                        // This is for checking SD Card
                     } else {
-                        Environment.getExternalStorageDirectory().toString() + "/"
-                    }
-                    // This is for checking SD Card
-                } else {
-                    val path = "storage" + "/" + docId.replace(":", "/")
-                    if (File(path).exists()) {
-                        path
-                    } else {
-                        "/storage/sdcard/" + split[1]
+                        val path = "storage" + "/" + docId.replace(":", "/")
+                        if (File(path).exists()) {
+                            path
+                        } else {
+                            "/storage/sdcard/" + split[1]
+                        }
                     }
                 }
-            } else if (isDownloadsDocument(uri)) {
-                val fileName = getFilePath(context, uri)
-                if (fileName != null) {
-                    val path = Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName
-                    if (File(path).exists()) {
-                        return path
+                isDownloadsDocument(uri) -> {
+                    val fileName = getFilePath(context, uri)
+                    if (fileName != null) {
+                        val path = Environment.getExternalStorageDirectory()
+                            .toString() + "/Download/" + fileName
+                        if (File(path).exists()) {
+                            return path
+                        }
                     }
+
+                    var id = DocumentsContract.getDocumentId(uri)
+                    if (id.contains(":")) {
+                        id = id.split(":")[1]
+                    }
+                    val contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"),
+                        java.lang.Long.valueOf(id)
+                    )
+                    return getDataColumn(context, contentUri, null, null)
                 }
+                isMediaDocument(uri) -> {
+                    val docId = DocumentsContract.getDocumentId(uri)
+                    val split =
+                        docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    val type = split[0]
 
-                var id = DocumentsContract.getDocumentId(uri)
-                if (id.contains(":")) {
-                    id = id.split(":")[1]
+                    var contentUri: Uri? = null
+                    if ("image" == type) {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    } else if ("video" == type) {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                    } else if ("audio" == type) {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                    }
+
+                    val selection = "_id=?"
+                    val selectionArgs = arrayOf(split[1])
+
+                    return getDataColumn(context, contentUri, selection, selectionArgs)
                 }
-                val contentUri = ContentUris.withAppendedId(
-                    Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
-                )
-                return getDataColumn(context, contentUri, null, null)
-            } else if (isMediaDocument(uri)) {
-                val docId = DocumentsContract.getDocumentId(uri)
-                val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                val type = split[0]
-
-                var contentUri: Uri? = null
-                if ("image" == type) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                } else if ("video" == type) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                } else if ("audio" == type) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-                }
-
-                val selection = "_id=?"
-                val selectionArgs = arrayOf(split[1])
-
-                return getDataColumn(context, contentUri, selection, selectionArgs)
             } // MediaProvider
             // DownloadsProvider
         } else if ("content".equals(uri.scheme!!, ignoreCase = true)) {
 
             // Return the remote address
-            return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(context, uri, null, null)
+            return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
+                context,
+                uri,
+                null,
+                null
+            )
         } else if ("file".equals(uri.scheme!!, ignoreCase = true)) {
             return uri.path
         } // File
@@ -118,7 +132,8 @@ object FileUriUtils {
         val projection = arrayOf(column)
 
         try {
-            cursor = context.contentResolver.query(uri!!, projection, selection, selectionArgs, null)
+            cursor =
+                context.contentResolver.query(uri!!, projection, selection, selectionArgs, null)
             if (cursor != null && cursor.moveToFirst()) {
                 val index = cursor.getColumnIndexOrThrow(column)
                 return cursor.getString(index)
@@ -156,7 +171,7 @@ object FileUriUtils {
         try {
             val extension = getImageExtension(uri)
             inputStream = context.contentResolver.openInputStream(uri)
-            file = FileUtil.getImageFile(context.cacheDir, extension)
+            file = FileUtil.getImageFile(context, context.cacheDir, extension)
             if (file == null) return null
             outputStream = FileOutputStream(file)
             if (inputStream != null) {
@@ -214,6 +229,11 @@ object FileUriUtils {
      */
     fun getImageExtension(file: File): String {
         return getImageExtension(Uri.fromFile(file))
+    }
+
+    fun getImageExtensionFormat(file: File): Bitmap.CompressFormat {
+        val extension = getImageExtension(Uri.fromFile(file))
+        return if (extension == ".png") Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG
     }
 
     /**

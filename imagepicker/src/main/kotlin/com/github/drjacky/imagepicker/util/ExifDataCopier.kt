@@ -1,4 +1,4 @@
-package com.github.dhaval2404.imagepicker.util
+package com.github.drjacky.imagepicker.util
 
 import android.util.Log
 import androidx.exifinterface.media.ExifInterface

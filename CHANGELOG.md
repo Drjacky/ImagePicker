@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+  * Refactor `CompressionProvider.kt`
+  * `fun compress(maxSize: Int): Builder` has been removed
+  * Refactor `Image maxResultSize`
+  * `AsyncTask` replaced with Coroutines
+  * `startActivityForResult` has been removed
+  * `InlineActivityResult` dependency has been removed
+  * New Android Activity Result API added
+  * Add Arabic translation
+
 ## [1.8.4] - 2021-04-16
 
   * Add German translation

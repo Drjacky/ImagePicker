@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
 import androidx.core.app.ActivityCompat.requestPermissions
 import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.ImagePickerActivity
@@ -20,7 +21,7 @@ import java.io.File
  * @version 1.0
  * @since 04 January 2019
  */
-class GalleryProvider(activity: ImagePickerActivity) :
+class GalleryProvider(activity: ImagePickerActivity, private val launcher: (Intent) -> Unit) :
     BaseProvider(activity) {
 
     companion object {
@@ -31,7 +32,6 @@ class GalleryProvider(activity: ImagePickerActivity) :
          */
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-        private const val GALLERY_INTENT_REQ_CODE = 4261
         private const val PERMISSION_INTENT_REQ_CODE = 4262
     }
 
@@ -68,8 +68,7 @@ class GalleryProvider(activity: ImagePickerActivity) :
      * Start Gallery Intent
      */
     private fun startGalleryIntent() {
-        val galleryIntent = IntentUtils.getGalleryIntent(activity, mimeTypes)
-        activity.startActivityForResult(galleryIntent, GALLERY_INTENT_REQ_CODE)
+        launcher.invoke(IntentUtils.getGalleryIntent(activity, mimeTypes))
     }
 
     /**
@@ -88,20 +87,11 @@ class GalleryProvider(activity: ImagePickerActivity) :
         }
     }
 
-    /**
-     * Handle Camera Intent Activity Result
-     *
-     * @param requestCode It must be {@link CameraProvider#GALLERY_INTENT_REQ_CODE}
-     * @param resultCode For success it should be {@link Activity#RESULT_OK}
-     * @param data Result Intent
-     */
-    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == GALLERY_INTENT_REQ_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                handleResult(data)
-            } else {
-                setResultCancel()
-            }
+    fun handleResult(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
+            handleResult(result.data)
+        } else {
+            setResultCancel()
         }
     }
 
