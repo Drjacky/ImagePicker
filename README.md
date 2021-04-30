@@ -50,8 +50,8 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
        if (it.resultCode == Activity.RESULT_OK) {
            //you're business logic
-           }
        }
+   }
 
     //If you want both Camera and Gallery
     ImagePicker.with(this)
@@ -101,58 +101,6 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
             .compress(1024)			//Final image size will be less than 1 MB(Optional)
             .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
             .start()
-    ```
-    
-3. Handling results
-
-    
-    **Default method(Preferred way)**<br>
-    Override `onActivityResult` method and handle ImagePicker result.
-
-    ```kotlin
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-         super.onActivityResult(requestCode, resultCode, data)
-         if (resultCode == Activity.RESULT_OK) {
-             //Image Uri will not be null for RESULT_OK
-             val fileUri = data?.data
-             imgProfile.setImageURI(fileUri)
-          
-            //You can get File object from intent
-            val file:File = ImagePicker.getFile(data)!!
-           
-            //You can also get File Path from intent
-            val filePath:String = ImagePicker.getFilePath(data)!!
-         } else if (resultCode == ImagePicker.RESULT_ERROR) {
-             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-         } else {
-             Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
-         }
-    }
-    ```
-
-    **Inline method (with InlineActivityResult library, Only Works with FragmentActivity and AppCompatActivity) (Not to be used with crop. See [#32](https://github.com/Dhaval2404/ImagePicker/issues/32))**
-    
-    ```kotlin
-    ImagePicker.with(this)
-            .compress(1024)         //Final image size will be less than 1 MB(Optional)
-            .maxResultSize(1080, 1080)  //Final image resolution will be less than 1080 x 1080(Optional)
-            .start { resultCode, data ->
-                if (resultCode == Activity.RESULT_OK) {
-                    //Image Uri will not be null for RESULT_OK
-                     val fileUri = data?.data
-                     imgProfile.setImageURI(fileUri)
-                  
-                    //You can get File object from intent
-                    val file:File = ImagePicker.getFile(data)
-                   
-                    //You can also get File Path from intent
-                    val filePath:String = ImagePicker.getFilePath(data)
-                } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                    Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Task Cancelled", Toast.LENGTH_SHORT).show()
-                }
-            }
     ```
 
 ## 🎨Customization
@@ -226,18 +174,6 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     	}
     	.start()
     ```
-
- *  Specify Directory to store captured, cropped or compressed images
-
-    ```kotlin
-    ImagePicker.with(this)
-        //Provide directory path to save images
-        .saveDir(File(Environment.getExternalStorageDirectory(), "ImagePicker"))
-        // .saveDir(Environment.getExternalStorageDirectory())
-        // .saveDir(getExternalFilesDir(null)!!)
-        .start()
-    ```
-
  *  Limit MIME types while choosing a gallery image
 
     ```kotlin
