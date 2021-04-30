@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] - 2021-04-30
+
   * Refactor `CompressionProvider.kt`
   * `fun compress(maxSize: Int): Builder` has been removed
   * Refactor `Image maxResultSize`
