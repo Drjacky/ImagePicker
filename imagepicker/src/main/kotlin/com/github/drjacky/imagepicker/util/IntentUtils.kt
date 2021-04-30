@@ -64,7 +64,7 @@ object IntentUtils {
     /**
      * @return Intent Camera Intent
      */
-    fun getCameraIntent(context: Context, file: File, tryFrontCamera: Boolean): Intent? {
+    fun getCameraIntent(context: Context, file: File, tryFrontCamera: Boolean): Intent {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
         if (tryFrontCamera) when {

@@ -1,4 +1,4 @@
-package com.github.dhaval2404.imagepicker.listener
+package com.github.drjacky.imagepicker.listener
 
 /**
  * Interface used to allow the creator of a dialog to run some code when the

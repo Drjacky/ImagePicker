@@ -3,13 +3,9 @@ package com.github.drjacky.imagepicker
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.github.drjacky.imagepicker.constant.ImageProvider
 import com.github.drjacky.imagepicker.listener.ResultListener
 import com.github.drjacky.imagepicker.util.DialogHelper
-import com.github.florent37.inlineactivityresult.kotlin.startForResult
 import java.io.File
 
 /**
@@ -19,22 +15,21 @@ import java.io.File
  * @version 1.0
  * @since 04 January 2019
  */
+@Suppress("unused")
 open class ImagePicker {
 
     companion object {
         // Default Request Code to Pick Image
-        const val REQUEST_CODE = 2404
         const val RESULT_ERROR = 64
 
         internal const val EXTRA_IMAGE_PROVIDER = "extra.image_provider"
-        internal const val EXTRA_IMAGE_MAX_SIZE = "extra.image_max_size"
         internal const val EXTRA_CROP = "extra.crop"
         internal const val EXTRA_CROP_X = "extra.crop_x"
         internal const val EXTRA_CROP_Y = "extra.crop_y"
         internal const val EXTRA_CROP_OVAL = "extra.crop_oval"
         internal const val EXTRA_MAX_WIDTH = "extra.max_width"
         internal const val EXTRA_MAX_HEIGHT = "extra.max_height"
-        internal const val EXTRA_SAVE_DIRECTORY = "extra.save_directory"
+        internal const val EXTRA_KEEP_RATIO = "extra.keep_ratio"
 
         internal const val EXTRA_ERROR = "extra.error"
         internal const val EXTRA_FILE_PATH = "extra.file_path"
@@ -47,15 +42,6 @@ open class ImagePicker {
          */
         fun with(activity: Activity): Builder {
             return Builder(activity)
-        }
-
-        /**
-         * Use this to use ImagePicker in Fragment Class
-         *
-         * @param fragment Fragment Instance
-         */
-        fun with(fragment: Fragment): Builder {
-            return Builder(fragment)
         }
 
         /**
@@ -91,8 +77,6 @@ open class ImagePicker {
 
     class Builder(private val activity: Activity) {
 
-        private var fragment: Fragment? = null
-
         // Image Provider
         private var imageProvider = ImageProvider.BOTH
 
@@ -112,29 +96,10 @@ open class ImagePicker {
          */
         private var maxWidth: Int = 0
         private var maxHeight: Int = 0
+        private var keepRatio = false
 
-        /*
-         * Max File Size
-         */
-        private var maxSize: Long = 0
 
         private var imageProviderInterceptor: ((ImageProvider) -> Unit)? = null
-
-        /**
-         * File Directory
-         *
-         * Camera, Crop, Compress Image Will be store in this directory.
-         *
-         * If null, Image will be stored in {@see [Environment.DIRECTORY_DCIM]}
-         */
-        private var saveDir: String? = null
-
-        /**
-         * Call this while picking image for fragment.
-         */
-        constructor(fragment: Fragment) : this(fragment.activity!!) {
-            this.fragment = fragment
-        }
 
         /**
          * Specify Image Provider (Camera, Gallery or Both)
@@ -213,39 +178,10 @@ open class ImagePicker {
         /**
          * Max Width and Height of final image
          */
-        fun maxResultSize(width: Int, height: Int): Builder {
+        fun maxResultSize(width: Int, height: Int, keepRatio: Boolean = false): Builder {
             this.maxWidth = width
             this.maxHeight = height
-            return this
-        }
-
-        /**
-         * Compress Image so that max image size can be below specified size
-         *
-         * @param maxSize Size in KB
-         */
-        fun compress(maxSize: Int): Builder {
-            this.maxSize = maxSize * 1024L
-            return this
-        }
-
-        /**
-         * Provide Directory to store Captured/Modified images
-         *
-         * @param path Folder Directory
-         */
-        fun saveDir(path: String): Builder {
-            this.saveDir = path
-            return this
-        }
-
-        /**
-         * Provide Directory to store Captured/Modified images
-         *
-         * @param file Folder Directory
-         */
-        fun saveDir(file: File): Builder {
-            this.saveDir = file.absolutePath
+            this.keepRatio = keepRatio
             return this
         }
 
@@ -259,68 +195,21 @@ open class ImagePicker {
             return this
         }
 
-        /**
-         * Start Image Picker Activity
-         */
-        fun start() {
-            start(REQUEST_CODE)
-        }
+        fun createIntent(): Intent =
+            Intent(activity, ImagePickerActivity::class.java).apply { putExtras(getBundle()) }
 
-        /**
-         * Start Image Picker Activity
-         */
-        fun start(reqCode: Int) {
+        fun createIntentFromDialog(onResult: (Intent) -> Unit) {
             if (imageProvider == ImageProvider.BOTH) {
-                // Pick Image Provider if not specified
-                showImageProviderDialog(reqCode)
-            } else {
-                startActivity(reqCode)
-            }
-        }
-
-        /**
-         * Start Image Picker Activity
-         */
-        fun start(completionHandler: ((resultCode: Int, data: Intent?) -> Unit)? = null) {
-            if (imageProvider == ImageProvider.BOTH) {
-                // Pick Image Provider if not specified
-                showImageProviderDialog(completionHandler)
-            } else {
-                startActivity(completionHandler)
-            }
-        }
-
-        /**
-         * Pick Image Provider if not specified
-         */
-        private fun showImageProviderDialog(reqCode: Int) {
-            DialogHelper.showChooseAppDialog(activity, object : ResultListener<ImageProvider> {
-                override fun onResult(t: ImageProvider?) {
-                    t?.let {
-                        imageProvider = it
-                        imageProviderInterceptor?.invoke(imageProvider)
-                        startActivity(reqCode)
+                DialogHelper.showChooseAppDialog(activity, object : ResultListener<ImageProvider> {
+                    override fun onResult(t: ImageProvider?) {
+                        t?.let {
+                            imageProvider = it
+                            imageProviderInterceptor?.invoke(imageProvider)
+                            onResult(createIntent())
+                        }
                     }
-                }
-            })
-        }
-
-        /**
-         * Pick Image Provider if not specified
-         */
-        private fun showImageProviderDialog(completionHandler: ((resultCode: Int, data: Intent?) -> Unit)? = null) {
-            DialogHelper.showChooseAppDialog(activity, object : ResultListener<ImageProvider> {
-                override fun onResult(t: ImageProvider?) {
-                    if (t != null) {
-                        imageProvider = t
-                        imageProviderInterceptor?.invoke(imageProvider)
-                        startActivity(completionHandler)
-                    } else {
-                        val intent = ImagePickerActivity.getCancelledIntent(activity)
-                        completionHandler?.invoke(Activity.RESULT_CANCELED, intent)
-                    }
-                }
-            })
+                })
+            }
         }
 
         /**
@@ -339,58 +228,9 @@ open class ImagePicker {
                 putInt(EXTRA_MAX_WIDTH, maxWidth)
                 putInt(EXTRA_MAX_HEIGHT, maxHeight)
 
-                putLong(EXTRA_IMAGE_MAX_SIZE, maxSize)
-
-                putString(EXTRA_SAVE_DIRECTORY, saveDir)
-            }
-        }
-
-        /**
-         * Start ImagePickerActivity with given Argument
-         */
-        private fun startActivity(completionHandler: ((resultCode: Int, data: Intent?) -> Unit)? = null) {
-
-            try {
-                val intent = Intent(activity, ImagePickerActivity::class.java)
-                intent.putExtras(getBundle())
-                if (fragment != null) {
-
-                    fragment?.startForResult(intent) { result ->
-                        completionHandler?.invoke(result.resultCode, result.data)
-                    }?.onFailed { result ->
-                        completionHandler?.invoke(result.resultCode, result.data)
-                    }
-                } else {
-                    (activity as AppCompatActivity).startForResult(intent) { result ->
-                        completionHandler?.invoke(result.resultCode, result.data)
-                    }.onFailed { result ->
-                        completionHandler?.invoke(result.resultCode, result.data)
-                    }
-                }
-            } catch (e: Exception) {
-                if (e is ClassNotFoundException) {
-                    Toast.makeText(
-                        if (fragment != null) fragment!!.context else activity,
-                        "InlineActivityResult library not installed falling back to default method, please install " +
-                                "it from https://github.com/florent37/InlineActivityResult if you want to get inline activity results.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    startActivity(REQUEST_CODE)
-                }
-            }
-        }
-
-        /**
-         * Start ImagePickerActivity with given Argument
-         */
-        private fun startActivity(reqCode: Int) {
-            val intent = Intent(activity, ImagePickerActivity::class.java)
-            intent.putExtras(getBundle())
-            if (fragment != null) {
-                fragment?.startActivityForResult(intent, reqCode)
-            } else {
-                activity.startActivityForResult(intent, reqCode)
+                putBoolean(EXTRA_KEEP_RATIO, keepRatio)
             }
         }
     }
+
 }

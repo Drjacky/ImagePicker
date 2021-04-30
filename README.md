@@ -45,24 +45,41 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     ```
     Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
 
-    **If you want to get the activity result inline in a modern way (lambda) install [InlineActivityResult](https://github.com/florent37/InlineActivityResult) library:**
-   ```groovy
-   implementation 'com.github.florent37:inline-activity-result-kotlin:1.0.4'
+    **If you want to get the activity result:**
+   ```kotlin
+   private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+       if (it.resultCode == Activity.RESULT_OK) {
+           //you're business logic
+           }
+       }
+
+    //If you want both Camera and Gallery
+    ImagePicker.with(this)
+       //...
+       .createIntentFromDialog { launcher.launch(it) }
+
+    //If you want just one option
+    launcher.launch(
+       ImagePicker.with(this)
+           //...
+           .cameraOnly() // or galleryOnly()
+           .createIntent()
+    )
     ```
-    
-2.  <span style="color:red">**If you target Android 10 or higher(targetSdkVersion >= 29)**</span>, set the value of ``requestLegacyExternalStorage`` to true in your app's manifest file:
 
-      ```xml
-    <manifest ... >
-          <!-- This attribute is "false" by default on apps targeting
-               Android 10 or higher. -->
-          <application android:requestLegacyExternalStorage="true" ... >
-            ...
-          </application>
+    To use camera in Android 11 ([package visibility](https://developer.android.com/about/versions/11/privacy/package-visibility)) don't forget to add this:
+    ```xml
+    <manifest package="com.example">
+       <queries>
+           <intent>
+               <action android:name="android.media.action.IMAGE_CAPTURE" />
+           </intent>
+       </queries>
+       ...
     </manifest>
-      ```
+    ```
 
-3. The ImagePicker configuration is created using the builder pattern.
+2. The ImagePicker configuration is created using the builder pattern.
 
 	**Kotlin**
     
@@ -86,7 +103,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
             .start()
     ```
     
-4. Handling results
+3. Handling results
 
     
     **Default method(Preferred way)**<br>
@@ -262,7 +279,6 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 ## 📃 Libraries Used
 * uCrop [https://github.com/Yalantis/uCrop](https://github.com/Yalantis/uCrop)
 * Compressor [https://github.com/zetbaitsu/Compressor](https://github.com/zetbaitsu/Compressor)
-* InlineActivityResult [https://github.com/florent37/InlineActivityResult](https://github.com/florent37/InlineActivityResult)
 * ImagePicker [https://github.com/Dhaval2404/ImagePicker](https://github.com/Dhaval2404/ImagePicker) which my work is based on this repository.
 
 ## License
