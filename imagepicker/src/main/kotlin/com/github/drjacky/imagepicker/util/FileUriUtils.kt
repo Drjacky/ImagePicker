@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.util.Log
 import java.io.*
 
 /**
@@ -62,24 +63,31 @@ object FileUriUtils {
                     }
                 }
                 isDownloadsDocument(uri) -> {
-                    val fileName = getFilePath(context, uri)
+                    /*val fileName = getFilePath(context, uri)
                     if (fileName != null) {
                         val path = Environment.getExternalStorageDirectory()
                             .toString() + "/Download/" + fileName
                         if (File(path).exists()) {
                             return path
                         }
-                    }
+                    }*/
 
                     var id = DocumentsContract.getDocumentId(uri)
                     if (id.contains(":")) {
                         id = id.split(":")[1]
                     }
-                    val contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"),
-                        java.lang.Long.valueOf(id)
-                    )
-                    return getDataColumn(context, contentUri, null, null)
+                    if (id.isNotBlank()) {
+                        return try {
+                            val contentUri = ContentUris.withAppendedId(
+                                Uri.parse("content://downloads/public_downloads"),
+                                java.lang.Long.valueOf(id)
+                            )
+                            getDataColumn(context, contentUri, null, null)
+                        } catch (e: NumberFormatException) {
+                            Log.i("ImagePicker", e.message.toString())
+                            null
+                        }
+                    }
                 }
                 isMediaDocument(uri) -> {
                     val docId = DocumentsContract.getDocumentId(uri)
