@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.6] - 2021-05-03
+
+  * Update internal dependencies
+  * Update demo pictures
+
 ## [2.0.5] - 2021-05-01
 
   * Fix pick the image from a sub-folder in gallery issue
