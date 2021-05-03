@@ -24,7 +24,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 
    Profile Image Picker    |         Gallery Only      |       Camera Only        |
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_profile_demo.gif)  |  ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_gallery_demo.gif.gif)  |  ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_camera_demo.gif.gif)
+![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_profile_demo.gif)  |  ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_gallery_demo.gif)  |  ![](https://github.com/Drjacky/ImagePicker/blob/master/art/imagepicker_camera_demo.gif)
 
 ## 💻Usage
 

@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     fun pickGalleryImage(view: View) {
         galleryLauncher.launch(
             ImagePicker.with(this)
-                //.crop()
+                .cropSquare()
                 .galleryOnly()
                 .galleryMimeTypes(  //no gif images at all
                     mimeTypes = arrayOf(
