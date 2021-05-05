@@ -12,7 +12,8 @@ import com.github.drjacky.imagepicker.ImagePickerActivity
  * @version 1.0
  * @since 04 January 2019
  */
-abstract class BaseProvider(protected val activity: ImagePickerActivity) : ContextWrapper(activity) {
+abstract class BaseProvider(protected val activity: ImagePickerActivity) :
+    ContextWrapper(activity) {
 
     /**
      * Cancel operation and Set Error Message

@@ -239,8 +239,8 @@ object FileUriUtils {
         return getImageExtension(Uri.fromFile(file))
     }
 
-    fun getImageExtensionFormat(file: File): Bitmap.CompressFormat {
-        val extension = getImageExtension(Uri.fromFile(file))
+    fun getImageExtensionFormat(uri: Uri): Bitmap.CompressFormat {
+        val extension = getImageExtension(uri)
         return if (extension == ".png") Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG
     }
 

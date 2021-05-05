@@ -3,6 +3,7 @@ package com.github.drjacky.imagepicker.provider
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.github.drjacky.imagepicker.ImagePicker
@@ -36,11 +37,11 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
 
     /**
      * Check if compression is required
-     * @param file File object to apply Compression
+     * @param uri File object to apply Compression
      */
-    fun isResizeRequired(file: File): Boolean {
+    fun isResizeRequired(uri: Uri): Boolean {
         return if (maxWidth > 0 && maxHeight > 0) {
-            val sizes = getImageSize(file)
+            val sizes = getImageSize(uri)
             sizes[0] > maxWidth || sizes[1] > maxHeight
         } else false
     }
@@ -48,13 +49,13 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
     /**
      * Compress given file if enabled.
      *
-     * @param file File to compress
+     * @param uri File to compress
      */
-    fun compress(file: File) {
+    fun compress(uri: Uri) {
         activity.lifecycleScope.launch {
-            val res = compressTask(file)
+            val res = compressTask(uri)
             if (res != null) {
-                ExifDataCopier.copyExif(file, res)
+                ExifDataCopier.copyExif(uri, res)
                 activity.setCompressedImage(res)
             } else {
                 setError(com.github.drjacky.imagepicker.R.string.error_failed_to_compress_image)
@@ -62,8 +63,8 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
         }
     }
 
-    private fun compressTask(file: File): File? {
-        var bitmap = BitmapFactory.decodeFile(file.path, BitmapFactory.Options())
+    private fun compressTask(uri: Uri): File? {
+        var bitmap = BitmapFactory.decodeFile(uri.path, BitmapFactory.Options())
         if (maxWidth > 0L && maxHeight > 0L) {
             //resize if desired
             bitmap = if ((bitmap.width > maxWidth || bitmap.height > maxHeight) && keepRatio) {
@@ -84,7 +85,7 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
             }
         }
 
-        val format = FileUriUtils.getImageExtensionFormat(file)
+        val format = FileUriUtils.getImageExtensionFormat(uri)
         var out: FileOutputStream? = null
         return try {
             val temp = "temp.${format.name}"
@@ -111,10 +112,10 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
      * @param file File to get Image Size
      * @return Int Array, Index 0 has width and Index 1 has height
      */
-    private fun getImageSize(file: File): IntArray {
+    private fun getImageSize(uri: Uri): IntArray {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
-        BitmapFactory.decodeFile(file.absolutePath, options)
+        BitmapFactory.decodeFile(uri.path, options)
         return intArrayOf(options.outWidth, options.outHeight)
     }
 }

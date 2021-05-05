@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.6] - 2021-05-05
+
+  * Fix select image issue on API 29
+  * Fix capture image by camera on API 29
+  * Use Uri instead of File
+  * Enable multidex
+  * Update gradle plugin to 4.2.0
+  * Update gradle wrapper to 7.0
+  * Add Java 8 Desugering
+  * Improve readme file
+
 ## [2.0.6] - 2021-05-03
 
   * Update internal dependencies

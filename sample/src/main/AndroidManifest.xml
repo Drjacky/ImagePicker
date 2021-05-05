@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"

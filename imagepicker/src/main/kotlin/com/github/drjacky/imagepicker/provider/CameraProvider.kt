@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.core.app.ActivityCompat.requestPermissions
@@ -33,7 +34,7 @@ class CameraProvider(
         /**
          * Key to Save/Retrieve Camera File state
          */
-        private const val STATE_CAMERA_FILE = "state.camera_file"
+        private const val STATE_CAMERA_URI = "state.camera_uri"
 
         /**
          * Permission Require for Image Capture using Camera
@@ -56,7 +57,7 @@ class CameraProvider(
     /**
      * Temp Camera File
      */
-    private var mCameraFile: File? = null
+    private var mCameraUri: Uri? = null
 
     /**
      * True If Camera Permission Defined in AndroidManifest.xml
@@ -76,7 +77,7 @@ class CameraProvider(
      **/
     override fun onSaveInstanceState(outState: Bundle) {
         // Save Camera File
-        outState.putSerializable(STATE_CAMERA_FILE, mCameraFile)
+        outState.putParcelable(STATE_CAMERA_URI, mCameraUri)
     }
 
     /**
@@ -84,7 +85,7 @@ class CameraProvider(
      */
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         // Restore Camera File
-        mCameraFile = savedInstanceState?.getSerializable(STATE_CAMERA_FILE) as File?
+        mCameraUri = savedInstanceState?.getParcelable(STATE_CAMERA_URI) as Uri?
     }
 
     /**
@@ -121,12 +122,12 @@ class CameraProvider(
      */
     private fun startCameraIntent() {
         // Create and get empty file to store capture image content
-        val file = FileUtil.getImageFile(this)
-        mCameraFile = file
+        val uri = FileUtil.getImageUri(this)
+        mCameraUri = uri
 
         // Check if file exists
-        if (file != null && file.exists()) {
-            launcher.invoke(IntentUtils.getCameraIntent(this, file, tryFrontCamera))
+        if (uri != null) {
+            launcher.invoke(IntentUtils.getCameraIntent(this, uri, tryFrontCamera))
         } else {
             setError(R.string.error_failed_to_create_camera_image_file)
         }
@@ -155,7 +156,7 @@ class CameraProvider(
 
     fun handleResult(result: ActivityResult) {
         if (result.resultCode == Activity.RESULT_OK) {
-            activity.setImage(mCameraFile!!)
+            activity.setImage(mCameraUri!!, isCamera = true)
         } else {
             setResultCancel()
         }
@@ -165,7 +166,9 @@ class CameraProvider(
      * Delete Camera file is exists
      */
     override fun onFailure() {
-        mCameraFile?.delete()
+        mCameraUri?.path?.let {
+            File(it).delete()
+        }
     }
 
     /**

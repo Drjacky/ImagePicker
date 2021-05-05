@@ -7,9 +7,6 @@ import android.hardware.camera2.CameraCharacteristics
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import androidx.core.content.FileProvider
-import com.github.drjacky.imagepicker.R
-import java.io.File
 
 /**
  * Get Gallery/Camera Intent
@@ -64,7 +61,7 @@ object IntentUtils {
     /**
      * @return Intent Camera Intent
      */
-    fun getCameraIntent(context: Context, file: File, tryFrontCamera: Boolean): Intent {
+    fun getCameraIntent(context: Context, uri: Uri, tryFrontCamera: Boolean): Intent {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
         if (tryFrontCamera) when {
@@ -88,17 +85,14 @@ object IntentUtils {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            // authority = com.github.drjacky.imagepicker.provider
-            val authority =
-                context.packageName + context.getString(R.string.image_picker_provider_authority_suffix)
-            val photoURI = FileProvider.getUriForFile(context, authority, file)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         } else {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         }
 
         return intent
     }
+
 
     fun isCameraHardwareAvailable(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)

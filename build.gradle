@@ -3,8 +3,8 @@
 buildscript {
     ext {
         kotlin_version = '1.4.32'
-        versionCode = 25
-        versionName = '2.0.6'
+        versionCode = 26
+        versionName = '2.1.6'
     }
 
     repositories {
@@ -14,7 +14,7 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.android.tools.build:gradle:4.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         //jcenter plugins

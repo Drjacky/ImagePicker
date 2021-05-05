@@ -7,7 +7,7 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDrjacky%2FImagePicker.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDrjacky%2FImagePicker?ref=badge_shield)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ImagePicker-green.svg?style=flat)](https://android-arsenal.com/details/1/8208)
 
-Easy to use and configurable library to **Pick an image from the Gallery or Capture image using Camera**. It also allows to **Crop and Compresses the Image based on Aspect Ratio, Resolution and Image Size**.
+Easy to use and configurable library to **Pick an image from the Gallery or Capture image using Camera**. It also allows to **Crop the Image based on Aspect Ratio, Resolution and Image Size**.
 
 ## ‍🏍Features
 
@@ -87,9 +87,8 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     ImagePicker.with(this)
             .crop()	    			//Crop image(Optional), Check Customization for more option
             .cropOval()	    		//Allow dimmed layer to have a circle inside
-            .compress(1024)			//Final image size will be less than 1 MB(Optional)
             .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-            .start()
+            .createIntentFromDialog()
     ```
     
     **Java**
@@ -98,9 +97,8 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     ImagePicker.Companion.with(this)
             .crop()	    			//Crop image(Optional), Check Customization for more option
             .cropOval()	    		//Allow dimmed layer to have a circle inside
-            .compress(1024)			//Final image size will be less than 1 MB(Optional)
             .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-            .start()
+            .createIntent()
     ```
 
 ## 🎨Customization
@@ -110,7 +108,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 	```kotlin
 	ImagePicker.with(this)
 		.galleryOnly()	//User can only select image from Gallery
-		.start()	//Default Request Code is ImagePicker.REQUEST_CODE
+		.createIntent()	//Default Request Code is ImagePicker.REQUEST_CODE
     ```
 
  *  Capture image using Camera
@@ -118,42 +116,41 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 	```kotlin
 	ImagePicker.with(this)
 		.cameraOnly()	//User can only capture image using Camera
-		.start()
+		.createIntent()
     ```
  *  Crop image
  		
     ```kotlin
     ImagePicker.with(this)
 		.crop()	    //Crop image and let user choose aspect ratio.
-		.start()
+		.createIntent()
 	```
  *  Crop image with fixed Aspect Ratio
 
     ```kotlin
     ImagePicker.with(this)
 		.crop(16f, 9f)	//Crop image with 16:9 aspect ratio
-		.start()
+		.createIntent()
     ```
  *  Crop square image(e.g for profile)
 
      ```kotlin
      ImagePicker.with(this)
          .cropSquare()	//Crop square image, its same as crop(1f, 1f)
-         .start()
+         .createIntent()
     ```
  *  Compress image size(e.g image should be maximum 1 MB)
 
 	```kotlin
     ImagePicker.with(this)
-		.compress(1024)	//Final image size will be less than 1 MB
-		.start()
+		.createIntent()
     ```
  *  Set Resize image resolution
 
     ```kotlin
     ImagePicker.with(this)
 		.maxResultSize(620, 620)	//Final image resolution will be less than 620 x 620
-		.start()
+		.createIntent()
     ```
  *  Intercept ImageProvider, Can be used for analytics
 
@@ -162,7 +159,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
         .setImageProviderInterceptor { imageProvider -> //Intercept ImageProvider
             Log.d("ImagePicker", "Selected ImageProvider: "+imageProvider.name)
         }
-        .start()
+        .createIntent()
     ```
  *  Intercept Dialog dismiss event
 
@@ -172,7 +169,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     		// Handle dismiss event
     		Log.d("ImagePicker", "onDismiss");
     	}
-    	.start()
+    	.createIntent()
     ```
  *  Limit MIME types while choosing a gallery image
 
@@ -185,7 +182,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
               "image/jpeg"
             )
           )
-        .start()
+        .createIntent()
     ```
 
  *  You can also specify the request code with ImagePicker
