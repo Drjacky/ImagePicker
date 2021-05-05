@@ -2,8 +2,11 @@ package com.github.drjacky.imagepicker.util
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Environment
 import android.os.StatFs
+import androidx.core.content.FileProvider
+import com.github.drjacky.imagepicker.R
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -47,6 +50,38 @@ object FileUtil {
             file.createNewFile()
 
             return file
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return null
+        }
+    }
+
+    fun getImageUri(context: Context, dir: File? = null, extension: String? = null): Uri? {
+        try {
+            // Create an image file name
+            val ext = extension ?: ".jpg"
+            val imageFileName = "IMG_${getTimestamp()}$ext"
+
+            // Create File Directory Object
+            val storageDir = dir ?: getCameraDirectory(context)
+
+            // Create Directory If not exist
+            if (!storageDir.exists()) storageDir.mkdirs()
+
+            // Create File Object
+            val file = File(storageDir, imageFileName)
+
+            // Create empty file
+            file.createNewFile()
+
+            val authority =
+                context.packageName + context.getString(R.string.image_picker_provider_authority_suffix)
+            val uriForFile = FileProvider.getUriForFile(
+                context,
+                authority,
+                file
+            )
+            return uriForFile
         } catch (ex: IOException) {
             ex.printStackTrace()
             return null

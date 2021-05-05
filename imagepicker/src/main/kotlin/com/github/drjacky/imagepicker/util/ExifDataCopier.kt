@@ -1,5 +1,6 @@
 package com.github.drjacky.imagepicker.util
 
+import android.net.Uri
 import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 import java.io.File
@@ -10,9 +11,9 @@ import java.io.File
  */
 object ExifDataCopier {
 
-    fun copyExif(filePathOri: File, filePathDest: File) {
+    fun copyExif(filePathOri: Uri, filePathDest: File) {
         try {
-            val oldExif = ExifInterface(filePathOri)
+            val oldExif = ExifInterface(filePathOri.path!!)
             val newExif = ExifInterface(filePathDest)
             val attributes: List<String> = listOf(
                 "FNumber",

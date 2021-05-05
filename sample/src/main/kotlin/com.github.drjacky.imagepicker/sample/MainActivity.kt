@@ -32,26 +32,29 @@ class MainActivity : AppCompatActivity() {
     private val profileLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
+                val uri = it.data?.data!!
                 val file = ImagePicker.getFile(it.data)!!
                 mProfileFile = file
-                imgProfile.setLocalImage(file, true)
+                imgProfile.setLocalImage(uri, true)
             } else parseError(it)
         }
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
+                val uri = it.data?.data!!
                 val file = ImagePicker.getFile(it.data)!!
                 mGalleryFile = file
-                imgGallery.setLocalImage(file)
+                imgGallery.setLocalImage(uri)
             } else parseError(it)
         }
 
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
+                val uri = it.data?.data!!
                 val file = ImagePicker.getFile(it.data)!!
                 mCameraFile = file
-                imgCamera.setLocalImage(file, false)
+                imgCamera.setLocalImage(uri, false)
             } else parseError(it)
         }
 
@@ -97,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     fun pickGalleryImage(view: View) {
         galleryLauncher.launch(
             ImagePicker.with(this)
-                .cropSquare()
+                .crop()
                 .galleryOnly()
                 .galleryMimeTypes(  //no gif images at all
                     mimeTypes = arrayOf(
@@ -113,6 +116,7 @@ class MainActivity : AppCompatActivity() {
     fun pickCameraImage(view: View) {
         cameraLauncher.launch(
             ImagePicker.with(this)
+                .crop()
                 .cameraOnly()
                 .maxResultSize(1080, 1920, true)
                 .createIntent()

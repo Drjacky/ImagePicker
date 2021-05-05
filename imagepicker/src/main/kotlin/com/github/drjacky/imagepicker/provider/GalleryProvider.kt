@@ -9,10 +9,8 @@ import androidx.core.app.ActivityCompat.requestPermissions
 import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.ImagePickerActivity
 import com.github.drjacky.imagepicker.R
-import com.github.drjacky.imagepicker.util.FileUriUtils
 import com.github.drjacky.imagepicker.util.IntentUtils
 import com.github.drjacky.imagepicker.util.PermissionUtil
-import java.io.File
 
 /**
  * Select image from Storage
@@ -21,7 +19,10 @@ import java.io.File
  * @version 1.0
  * @since 04 January 2019
  */
-class GalleryProvider(activity: ImagePickerActivity, private val launcher: (Intent) -> Unit) :
+class GalleryProvider(
+    activity: ImagePickerActivity,
+    private val launcher: (Intent) -> Unit
+) :
     BaseProvider(activity) {
 
     companion object {
@@ -101,12 +102,7 @@ class GalleryProvider(activity: ImagePickerActivity, private val launcher: (Inte
     private fun handleResult(data: Intent?) {
         val uri = data?.data
         if (uri != null) {
-            val filePath: String? = FileUriUtils.getRealPath(activity, uri)
-            if (!filePath.isNullOrEmpty()) {
-                activity.setImage(File(filePath))
-            } else {
-                setError(R.string.error_failed_pick_gallery_image)
-            }
+            activity.setImage(uri, isCamera = false)
         } else {
             setError(R.string.error_failed_pick_gallery_image)
         }

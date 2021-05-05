@@ -3,18 +3,26 @@ package com.github.drjacky.imagepicker.provider
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.os.Environment
 import androidx.activity.result.ActivityResult
 import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.ImagePickerActivity
 import com.github.drjacky.imagepicker.R
 import com.github.drjacky.imagepicker.util.FileUriUtils
 import com.github.drjacky.imagepicker.util.FileUtil
+import com.github.drjacky.imagepicker.util.FileUtil.getCompressFormat
 import com.yalantis.ucrop.UCrop
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.time.Instant
 
 /**
  * Crop Selected/Captured Image
@@ -28,7 +36,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
 
     companion object {
         private val TAG = CropProvider::class.java.simpleName
-        private const val STATE_CROP_FILE = "state.crop_file"
+        private const val STATE_CROP_URI = "state.crop_uri"
     }
 
     private val maxWidth: Int
@@ -38,7 +46,8 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     private val crop: Boolean
     private val cropAspectX: Float
     private val cropAspectY: Float
-    private var cropImageFile: File? = null
+
+    private var cropImageUri: Uri? = null
 
     init {
         with(activity.intent.extras ?: Bundle()) {
@@ -62,14 +71,14 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
      * Note: To produce this scenario, enable "Don't keep activities" from developer options
      */
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putSerializable(STATE_CROP_FILE, cropImageFile)
+        outState.putParcelable(STATE_CROP_URI, cropImageUri)
     }
 
     /**
      * Retrieve CropProvider state
      */
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        cropImageFile = savedInstanceState?.getSerializable(STATE_CROP_FILE) as File?
+        cropImageUri = savedInstanceState?.getParcelable(STATE_CROP_URI) as Uri?
     }
 
     /**
@@ -89,8 +98,12 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     /**
      * Start Crop Activity
      */
-    fun startIntent(context: Context, file: File, cropOval: Boolean) {
-        cropImage(context, file, cropOval)
+    fun startIntent(
+        uri: Uri,
+        cropOval: Boolean,
+        isCamera: Boolean
+    ) {
+        cropImage(uri, cropOval, isCamera)
     }
 
     /**
@@ -98,21 +111,36 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
      * @throws IOException if failed to crop image
      */
     @Throws(IOException::class)
-    private fun cropImage(context: Context, file: File, cropOval: Boolean) {
-        val uri = Uri.fromFile(file)
-        val extension = FileUriUtils.getImageExtension(uri)
-        cropImageFile = FileUtil.getImageFile(context = context, extension = extension)
-
-        if (cropImageFile == null || !cropImageFile!!.exists()) {
-            Log.e(TAG, "Failed to create crop image file")
-            setError(R.string.error_failed_to_crop_image)
-            return
+    private fun cropImage(uri: Uri, cropOval: Boolean, isCamera: Boolean) {
+        val path = if (isCamera) {
+            Environment.DIRECTORY_DCIM
+        } else {
+            Environment.DIRECTORY_PICTURES
         }
+        val extension = FileUriUtils.getImageExtension(uri)
+        cropImageUri = uri
+
+        //Later we will use this bitmap to create the File.
+        val selectedBitmap: Bitmap = getBitmap(this, uri)!!
+        //We can access getExternalFileDir() without asking any storage permission.
+        val selectedImgFile = File(
+            getExternalFilesDir(path),
+            Instant.now().epochSecond.toString() + "_selectedImg" + extension
+        )
+
+        convertBitmapToFile(selectedImgFile, selectedBitmap, extension)
+
+        /*We have to again create a new file where we will save the cropped image. */
+        val croppedImgFile = File(
+            getExternalFilesDir(path),
+            Instant.now().epochSecond.toString() + "_croppedImg" + extension
+        )
 
         val options = UCrop.Options()
         options.setCompressionFormat(FileUtil.getCompressFormat(extension))
         options.setCircleDimmedLayer(cropOval)
-        val uCrop = UCrop.of(uri, Uri.fromFile(cropImageFile)).withOptions(options)
+        val uCrop = UCrop.of(Uri.fromFile(selectedImgFile), Uri.fromFile(croppedImgFile))
+            .withOptions(options)
 
         if (cropAspectX > 0 && cropAspectY > 0) {
             uCrop.withAspectRatio(cropAspectX, cropAspectY)
@@ -130,9 +158,9 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
      */
     fun handleResult(result: ActivityResult) {
         if (result.resultCode == Activity.RESULT_OK) {
-            val file = cropImageFile
-            if (file != null) {
-                activity.setCropImage(file)
+            val uri = UCrop.getOutput(result.data!!)
+            if (uri != null) {
+                activity.setCropImage(uri)
             } else {
                 setError(R.string.error_failed_to_crop_image)
             }
@@ -141,10 +169,38 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         }
     }
 
+    private fun getBitmap(context: Context, imageUri: Uri): Bitmap? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            ImageDecoder.decodeBitmap(
+                ImageDecoder.createSource(context.contentResolver, imageUri)
+            )
+        } else {
+            context
+                .contentResolver
+                .openInputStream(imageUri)?.use { inputStream ->
+                    BitmapFactory.decodeStream(inputStream)
+                }
+        }
+    }
+
+    private fun convertBitmapToFile(destinationFile: File, bitmap: Bitmap, extension: String) {
+        destinationFile.createNewFile()
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(getCompressFormat(extension), 50, bos)
+        val bitmapData = bos.toByteArray()
+        val fos = FileOutputStream(destinationFile)
+        fos.write(bitmapData)
+        fos.flush()
+        fos.close()
+    }
+
     /**
      * Delete Crop file is exists
      */
     override fun onFailure() {
-        cropImageFile?.delete()
+        cropImageUri?.path?.let {
+            File(it).delete()
+        }
     }
+
 }
