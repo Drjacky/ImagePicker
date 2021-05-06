@@ -17,3 +17,4 @@
 /captures
 .externalNativeBuild
 .idea/encodings.xml
+/sample/keystore.properties

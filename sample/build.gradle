@@ -6,9 +6,32 @@ apply plugin: 'kotlin-android-extensions'
 
 apply from: "../ktlint.gradle"
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+if (keystorePropertiesFile.exists()) {
+
+    def key = new Properties()
+
+    key.load(new FileInputStream(keystorePropertiesFile))
+
+    android.signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+        }
+        config {
+            keyAlias key['alias']
+            keyPassword key['key']
+            storePassword key['store']
+            storeFile file(key['file'])
+        }
+    }
+
+}
+
 android {
     compileSdkVersion 30
     defaultConfig {
+        signingConfig signingConfigs.debug
         multiDexEnabled true
         applicationId "com.github.drjacky.imagepicker.sample"
         minSdkVersion 19
@@ -20,8 +43,16 @@ android {
     }
     buildTypes {
         release {
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.config
+            }
+        }
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
         }
     }
     sourceSets {
