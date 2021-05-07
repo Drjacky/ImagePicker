@@ -2,7 +2,9 @@ package com.github.drjacky.imagepicker.provider
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.core.app.ActivityCompat.requestPermissions
@@ -30,8 +32,20 @@ class GalleryProvider(
          * Permission Require for Image Pick, For image pick just storage permission is need but
          * to crop or compress image write permission is also required. as both permission is in
          * same group, we have used write permission here.
+         *
+         * From Android 10, This permission is not required,
+         * But Library will check permission only if defined in manifest
          */
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        private val REQUIRED_PERMISSIONS = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        } else {
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        }
 
         private const val PERMISSION_INTENT_REQ_CODE = 4262
     }
@@ -58,10 +72,12 @@ class GalleryProvider(
      * If permission is not granted request Permission, Else start gallery Intent
      */
     private fun checkPermission() {
-        if (!PermissionUtil.isPermissionGranted(this, REQUIRED_PERMISSIONS)) {
-            requestPermissions(activity, REQUIRED_PERMISSIONS, PERMISSION_INTENT_REQ_CODE)
-        } else {
+        if (isPermissionGranted(this)) {
+            // Permission Granted, Start Gallery Intent
             startGalleryIntent()
+        } else {
+            // Request Permission
+            requestPermission()
         }
     }
 
@@ -70,6 +86,39 @@ class GalleryProvider(
      */
     private fun startGalleryIntent() {
         launcher.invoke(IntentUtils.getGalleryIntent(activity, mimeTypes))
+    }
+
+    /**
+     * Request Runtime Permission required for Gallery
+     *   Ref: https://github.com/Dhaval2404/ImagePicker/issues/34
+     */
+    private fun requestPermission() {
+        requestPermissions(activity, getRequiredPermission(activity), PERMISSION_INTENT_REQ_CODE)
+    }
+
+    /**
+     * Check if require permission granted for Taking Picture.
+     *   Ref: https://github.com/Dhaval2404/ImagePicker/issues/34
+     *
+     * @param context Application Context
+     * @return boolean true if all required permission granted else false.
+     */
+    private fun isPermissionGranted(context: Context): Boolean {
+        return getRequiredPermission(context).none {
+            !PermissionUtil.isPermissionGranted(context, it)
+        }
+    }
+
+    /**
+     * Check if permission Exists in Manifest
+     *
+     * @param context Application Context
+     * @return Array<String> returns permission which are added in Manifest
+     */
+    private fun getRequiredPermission(context: Context): Array<String> {
+        return REQUIRED_PERMISSIONS.filter {
+            PermissionUtil.isPermissionInManifest(context, it)
+        }.toTypedArray()
     }
 
     /**

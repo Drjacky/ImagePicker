@@ -13,7 +13,6 @@ import com.github.drjacky.imagepicker.R
 import com.github.drjacky.imagepicker.util.FileUtil
 import com.github.drjacky.imagepicker.util.IntentUtils
 import com.github.drjacky.imagepicker.util.PermissionUtil
-import com.github.drjacky.imagepicker.util.PermissionUtil.isPermissionGranted
 import java.io.File
 
 /**
@@ -40,7 +39,9 @@ class CameraProvider(
          * Permission Require for Image Capture using Camera
          */
         private val REQUIRED_PERMISSIONS = arrayOf(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
         )
 
         /**
@@ -62,8 +63,8 @@ class CameraProvider(
     /**
      * True If Camera Permission Defined in AndroidManifest.xml
      */
-    private val mAskCameraPermission = PermissionUtil
-        .isPermissionInManifest(this, Manifest.permission.CAMERA)
+    /*private val mAskCameraPermission = PermissionUtil
+        .isPermissionInManifest(this, Manifest.permission.CAMERA)*/
 
     /**
      * Save CameraProvider state
@@ -144,11 +145,7 @@ class CameraProvider(
                 startCameraIntent()
             } else {
                 // Exit with error message
-                val errorRes = if (mAskCameraPermission) {
-                    R.string.permission_camera_extended_denied
-                } else {
-                    R.string.permission_camera_denied
-                }
+                val errorRes = R.string.permission_camera_denied
                 setError(getString(errorRes))
             }
         }
@@ -176,32 +173,32 @@ class CameraProvider(
      *   Ref: https://github.com/Dhaval2404/ImagePicker/issues/34
      */
     private fun requestPermission() {
-        if (mAskCameraPermission) {
-            // If Camera permission defined in AndroidManifest then Need to request Camera Permission
-            // Ref: https://github.com/Dhaval2404/ImagePicker/issues/34
-            requestPermissions(activity, REQUIRED_PERMISSIONS_EXTENDED, PERMISSION_INTENT_REQ_CODE)
-        } else {
-            // If Camera permission is not defined in AndroidManifest then no need to request Camera Permission
-            requestPermissions(activity, REQUIRED_PERMISSIONS, PERMISSION_INTENT_REQ_CODE)
-        }
+        requestPermissions(activity, getRequiredPermission(activity), PERMISSION_INTENT_REQ_CODE)
     }
 
     /**
-     * Check if Check Require permission granted for Taking Picture.
+     * Check if require permission granted for Taking Picture.
      *   Ref: https://github.com/Dhaval2404/ImagePicker/issues/34
      *
      * @param context Application Context
      * @return boolean true if all required permission granted else false.
      */
     private fun isPermissionGranted(context: Context): Boolean {
-        // Check if Camera permission defined in manifest
-        if (mAskCameraPermission && isPermissionGranted(context, REQUIRED_PERMISSIONS_EXTENDED)) {
-            // Camera and Storage permission is granted
-            return true
-        } else if (!mAskCameraPermission && isPermissionGranted(context, REQUIRED_PERMISSIONS)) {
-            // Storage permission is granted
-            return true
+        return getRequiredPermission(context).none {
+            !PermissionUtil.isPermissionGranted(context, it)
         }
-        return false
     }
+
+    /**
+     * Check if permission Exists in Manifest
+     *
+     * @param context Application Context
+     * @return Array<String> returns permission which are added in Manifest
+     */
+    private fun getRequiredPermission(context: Context): Array<String> {
+        return REQUIRED_PERMISSIONS.filter {
+            PermissionUtil.isPermissionInManifest(context, it)
+        }.toTypedArray()
+    }
+
 }

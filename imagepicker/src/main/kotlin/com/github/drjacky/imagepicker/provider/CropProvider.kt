@@ -22,7 +22,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.time.Instant
 
 /**
  * Crop Selected/Captured Image
@@ -125,7 +124,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         //We can access getExternalFileDir() without asking any storage permission.
         val selectedImgFile = File(
             getExternalFilesDir(path),
-            Instant.now().epochSecond.toString() + "_selectedImg" + extension
+            System.currentTimeMillis().toString() + "_selectedImg" + extension
         )
 
         convertBitmapToFile(selectedImgFile, selectedBitmap, extension)
@@ -133,7 +132,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         /*We have to again create a new file where we will save the cropped image. */
         val croppedImgFile = File(
             getExternalFilesDir(path),
-            Instant.now().epochSecond.toString() + "_croppedImg" + extension
+            System.currentTimeMillis().toString() + "_croppedImg" + extension
         )
 
         val options = UCrop.Options()
