@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.7] - 2021-05-07
+
+  * Fix permission issue on release mode
+  * Remove Java 8 Desugering
+  * Disable multidex
+  * Update readme
+
 ## [2.1.6] - 2021-05-05
 
   * Fix select image issue on API 29
