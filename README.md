@@ -67,27 +67,6 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     )
     ```
 
-    Don't forget add this permission if you run the app on Android 9 (SDK 28) and below:
-
-    ```xml
-    <manifest>
-       <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-           android:maxSdkVersion="28" />
-    </manifest>
-    ```
-
-    To use camera in Android 11 ([package visibility](https://developer.android.com/about/versions/11/privacy/package-visibility)) don't forget to add this:
-    ```xml
-    <manifest package="com.example">
-       <queries>
-           <intent>
-               <action android:name="android.media.action.IMAGE_CAPTURE" />
-           </intent>
-       </queries>
-       ...
-    </manifest>
-    ```
-
 2. The ImagePicker configuration is created using the builder pattern.
 
 	**Kotlin**
