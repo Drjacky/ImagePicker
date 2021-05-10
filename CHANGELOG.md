@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.8] - 2021-05-10
+
+  * Update readme
+  * Migrate to Kotlin 1.5.0
+  * Resolve ktlint warnings
+  * Move necessary permissions into the library
+
 ## [2.1.7] - 2021-05-07
 
   * Fix permission issue on release mode
