@@ -63,15 +63,6 @@ object FileUriUtils {
                     }
                 }
                 isDownloadsDocument(uri) -> {
-                    /*val fileName = getFilePath(context, uri)
-                    if (fileName != null) {
-                        val path = Environment.getExternalStorageDirectory()
-                            .toString() + "/Download/" + fileName
-                        if (File(path).exists()) {
-                            return path
-                        }
-                    }*/
-
                     var id = DocumentsContract.getDocumentId(uri)
                     if (id.contains(":")) {
                         id = id.split(":")[1]

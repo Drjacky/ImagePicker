@@ -61,12 +61,6 @@ class CameraProvider(
     private var mCameraUri: Uri? = null
 
     /**
-     * True If Camera Permission Defined in AndroidManifest.xml
-     */
-    /*private val mAskCameraPermission = PermissionUtil
-        .isPermissionInManifest(this, Manifest.permission.CAMERA)*/
-
-    /**
      * Save CameraProvider state
 
      * mCameraFile will lose its state when activity is recreated on
@@ -128,7 +122,7 @@ class CameraProvider(
 
         // Check if file exists
         if (uri != null) {
-            launcher.invoke(IntentUtils.getCameraIntent(this, uri, tryFrontCamera))
+            launcher.invoke(IntentUtils.getCameraIntent(uri, tryFrontCamera))
         } else {
             setError(R.string.error_failed_to_create_camera_image_file)
         }

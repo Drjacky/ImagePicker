@@ -16,7 +16,7 @@ import android.provider.MediaStore
  * @since 04 January 2018
  */
 object IntentUtils {
-    private val CAMERA_FACING_EXTRA = "android.intent.extras.CAMERA_FACING"
+    private const val CAMERA_FACING_EXTRA = "android.intent.extras.CAMERA_FACING"
 
     /**
      * @return Intent Gallery Intent
@@ -64,7 +64,7 @@ object IntentUtils {
     /**
      * @return Intent Camera Intent
      */
-    fun getCameraIntent(context: Context, uri: Uri, tryFrontCamera: Boolean): Intent {
+    fun getCameraIntent(uri: Uri, tryFrontCamera: Boolean): Intent {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
         if (tryFrontCamera) when {
