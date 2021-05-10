@@ -95,7 +95,7 @@ object FileUtil {
      */
     private fun getCameraDirectory(context: Context): File {
         val dir =
-            context.getExternalFilesDir(Environment.DIRECTORY_DCIM)// Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+            context.getExternalFilesDir(Environment.DIRECTORY_DCIM) // Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
         return File(dir, "Camera")
     }
 

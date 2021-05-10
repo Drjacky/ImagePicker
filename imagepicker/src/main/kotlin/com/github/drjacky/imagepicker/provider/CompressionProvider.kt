@@ -66,7 +66,7 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
     private fun compressTask(uri: Uri): File? {
         var bitmap = BitmapFactory.decodeFile(uri.path, BitmapFactory.Options())
         if (maxWidth > 0L && maxHeight > 0L) {
-            //resize if desired
+            // resize if desired
             bitmap = if ((bitmap.width > maxWidth || bitmap.height > maxHeight) && keepRatio) {
                 var width = maxWidth
                 var height = maxHeight

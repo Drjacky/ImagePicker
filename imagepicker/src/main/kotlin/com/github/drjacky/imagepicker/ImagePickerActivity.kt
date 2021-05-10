@@ -183,7 +183,7 @@ class ImagePickerActivity : AppCompatActivity() {
             // Delete Camera file after crop. Else there will be two image for the same action.
             // In case of Gallery Provider, we will get original image path, so we will not delete that.
             uri.path?.let {
-                //File(it).delete()
+                // File(it).delete()
             }
             mImageUri = null
         }

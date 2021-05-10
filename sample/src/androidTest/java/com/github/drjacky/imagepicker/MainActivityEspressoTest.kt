@@ -18,12 +18,13 @@ class MainActivityEspressoTest {
 
     @get:Rule
     var activityRule: ActivityTestRule<MainActivity> =
-            ActivityTestRule(MainActivity::class.java)
+        ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun ensureButtonDisableAfterOneClick() {
         onView(withId(R.id.fab_add_photo)).check(matches(isDisplayed()))
         onView(withId(R.id.fab_add_gallery_photo)).check(matches(isDisplayed()))
-        onView(withId(R.id.fab_add_camera_photo)).perform(ViewActions.scrollTo()).check(matches(isDisplayed()))
+        onView(withId(R.id.fab_add_camera_photo)).perform(ViewActions.scrollTo())
+            .check(matches(isDisplayed()))
     }
 }

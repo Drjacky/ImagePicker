@@ -119,9 +119,9 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         val extension = FileUriUtils.getImageExtension(uri)
         cropImageUri = uri
 
-        //Later we will use this bitmap to create the File.
+        // Later we will use this bitmap to create the File.
         val selectedBitmap: Bitmap = getBitmap(this, uri)!!
-        //We can access getExternalFileDir() without asking any storage permission.
+        // We can access getExternalFileDir() without asking any storage permission.
         val selectedImgFile = File(
             getExternalFilesDir(path),
             System.currentTimeMillis().toString() + "_selectedImg" + extension

@@ -98,7 +98,6 @@ open class ImagePicker {
         private var maxHeight: Int = 0
         private var keepRatio = false
 
-
         private var imageProviderInterceptor: ((ImageProvider) -> Unit)? = null
 
         /**
@@ -200,15 +199,18 @@ open class ImagePicker {
 
         fun createIntentFromDialog(onResult: (Intent) -> Unit) {
             if (imageProvider == ImageProvider.BOTH) {
-                DialogHelper.showChooseAppDialog(activity, object : ResultListener<ImageProvider> {
-                    override fun onResult(t: ImageProvider?) {
-                        t?.let {
-                            imageProvider = it
-                            imageProviderInterceptor?.invoke(imageProvider)
-                            onResult(createIntent())
+                DialogHelper.showChooseAppDialog(
+                    context = activity,
+                    listener = object : ResultListener<ImageProvider> {
+                        override fun onResult(t: ImageProvider?) {
+                            t?.let {
+                                imageProvider = it
+                                imageProviderInterceptor?.invoke(imageProvider)
+                                onResult(createIntent())
+                            }
                         }
                     }
-                })
+                )
             }
         }
 

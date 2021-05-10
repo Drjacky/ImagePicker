@@ -1,0 +1,4 @@
+root = true
+
+[*.{kt, kts}]
+disabled_rules = no-wildcard-imports, no-blank-line-before-rbrace

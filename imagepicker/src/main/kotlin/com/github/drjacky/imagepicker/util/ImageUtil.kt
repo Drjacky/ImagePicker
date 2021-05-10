@@ -176,7 +176,10 @@ object ImageUtil {
     /**
      * Ref: https://developer.android.com/topic/performance/graphics/manage-memory#kotlin
      */
-    private fun canUseForInBitmap(candidate: Bitmap, targetOptions: BitmapFactory.Options): Boolean {
+    private fun canUseForInBitmap(
+        candidate: Bitmap,
+        targetOptions: BitmapFactory.Options
+    ): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // From Android 4.4 (KitKat) onward we can re-use if the byte size of
             // the new bitmap is smaller than the reusable bitmap candidate
@@ -185,11 +188,8 @@ object ImageUtil {
             val height: Int = targetOptions.outHeight / targetOptions.inSampleSize
             val byteCount: Int = width * height * getBytesPerPixel(candidate.config)
             byteCount <= candidate.allocationByteCount
-        } else {
-            // On earlier versions, the dimensions must match exactly and the inSampleSize must be 1
-            candidate.width == targetOptions.outWidth &&
-                    candidate.height == targetOptions.outHeight &&
-                    targetOptions.inSampleSize == 1
+        } else { // On earlier versions, the dimensions must match exactly and the inSampleSize must be 1
+            candidate.width == targetOptions.outWidth && candidate.height == targetOptions.outHeight && targetOptions.inSampleSize == 1
         }
     }
 
