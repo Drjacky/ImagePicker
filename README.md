@@ -81,12 +81,33 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     
     **Java**
     
-    ```kotlin
+    ```java
     ImagePicker.Companion.with(this)
             .crop()	    			//Crop image(Optional), Check Customization for more option
             .cropOval()	    		//Allow dimmed layer to have a circle inside
+            .galleryOnly()          //We have to define what image provider we want to use
             .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
             .createIntent()
+    ```
+
+    Or
+
+    ```java
+    ImagePicker.Companion.with(this)
+                    .crop()
+                    .cropOval()
+                    .maxResultSize(512, 512, true)
+                    .createIntentFromDialog((Function1) (new Function1() {
+                        public Object invoke(Object var1) {
+                            this.invoke((Intent) var1);
+                            return Unit.INSTANCE;
+                        }
+
+                        public final void invoke(@NotNull Intent it) {
+                            Intrinsics.checkNotNullParameter(it, "it");
+                            launcher.launch(it);
+                        }
+                    }));
     ```
 
 ## 🎨Customization
