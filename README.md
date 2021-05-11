@@ -29,92 +29,108 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 ## 💻Usage
 
 
-1. Gradle dependency:
+Gradle dependency:
 
-	```groovy
+```groovy
 	allprojects {
 	   repositories {
 	      	mavenCentral() // For ImagePicker library, this line is enough. Although, it has been published on jitpack as well
            	maven { url "https://jitpack.io" }  //Make sure to add this in your project for uCrop - an internal library
 	   }
 	}
-	```
+```
 
-    ```groovy
+```groovy
    implementation 'com.github.Drjacky:ImagePicker:$libVersion'
-    ```
-    Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
+```
 
-    **If you want to get the activity result:**
-   ```kotlin
+Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
+
+**If you want to get the activity result:**
+
+**Kotlin**
+
+```kotlin
    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
        if (it.resultCode == Activity.RESULT_OK) {
            //you're business logic
        }
    }
+```
 
-    //If you want both Camera and Gallery
+**Java**
+
+```java
+   ActivityResultLauncher<Intent> launcher =
+               registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+                   if (result.getResultCode() == RESULT_OK) {
+                       Uri uri = result.getData().getData();
+                       // Use the uri to load the image
+                   } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+                       // Use ImagePicker.Companion.getError(result.getData()) to show an error
+                   }
+               });
+```
+
+**If you want both Camera and Gallery:**
+
+**Kotlin**
+
+```kotlin
     ImagePicker.with(this)
        //...
        .createIntentFromDialog { launcher.launch(it) }
+```
 
-    //If you want just one option
+**Java**
+
+```java
+   ImagePicker.Companion.with(this)
+                       .crop()
+                       .cropOval()
+                       .maxResultSize(512, 512, true)
+                       .createIntentFromDialog((Function1) (new Function1() {
+                           public Object invoke(Object var1) {
+                               this.invoke((Intent) var1);
+                               return Unit.INSTANCE;
+                           }
+
+                           public final void invoke(@NotNull Intent it) {
+                               Intrinsics.checkNotNullParameter(it, "it");
+                               launcher.launch(it);
+                           }
+                       }));
+```
+
+**If you want just one option:**
+
+**Kotlin**
+
+```kotlin
     launcher.launch(
        ImagePicker.with(this)
            //...
            .cameraOnly() // or galleryOnly()
            .createIntent()
     )
-    ```
+```
 
-2. The ImagePicker configuration is created using the builder pattern.
+**Java**
 
-	**Kotlin**
-    
-	```kotlin
-    ImagePicker.with(this)
-            .crop()	    			//Crop image(Optional), Check Customization for more option
-            .cropOval()	    		//Allow dimmed layer to have a circle inside
-            .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-            .createIntentFromDialog()
-    ```
-    
-    **Java**
-    
-    ```java
-    ImagePicker.Companion.with(this)
-            .crop()	    			//Crop image(Optional), Check Customization for more option
-            .cropOval()	    		//Allow dimmed layer to have a circle inside
-            .galleryOnly()          //We have to define what image provider we want to use
-            .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-            .createIntent()
-    ```
-
-    Or
-
-    ```java
-    ImagePicker.Companion.with(this)
-                    .crop()
-                    .cropOval()
-                    .maxResultSize(512, 512, true)
-                    .createIntentFromDialog((Function1) (new Function1() {
-                        public Object invoke(Object var1) {
-                            this.invoke((Intent) var1);
-                            return Unit.INSTANCE;
-                        }
-
-                        public final void invoke(@NotNull Intent it) {
-                            Intrinsics.checkNotNullParameter(it, "it");
-                            launcher.launch(it);
-                        }
-                    }));
-    ```
+```java
+        ImagePicker.Companion.with(this)
+                .crop()	    			//Crop image(Optional), Check Customization for more option
+                .cropOval()	    		//Allow dimmed layer to have a circle inside
+                .galleryOnly()          //We have to define what image provider we want to use
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .createIntent()
+```
 
 ## 🎨Customization
 
  *  Pick image using Gallery
 
-	```kotlin
+    ```kotlin
 	ImagePicker.with(this)
 		.galleryOnly()	//User can only select image from Gallery
 		.createIntent()	//Default Request Code is ImagePicker.REQUEST_CODE
@@ -122,18 +138,18 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 
  *  Capture image using Camera
 
-	```kotlin
+    ```kotlin
 	ImagePicker.with(this)
 		.cameraOnly()	//User can only capture image using Camera
 		.createIntent()
     ```
  *  Crop image
- 		
+
     ```kotlin
     ImagePicker.with(this)
 		.crop()	    //Crop image and let user choose aspect ratio.
 		.createIntent()
-	```
+    ```
  *  Crop image with fixed Aspect Ratio
 
     ```kotlin
@@ -143,14 +159,14 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     ```
  *  Crop square image(e.g for profile)
 
-     ```kotlin
+    ```kotlin
      ImagePicker.with(this)
          .cropSquare()	//Crop square image, its same as crop(1f, 1f)
          .createIntent()
     ```
  *  Compress image size(e.g image should be maximum 1 MB)
 
-	```kotlin
+    ```kotlin
     ImagePicker.with(this)
 		.createIntent()
     ```
@@ -172,7 +188,7 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
     ```
  *  Intercept Dialog dismiss event
 
-	```kotlin
+    ```kotlin
     ImagePicker.with(this)
     	.setDismissListener {
     		// Handle dismiss event
