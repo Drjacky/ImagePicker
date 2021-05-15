@@ -16,16 +16,9 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgGalleryCode"
-            style="@style/ImageButtonStyle"
-            android:layout_alignParentEnd="true"
-            android:onClick="showImageCode"
-            app:srcCompat="@drawable/outline_code_24" />
-
-        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgGalleryInfo"
             style="@style/ImageButtonStyle"
-            android:layout_toStartOf="@id/imgGalleryCode"
+            android:layout_alignParentEnd="true"
             android:onClick="showImageInfo"
             app:srcCompat="@drawable/outline_info_24" />
 

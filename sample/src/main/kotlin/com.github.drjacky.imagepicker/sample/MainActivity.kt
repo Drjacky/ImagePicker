@@ -123,16 +123,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun showImageCode(view: View) {
-        val resource = when (view) {
-            imgProfileCode -> R.drawable.img_profile_code
-            imgCameraCode -> R.drawable.img_camera_code
-            imgGalleryCode -> R.drawable.img_gallery_code
-            else -> 0
-        }
-        ImageViewerDialog.newInstance(resource).show(supportFragmentManager, "")
-    }
-
     fun showImage(view: View) {
         val file = when (view) {
             imgProfile -> mProfileFile
