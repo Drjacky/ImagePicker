@@ -197,9 +197,19 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
      * Delete Crop file is exists
      */
     override fun onFailure() {
+        delete()
+    }
+
+    /**
+     * Delete Crop File, If not required
+     *
+     * After Image Compression, Crop File will not required
+     */
+    fun delete() {
         cropImageUri?.path?.let {
             File(it).delete()
         }
+        cropImageUri = null
     }
 
 }

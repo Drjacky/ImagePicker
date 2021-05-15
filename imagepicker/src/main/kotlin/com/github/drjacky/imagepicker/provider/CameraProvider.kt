@@ -157,9 +157,19 @@ class CameraProvider(
      * Delete Camera file is exists
      */
     override fun onFailure() {
+        delete()
+    }
+
+    /**
+     * Delete Camera File, If not required
+     *
+     * After Camera Image Crop/Compress Original File will not required
+     */
+    fun delete() {
         mCameraUri?.path?.let {
             File(it).delete()
         }
+        mCameraUri = null
     }
 
     /**
