@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   * Update readme
   * Some minor improvements
+  * Add Norwegian translation
 
 ## [2.1.8] - 2021-05-11
 
