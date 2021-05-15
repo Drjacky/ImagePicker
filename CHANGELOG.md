@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.9] - 2021-05-15
+
   * Update readme
   * Some minor improvements
   * Add Norwegian translation
@@ -176,7 +178,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Added Support for Inline Activity Result(Special Thanks to [soareseneves](https://github.com/soareseneves))
 ### Changed
   * Fixed issue [#6](https://github.com/Dhaval2404/ImagePicker/issues/6)
-  
+
 ## [1.1] - 2019-04-02
 ### Changed
   * Optimized Compression Logic
@@ -191,7 +193,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Handle Runtime Permission for Camera and Storage
   * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v1.8.4...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.9...HEAD
+[2.1.9]: https://github.com/Drjacky/ImagePicker/compare/v2.1.8...v2.1.9
+[2.1.8]: https://github.com/Drjacky/ImagePicker/compare/v2.1.7...v2.1.8
+[2.1.7]: https://github.com/Drjacky/ImagePicker/compare/v2.1.6...v2.1.7
+[2.1.6]: https://github.com/Drjacky/ImagePicker/compare/v2.0.6...v2.1.6
+[2.0.6]: https://github.com/Drjacky/ImagePicker/compare/v2.0.5...v2.0.6
+[2.0.5]: https://github.com/Drjacky/ImagePicker/compare/v2.0.4...v2.0.5
+[2.0.4]: https://github.com/Drjacky/ImagePicker/compare/v1.8.4...v2.0.4
 [1.8.4]: https://github.com/Drjacky/ImagePicker/compare/v1.8.3...v1.8.4
 [1.8.3]: https://github.com/Drjacky/ImagePicker/compare/v1.8.2...v1.8.3
 [1.8.2]: https://github.com/Drjacky/ImagePicker/compare/v1.8.1...v1.8.2
@@ -214,4 +223,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.2]: https://github.com/Dhaval2404/ImagePicker/compare/v1.1...v1.2
 [1.1]: https://github.com/Dhaval2404/ImagePicker/compare/v1.0...v1.1
 [1.0]: https://github.com/Dhaval2404/ImagePicker/tree/v1.0
-  
