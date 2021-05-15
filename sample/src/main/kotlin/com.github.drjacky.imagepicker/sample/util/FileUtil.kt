@@ -18,6 +18,7 @@ object FileUtil {
      * @param file File
      * @return Image Info
      */
+    @JvmStatic
     fun getFileInfo(file: File?): String {
         if (file == null || !file.exists()) {
             return "Image not found"
