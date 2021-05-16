@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val uri = it.data?.data!!
-//                val file = ImagePicker.getFile(it.data)!!
                 mProfileUri = uri
                 imgProfile.setLocalImage(uri, true)
             } else parseError(it)
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val uri = it.data?.data!!
-//                val file = ImagePicker.getFile(it.data)!!
                 mGalleryUri = uri
                 imgGallery.setLocalImage(uri)
             } else parseError(it)
@@ -52,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val uri = it.data?.data!!
-//                val file = ImagePicker.getFile(it.data)!!
                 mCameraUri = uri
                 imgCamera.setLocalImage(uri, false)
             } else parseError(it)
