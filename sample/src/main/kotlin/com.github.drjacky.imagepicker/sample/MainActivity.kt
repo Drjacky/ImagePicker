@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.sample.util.FileUtil
 import com.github.drjacky.imagepicker.sample.util.IntentUtil
+import com.github.drjacky.imagepicker.util.IntentUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_camera_only.*
 import kotlinx.android.synthetic.main.content_gallery_only.*
@@ -129,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         uri?.let {
-            IntentUtil.showImage(this, uri)
+            startActivity(IntentUtils.getUriViewIntent(this, uri))
         }
     }
 
