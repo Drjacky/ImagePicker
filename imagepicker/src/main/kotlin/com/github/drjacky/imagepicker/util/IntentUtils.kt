@@ -7,6 +7,10 @@ import android.hardware.camera2.CameraCharacteristics
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import androidx.core.content.FileProvider
+import androidx.documentfile.provider.DocumentFile
+import com.github.drjacky.imagepicker.R
+import java.io.File
 
 /**
  * Get Gallery/Camera Intent
@@ -21,6 +25,7 @@ object IntentUtils {
     /**
      * @return Intent Gallery Intent
      */
+    @JvmStatic
     fun getGalleryIntent(context: Context, mimeTypes: Array<String>): Intent {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             val intent = getGalleryDocumentIntent(mimeTypes)
@@ -64,6 +69,7 @@ object IntentUtils {
     /**
      * @return Intent Camera Intent
      */
+    @JvmStatic
     fun getCameraIntent(uri: Uri, tryFrontCamera: Boolean): Intent {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
@@ -96,6 +102,7 @@ object IntentUtils {
         return intent
     }
 
+    @JvmStatic
     fun isCameraHardwareAvailable(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
     }
@@ -105,8 +112,36 @@ object IntentUtils {
      *
      * @return true if Camera app is Available else return false
      */
+    @JvmStatic
     fun isCameraAppAvailable(context: Context): Boolean {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         return intent.resolveActivity(context.packageManager) != null
+    }
+
+    /**
+     * Get Intent to View Uri backed File
+     *
+     * @param context
+     * @param uri
+     * @return Intent
+     */
+    @JvmStatic
+    fun getUriViewIntent(context: Context, uri: Uri): Intent {
+        val intent = Intent(Intent.ACTION_VIEW)
+        val authority =
+            context.packageName + context.getString(R.string.image_picker_provider_authority_suffix)
+
+        val file = DocumentFile.fromSingleUri(context, uri)
+        val dataUri = if (file?.canRead() == true) {
+            uri
+        } else {
+            val filePath = FileUriUtils.getRealPath(context, uri)!!
+            FileProvider.getUriForFile(context, authority, File(filePath))
+        }
+
+        intent.setDataAndType(dataUri, "image/*")
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+        return intent
     }
 }

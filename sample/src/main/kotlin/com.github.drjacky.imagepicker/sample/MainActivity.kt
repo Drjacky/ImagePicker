@@ -1,6 +1,7 @@
 package com.github.drjacky.imagepicker.sample
 
 import android.app.Activity
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,11 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.sample.util.FileUtil
 import com.github.drjacky.imagepicker.sample.util.IntentUtil
+import com.github.drjacky.imagepicker.util.IntentUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_camera_only.*
 import kotlinx.android.synthetic.main.content_gallery_only.*
 import kotlinx.android.synthetic.main.content_profile.*
-import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,16 +26,15 @@ class MainActivity : AppCompatActivity() {
         private const val GITHUB_REPOSITORY = "https://github.com/drjacky/ImagePicker"
     }
 
-    private var mCameraFile: File? = null
-    private var mGalleryFile: File? = null
-    private var mProfileFile: File? = null
+    private var mCameraUri: Uri? = null
+    private var mGalleryUri: Uri? = null
+    private var mProfileUri: Uri? = null
 
     private val profileLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val uri = it.data?.data!!
-                val file = ImagePicker.getFile(it.data)!!
-                mProfileFile = file
+                mProfileUri = uri
                 imgProfile.setLocalImage(uri, true)
             } else parseError(it)
         }
@@ -42,8 +42,7 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val uri = it.data?.data!!
-                val file = ImagePicker.getFile(it.data)!!
-                mGalleryFile = file
+                mGalleryUri = uri
                 imgGallery.setLocalImage(uri)
             } else parseError(it)
         }
@@ -52,8 +51,7 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val uri = it.data?.data!!
-                val file = ImagePicker.getFile(it.data)!!
-                mCameraFile = file
+                mCameraUri = uri
                 imgCamera.setLocalImage(uri, false)
             } else parseError(it)
         }
@@ -124,29 +122,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showImage(view: View) {
-        val file = when (view) {
-            imgProfile -> mProfileFile
-            imgCamera -> mCameraFile
-            imgGallery -> mGalleryFile
+        val uri = when (view) {
+            imgProfile -> mProfileUri
+            imgCamera -> mCameraUri
+            imgGallery -> mGalleryUri
             else -> null
         }
 
-        file?.let {
-            IntentUtil.showImage(this, file)
+        uri?.let {
+            startActivity(IntentUtils.getUriViewIntent(this, uri))
         }
     }
 
     fun showImageInfo(view: View) {
-        val file = when (view) {
-            imgProfileInfo -> mProfileFile
-            imgCameraInfo -> mCameraFile
-            imgGalleryInfo -> mGalleryFile
+        val uri = when (view) {
+            imgProfileInfo -> mProfileUri
+            imgCameraInfo -> mCameraUri
+            imgGalleryInfo -> mGalleryUri
             else -> null
         }
 
         AlertDialog.Builder(this)
             .setTitle("Image Info")
-            .setMessage(FileUtil.getFileInfo(file))
+            .setMessage(FileUtil.getFileInfo(this, uri))
             .setPositiveButton("Ok", null)
             .show()
     }

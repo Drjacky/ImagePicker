@@ -54,7 +54,8 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
 ```kotlin
    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
        if (it.resultCode == Activity.RESULT_OK) {
-           //you're business logic
+           val uri = it.data?.data!!
+           // Use the uri to load the image
        }
    }
 ```

@@ -40,6 +40,7 @@ open class ImagePicker {
          *
          * @param activity Activity Instance
          */
+        @JvmStatic
         fun with(activity: Activity): Builder {
             return Builder(activity)
         }
@@ -47,6 +48,7 @@ open class ImagePicker {
         /**
          * Get error message from intent
          */
+        @JvmStatic
         fun getError(data: Intent?): String {
             val error = data?.getStringExtra(EXTRA_ERROR)
             if (error != null) {
@@ -59,6 +61,7 @@ open class ImagePicker {
         /**
          * Get File Path from intent
          */
+        @JvmStatic
         fun getFilePath(data: Intent?): String? {
             return data?.getStringExtra(EXTRA_FILE_PATH)
         }
@@ -66,6 +69,7 @@ open class ImagePicker {
         /**
          * Get File from intent
          */
+        @JvmStatic
         fun getFile(data: Intent?): File? {
             val path = getFilePath(data)
             if (path != null) {
