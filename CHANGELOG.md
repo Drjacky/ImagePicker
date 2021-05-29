@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Migrate to Kotlin 1.5.10
   * Add Uzbekistan translation
   * Remove unused string resources
+  * Update internal dependencies
 
 ## [2.1.10] - 2021-05-16
 
