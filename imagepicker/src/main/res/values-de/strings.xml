@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- ImagePicker string resource start -->
     <string name="title_choose_image_provider">Auswählen</string>
     <string name="action_cancel">Abbrechen</string>
     <string name="title_gallery">Galerie</string>
     <string name="title_camera">Kamera</string>
 
-    <string name="message_gallery_permission_denied">Die Berechtigung zum Lesen des Speichers ist notwendig um ein Bild auszuwählen. Bitte erlaube die entprechende Berechtigung unter Einstellungen > Berechtigungen.</string>
-    <string name="message_camera_permission_denied">Die Berechtigungen Kamera und Zugriff auf den externen Speicher sind notwendig um ein Foto aufzunehmen. Bitte erlaube alle angefordeten Berechtigungen unter Einstellungen > Berechtigungen.</string>
-    <string name="permission_gallery_denied">
-        <![CDATA[Die Berechtigung zum Lesen des Speichers ist notwendig um ein Bild auszuwählen. Bitte erlaube die entprechende Berechtigung unter Einstellungen > Berechtigungen.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[Die Berechtigungen Kamera und Zugriff auf den externen Speicher sind notwendig um ein Foto aufzunehmen. Bitte erlaube alle angefordeten Berechtigungen unter Einstellungen > Berechtigungen.]]></string>
     <string name="permission_camera_denied">
@@ -25,9 +23,7 @@
     <!-- uCrop string resource start -->
     <string name="ucrop_label_original">Original</string>
     <string name="ucrop_label_edit_photo">Foto bearbeiten</string>
-
     <string name="ucrop_menu_crop">Zuschneiden</string>
-
     <string name="ucrop_rotate">Drehen</string>
     <string name="ucrop_scale">Skalieren</string>
     <string name="ucrop_crop">Zuschneiden</string>

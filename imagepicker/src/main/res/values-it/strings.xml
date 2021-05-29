@@ -7,10 +7,6 @@
     <string name="title_gallery">Galleria</string>
     <string name="title_camera">Camera</string>
 
-    <string name="message_gallery_permission_denied">È necessaria l\'autorizzazione per la lettura dell\'archivio per selezionare l\'immagine. Attiva l\'autorizzazione richiesta da Impostazioni > Autorizzazioni.</string>
-    <string name="message_camera_permission_denied">Per acquisire l\'immagine sono necessarie le autorizzazioni della fotocamera e dell\'archivio. La disattivazione di qualsiasi autorizzazione non consentirà all\'applicazione di funzionare senza problemi. Attiva tutte le autorizzazioni richieste da Impostazioni > Autorizzazioni.</string>
-    <string name="permission_gallery_denied">
-        <![CDATA[È necessaria l\'autorizzazione dell\archivio per scegliere l\'immagine della galleria. Consenti l\'autorizzazione dell\'archivio da Impostazioni > Autorizzazioni.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[Per scattare una foto sono necessarie le autorizzazioni per fotocamera e archivio. Consenti entrambe le autorizzazioni richieste da Impostazioni > Autorizzazioni.]]></string>
     <string name="permission_camera_denied">
@@ -27,9 +23,7 @@
     <!-- uCrop string resource start -->
     <string name="ucrop_label_original">Originale</string>
     <string name="ucrop_label_edit_photo">Modifica foto</string>
-
     <string name="ucrop_menu_crop">Taglia</string>
-
     <string name="ucrop_rotate">Ruotare</string>
     <string name="ucrop_scale">Scala</string>
     <string name="ucrop_crop">Ritaglia</string>
