@@ -7,6 +7,8 @@
     <string name="title_gallery">ગેલેરી</string>
     <string name="title_camera">કૅમેરા</string>
 
+    <string name="permission_gallery_denied">
+        <![CDATA[ગેલેરી છબી પસંદ કરવા માટે સ્ટોરેજ પરવાનગીની જરૂર છે. કૃપા કરીને સેટિંગ્સ>પરવાનગીથી સ્ટોરેજ પરવાનગીની મંજૂરી આપો.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[ચિત્ર લેવા માટે કૅમેરા અને સ્ટોરેજ પરવાનગીની આવશ્યકતા છે. કૃપા કરીને સેટિંગ્સ>પરવાનગીથી વિનંતી કરેલ બંને પરવાનગીને મંજૂરી આપો.]]></string>
     <string name="permission_camera_denied">

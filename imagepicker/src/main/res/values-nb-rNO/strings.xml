@@ -7,6 +7,8 @@
     <string name="title_gallery">Galleri</string>
     <string name="title_camera">Kamera</string>
 
+    <string name="permission_gallery_denied">
+        <![CDATA[Lagrings-tillatelse trengs for å velge bilde fra galleriet. Du kan endre tillatelser i Innstillinger > Tillatelser.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[Kamera- og Lagrings-tillatelser trengs for å ta bilde med kamera. Du kan endre tillatelser i Innstillinger > Tillatelser.]]></string>
     <string name="permission_camera_denied">

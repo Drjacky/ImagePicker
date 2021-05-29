@@ -7,6 +7,8 @@
     <string name="title_gallery">Galerie</string>
     <string name="title_camera">Kamera</string>
 
+    <string name="permission_gallery_denied">
+        <![CDATA[Die Berechtigung zum Lesen des Speichers ist notwendig um ein Bild auszuwählen. Bitte erlaube die entprechende Berechtigung unter Einstellungen > Berechtigungen.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[Die Berechtigungen Kamera und Zugriff auf den externen Speicher sind notwendig um ein Foto aufzunehmen. Bitte erlaube alle angefordeten Berechtigungen unter Einstellungen > Berechtigungen.]]></string>
     <string name="permission_camera_denied">

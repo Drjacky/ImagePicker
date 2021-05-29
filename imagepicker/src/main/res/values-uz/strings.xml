@@ -7,6 +7,8 @@
     <string name="title_gallery">Galereya</string>
     <string name="title_camera">Kamera</string>
 
+    <string name="permission_gallery_denied">
+        <![CDATA[Galereya rasmini olish uchun saqlash uchun ruxsat kerak. Sozlamalar> Ruxsatnomalar orqali saqlashga ruxsat bering.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[Suratga olish uchun kameraga va saqlashga ruxsat kerak. Iltimos, Sozlamalar> Ruxsatnomalar orqali so\'ralgan ikkala ruxsatga ham ruxsat bering.]]></string>
     <string name="permission_camera_denied">

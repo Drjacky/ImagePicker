@@ -7,6 +7,8 @@
     <string name="title_gallery">معرض الصور</string>
     <string name="title_camera">كاميرا</string>
 
+    <string name="permission_gallery_denied">
+        <![CDATA[البرنامج بحاجة إلى صلاحية الولوج إلى وحدة تخزين الجهاز لاختيار صورة من معرض الصور. يرجى تفعيل صلاحية التخزين إنطلاقاً من الإعدادات > الترخيص.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[البرنامج بحاجة إلى صلاحيات الولوج إلى الكاميرا و وحدة التخزين الخارجية لالتقاط الصورة. يرجى تفعيل جميع الصلاحيات المطلوبة إنطلاقاً من الإعدادات > الترخيص.]]></string>
     <string name="permission_camera_denied">

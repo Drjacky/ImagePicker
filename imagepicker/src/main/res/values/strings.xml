@@ -10,6 +10,8 @@
     <string name="title_gallery">Gallery</string>
     <string name="title_camera">Camera</string>
 
+    <string name="permission_gallery_denied">
+        <![CDATA[Storage permission is needed to pick gallery image. Please allow storage permission from Settings > Permissions.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[Camera and Storage permissions are needed to take a picture. Please allow both the requested permissions from Settings > Permissions.]]></string>
     <string name="permission_camera_denied">

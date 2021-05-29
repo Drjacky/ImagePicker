@@ -7,6 +7,8 @@
     <string name="title_gallery">Avbryt</string>
     <string name="title_camera">Kamera</string>
 
+    <string name="permission_gallery_denied">
+        <![CDATA[Lagringstillstånd krävs för att välja galleribild. Tillåt lagringsbehörighet från Inställningar > Behörigheter.]]></string>
     <string name="permission_camera_extended_denied">
         <![CDATA[Behörighet för kamera och lagring krävs för att ta en bild. Tillåt båda de begärda behörigheterna från Inställningar > Behörigheter.]]></string>
     <string name="permission_camera_denied">
