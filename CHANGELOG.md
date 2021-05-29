@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.10] - 2021-05-16
+
+  * Fix false-positive file not found issue
+  * Fix show image issue
+  * Add jvm static annotations
+  * Improve readme and the sample app
+
 ## [2.1.9] - 2021-05-15
 
   * Update readme
