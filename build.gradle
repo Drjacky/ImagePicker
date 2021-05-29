@@ -4,7 +4,7 @@ buildscript {
     ext {
         kotlin_version = '1.5.10'
         versionCode = 31
-        versionName = '2.11.11'
+        versionName = '2.1.11'
     }
 
     repositories {
