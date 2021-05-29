@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.11] - 2021-05-29
+
+  * Migrate to Kotlin 1.5.10
+  * Add Uzbekistan translation
+  * Remove unused string resources
+
 ## [2.1.10] - 2021-05-16
 
   * Fix false-positive file not found issue
@@ -200,7 +206,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Handle Runtime Permission for Camera and Storage
   * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.9...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.11...HEAD
+[2.1.11]: https://github.com/Drjacky/ImagePicker/compare/v2.1.10...v2.1.11
+[2.1.10]: https://github.com/Drjacky/ImagePicker/compare/v2.1.9...v2.1.10
 [2.1.9]: https://github.com/Drjacky/ImagePicker/compare/v2.1.8...v2.1.9
 [2.1.8]: https://github.com/Drjacky/ImagePicker/compare/v2.1.7...v2.1.8
 [2.1.7]: https://github.com/Drjacky/ImagePicker/compare/v2.1.6...v2.1.7
