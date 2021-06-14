@@ -42,6 +42,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     private val maxHeight: Int
 
     private val cropOval: Boolean
+    private val cropFreeStyle: Boolean
     private val crop: Boolean
     private val cropAspectX: Float
     private val cropAspectY: Float
@@ -54,6 +55,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
             maxHeight = getInt(ImagePicker.EXTRA_MAX_HEIGHT, 0)
             crop = getBoolean(ImagePicker.EXTRA_CROP, false)
             cropOval = getBoolean(ImagePicker.EXTRA_CROP_OVAL, false)
+            cropFreeStyle = getBoolean(ImagePicker.EXTRA_CROP_FREE_STYLE, false)
             cropAspectX = getFloat(ImagePicker.EXTRA_CROP_X, 0f)
             cropAspectY = getFloat(ImagePicker.EXTRA_CROP_Y, 0f)
         }
@@ -88,6 +90,12 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     fun isCropOvalEnabled() = cropOval
 
     /**
+     * Set to true to let user resize crop bounds (disabled by default)
+     */
+    fun isCropFreeStyleEnabled() = cropFreeStyle
+
+
+    /**
      * Check if crop should be enabled or not
      *
      * @return Boolean. True if Crop should be enabled else false.
@@ -100,9 +108,10 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     fun startIntent(
         uri: Uri,
         cropOval: Boolean,
+        cropFreeStyle: Boolean,
         isCamera: Boolean
     ) {
-        cropImage(uri, cropOval, isCamera)
+        cropImage(uri, cropOval, cropFreeStyle, isCamera)
     }
 
     /**
@@ -110,7 +119,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
      * @throws IOException if failed to crop image
      */
     @Throws(IOException::class)
-    private fun cropImage(uri: Uri, cropOval: Boolean, isCamera: Boolean) {
+    private fun cropImage(uri: Uri, cropOval: Boolean, cropFreeStyle: Boolean, isCamera: Boolean) {
         val path = if (isCamera) {
             Environment.DIRECTORY_DCIM
         } else {
@@ -138,6 +147,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         val options = UCrop.Options()
         options.setCompressionFormat(FileUtil.getCompressFormat(extension))
         options.setCircleDimmedLayer(cropOval)
+        options.setFreeStyleCropEnabled(cropFreeStyle)
         val uCrop = UCrop.of(Uri.fromFile(selectedImgFile), Uri.fromFile(croppedImgFile))
             .withOptions(options)
 

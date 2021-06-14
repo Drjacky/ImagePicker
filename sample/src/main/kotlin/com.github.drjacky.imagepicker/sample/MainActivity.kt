@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             ImagePicker.with(this)
                 .crop()
                 .galleryOnly()
+                .cropFreeStyle()
                 .galleryMimeTypes( // no gif images at all
                     mimeTypes = arrayOf(
                         "image/png",

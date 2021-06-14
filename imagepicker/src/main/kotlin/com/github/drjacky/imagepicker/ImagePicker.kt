@@ -27,6 +27,7 @@ open class ImagePicker {
         internal const val EXTRA_CROP_X = "extra.crop_x"
         internal const val EXTRA_CROP_Y = "extra.crop_y"
         internal const val EXTRA_CROP_OVAL = "extra.crop_oval"
+        internal const val EXTRA_CROP_FREE_STYLE = "extra.crop_free_style"
         internal const val EXTRA_MAX_WIDTH = "extra.max_width"
         internal const val EXTRA_MAX_HEIGHT = "extra.max_height"
         internal const val EXTRA_KEEP_RATIO = "extra.keep_ratio"
@@ -94,6 +95,7 @@ open class ImagePicker {
         private var cropY: Float = 0f
         private var crop: Boolean = false
         private var cropOval: Boolean = false
+        private var cropFreeStyle: Boolean = false
 
         /*
          * Resize Parameters
@@ -171,6 +173,14 @@ open class ImagePicker {
         }
 
         /**
+         * Let the user resize crop bounds
+         */
+        fun cropFreeStyle(): Builder {
+            this.cropFreeStyle = true
+            return this
+        }
+
+        /**
          * Crop Square Image, Useful for Profile Image.
          *
          */
@@ -227,6 +237,7 @@ open class ImagePicker {
                 putStringArray(EXTRA_MIME_TYPES, mimeTypes)
 
                 putBoolean(EXTRA_CROP_OVAL, cropOval)
+                putBoolean(EXTRA_CROP_FREE_STYLE, cropFreeStyle)
                 putBoolean(EXTRA_CROP, crop)
                 putFloat(EXTRA_CROP_X, cropX)
                 putFloat(EXTRA_CROP_Y, cropY)

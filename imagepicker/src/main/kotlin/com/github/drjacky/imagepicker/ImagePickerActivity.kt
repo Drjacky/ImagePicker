@@ -162,6 +162,7 @@ class ImagePickerActivity : AppCompatActivity() {
             mCropProvider.isCropEnabled() -> mCropProvider.startIntent(
                 uri = uri,
                 cropOval = mCropProvider.isCropOvalEnabled(),
+                cropFreeStyle = mCropProvider.isCropFreeStyleEnabled(),
                 isCamera = isCamera
             )
             mCompressionProvider.isResizeRequired(uri) -> mCompressionProvider.compress(uri)
