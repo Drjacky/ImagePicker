@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.13] - 2021-08-06
+
+  * Migrate to Kotlin 1.5.21
+  * Update internal dependencies
+  * Fix typo in German translation
+
 ## [2.1.12] - 2021-06-14
 
   * Add free style crop option - cropFreeStyle()
