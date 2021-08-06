@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Migrate to Kotlin 1.5.21
   * Update internal dependencies
   * Fix typo in German translation
+  * Add French translation
 
 ## [2.1.12] - 2021-06-14
 
