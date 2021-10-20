@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.14] - 2021-10-20
 
+  * Migrate to Kotlin 1.5.31
   * Update internal dependencies
   * Fix an issue if image is corrupted
   * Add Bengali translation
@@ -228,7 +229,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Handle Runtime Permission for Camera and Storage
   * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.11...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.13...HEAD
+[2.1.13]: https://github.com/Drjacky/ImagePicker/compare/v2.1.12...v2.1.13
+[2.1.12]: https://github.com/Drjacky/ImagePicker/compare/v2.1.11...v2.1.12
 [2.1.11]: https://github.com/Drjacky/ImagePicker/compare/v2.1.10...v2.1.11
 [2.1.10]: https://github.com/Drjacky/ImagePicker/compare/v2.1.9...v2.1.10
 [2.1.9]: https://github.com/Drjacky/ImagePicker/compare/v2.1.8...v2.1.9

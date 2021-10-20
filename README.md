@@ -6,7 +6,7 @@
 [![PRWelcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Drjacky/ImagePicker/pulls)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDrjacky%2FImagePicker.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDrjacky%2FImagePicker?ref=badge_shield)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ImagePicker-green.svg?style=flat)](https://android-arsenal.com/details/1/8208)
-![Language](https://img.shields.io/badge/Kotlin-1.5.21-blue)
+![Language](https://img.shields.io/badge/Kotlin-1.5.31-blue)
 
 Easy to use and configurable library to **Pick an image from the Gallery or Capture image using Camera**. It also allows to **Crop the Image based on Aspect Ratio, Resolution and Image Size**.
 
@@ -211,14 +211,6 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
             )
           )
         .createIntent()
-    ```
-
- *  You can also specify the request code with ImagePicker
-
-    ```kotlin
-    ImagePicker.with(this)
-		.maxResultSize(620, 620)
-		.start(101)	//Here 101 is request code, you may use this in onActivityResult
     ```
 
  *  Add Following parameters in your **colors.xml** file, If you want to customize uCrop Activity.
