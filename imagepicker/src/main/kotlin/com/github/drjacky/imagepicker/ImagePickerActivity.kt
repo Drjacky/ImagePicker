@@ -208,7 +208,7 @@ class ImagePickerActivity : AppCompatActivity() {
             // Delete Camera file after Compress. Else there will be two image for the same action.
             // In case of Gallery Provider, we will get original image path, so we will not delete that.
             file.delete()
-            //it.delete()
+            // it.delete()
         }
 
         // If crop file is not null, Delete it after crop

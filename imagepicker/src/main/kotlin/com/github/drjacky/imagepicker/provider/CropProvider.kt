@@ -15,7 +15,6 @@ import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.ImagePickerActivity
 import com.github.drjacky.imagepicker.R
 import com.github.drjacky.imagepicker.util.FileUriUtils
-import com.github.drjacky.imagepicker.util.FileUtil
 import com.github.drjacky.imagepicker.util.FileUtil.getCompressFormat
 import com.yalantis.ucrop.UCrop
 import java.io.ByteArrayOutputStream
@@ -94,7 +93,6 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
      */
     fun isCropFreeStyleEnabled() = cropFreeStyle
 
-
     /**
      * Check if crop should be enabled or not
      *
@@ -115,7 +113,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     }
 
     /**
-     * @param file Image File to be cropped
+     * @param uri Image File to be cropped
      * @throws IOException if failed to crop image
      */
     @Throws(IOException::class)
@@ -129,37 +127,41 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         cropImageUri = uri
 
         // Later we will use this bitmap to create the File.
-        val selectedBitmap: Bitmap = getBitmap(this, uri)!!
-        // We can access getExternalFileDir() without asking any storage permission.
-        val selectedImgFile = File(
-            getExternalFilesDir(path),
-            System.currentTimeMillis().toString() + "_selectedImg" + extension
-        )
+        val selectedBitmap: Bitmap? = getBitmap(this, uri)
+        selectedBitmap?.let {
+            // We can access getExternalFileDir() without asking any storage permission.
+            val selectedImgFile = File(
+                getExternalFilesDir(path),
+                System.currentTimeMillis().toString() + "_selectedImg" + extension
+            )
 
-        convertBitmapToFile(selectedImgFile, selectedBitmap, extension)
+            convertBitmapToFile(selectedImgFile, selectedBitmap, extension)
 
-        /*We have to again create a new file where we will save the cropped image. */
-        val croppedImgFile = File(
-            getExternalFilesDir(path),
-            System.currentTimeMillis().toString() + "_croppedImg" + extension
-        )
+            /*We have to again create a new file where we will save the cropped image. */
+            val croppedImgFile = File(
+                getExternalFilesDir(path),
+                System.currentTimeMillis().toString() + "_croppedImg" + extension
+            )
 
-        val options = UCrop.Options()
-        options.setCompressionFormat(FileUtil.getCompressFormat(extension))
-        options.setCircleDimmedLayer(cropOval)
-        options.setFreeStyleCropEnabled(cropFreeStyle)
-        val uCrop = UCrop.of(Uri.fromFile(selectedImgFile), Uri.fromFile(croppedImgFile))
-            .withOptions(options)
+            val options = UCrop.Options()
+            options.setCompressionFormat(getCompressFormat(extension))
+            options.setCircleDimmedLayer(cropOval)
+            options.setFreeStyleCropEnabled(cropFreeStyle)
+            val uCrop = UCrop.of(Uri.fromFile(selectedImgFile), Uri.fromFile(croppedImgFile))
+                .withOptions(options)
 
-        if (cropAspectX > 0 && cropAspectY > 0) {
-            uCrop.withAspectRatio(cropAspectX, cropAspectY)
+            if (cropAspectX > 0 && cropAspectY > 0) {
+                uCrop.withAspectRatio(cropAspectX, cropAspectY)
+            }
+
+            if (maxWidth > 0 && maxHeight > 0) {
+                uCrop.withMaxResultSize(maxWidth, maxHeight)
+            }
+
+            launcher.invoke(uCrop.getIntent(activity))
+        } ?: kotlin.run {
+            setError(R.string.error_failed_to_crop_image)
         }
-
-        if (maxWidth > 0 && maxHeight > 0) {
-            uCrop.withMaxResultSize(maxWidth, maxHeight)
-        }
-
-        launcher.invoke(uCrop.getIntent(activity))
     }
 
     /**
@@ -180,9 +182,13 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
 
     private fun getBitmap(context: Context, imageUri: Uri): Bitmap? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ImageDecoder.decodeBitmap(
-                ImageDecoder.createSource(context.contentResolver, imageUri)
-            )
+            try {
+                ImageDecoder.decodeBitmap(
+                    ImageDecoder.createSource(context.contentResolver, imageUri)
+                )
+            } catch (e: ImageDecoder.DecodeException) {
+                return null
+            }
         } else {
             context
                 .contentResolver
