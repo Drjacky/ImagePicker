@@ -129,13 +129,13 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         // Later we will use this bitmap to create the File.
         val selectedBitmap: Bitmap? = getBitmap(this, uri)
         selectedBitmap?.let {
-            // We can access getExternalFileDir() without asking any storage permission.
+            // We can access getExternalFilesDir() without asking any storage permission.
             val selectedImgFile = File(
                 getExternalFilesDir(path),
                 System.currentTimeMillis().toString() + "_selectedImg" + extension
             )
 
-            convertBitmapToFile(selectedImgFile, selectedBitmap, extension)
+            convertBitmapToFile(selectedImgFile, it, extension)
 
             /*We have to again create a new file where we will save the cropped image. */
             val croppedImgFile = File(
@@ -187,7 +187,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
                     ImageDecoder.createSource(context.contentResolver, imageUri)
                 )
             } catch (e: ImageDecoder.DecodeException) {
-                return null
+                null
             }
         } else {
             context

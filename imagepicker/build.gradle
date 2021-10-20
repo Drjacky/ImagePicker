@@ -9,8 +9,6 @@ android {
         multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode rootProject.ext.versionCode
-        versionName = rootProject.ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
