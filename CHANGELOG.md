@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.14] - 2021-10-20
+
+  * Update internal dependencies
+  * Fix an issue if image is corrupted
+  * Add Bengali translation
+  * Add Dutch translation
+
 ## [2.1.13] - 2021-08-06
 
   * Migrate to Kotlin 1.5.21
