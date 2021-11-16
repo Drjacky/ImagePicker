@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.15] - 2021-11-16
+
+  * Update internal dependencies
+  * Improve support for front camera
+  * Target SDK 31
+
 ## [2.1.14] - 2021-10-20
 
   * Migrate to Kotlin 1.5.31
@@ -229,7 +235,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Handle Runtime Permission for Camera and Storage
   * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.13...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.15...HEAD
+[2.1.15]: https://github.com/Drjacky/ImagePicker/compare/v2.1.14...v2.1.15
+[2.1.14]: https://github.com/Drjacky/ImagePicker/compare/v2.1.13...v2.1.14
 [2.1.13]: https://github.com/Drjacky/ImagePicker/compare/v2.1.12...v2.1.13
 [2.1.12]: https://github.com/Drjacky/ImagePicker/compare/v2.1.11...v2.1.12
 [2.1.11]: https://github.com/Drjacky/ImagePicker/compare/v2.1.10...v2.1.11
