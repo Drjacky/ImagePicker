@@ -91,6 +91,20 @@ object IntentUtils {
                     "android.intent.extras.CAMERA_FACING",
                     android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT
                 );// tested on android 11
+                intent.putExtra(
+                    "com.google.assistant.extra.USE_FRONT_CAMERA",
+                    true
+                )
+                intent.putExtra(
+                    "android.intent.extras.LENS_FACING_FRONT",
+                    1
+                )
+                // Samsung
+                intent.putExtra("camerafacing", "front")
+                intent.putExtra("previous_mode", "front")
+                // Huawei
+                intent.putExtra("default_camera", "1")
+                intent.putExtra("default_mode", "com.huawei.camera2.mode.photo.PhotoMode")
             }
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1 && Build.VERSION.SDK_INT < Build.VERSION_CODES.O -> {
                 intent.putExtra(
