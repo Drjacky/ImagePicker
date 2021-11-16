@@ -79,7 +79,18 @@ object IntentUtils {
                     CAMERA_FACING_EXTRA,
                     CameraCharacteristics.LENS_FACING_FRONT
                 ) // Tested on API 27 Android version 8.0(Nexus 6P)
-                intent.putExtra("android.intent.extra.USE_FRONT_CAMERA", true)
+                intent.putExtra(
+                    "android.intent.extra.USE_FRONT_CAMERA",
+                    true
+                )// tested on android 11
+                intent.putExtra(
+                    "android.intent.extras.CAMERA_FACING",
+                    CameraCharacteristics.LENS_FACING_FRONT
+                )// tested on android 11
+                intent.putExtra(
+                    "android.intent.extras.CAMERA_FACING",
+                    android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT
+                );// tested on android 11
             }
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1 && Build.VERSION.SDK_INT < Build.VERSION_CODES.O -> {
                 intent.putExtra(
