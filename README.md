@@ -125,7 +125,7 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
                 .cropOval()	    		//Allow dimmed layer to have a circle inside
                 .cropFreeStyle()	    //Let the user to resize crop bounds
                 .galleryOnly()          //We have to define what image provider we want to use
-                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .maxResultSize(1080, 1080,true)	//Final image resolution will be less than 1080 x 1080(Optional)
                 .createIntent()
 ```
 
@@ -177,7 +177,7 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
 
     ```kotlin
     ImagePicker.with(this)
-		.maxResultSize(620, 620)	//Final image resolution will be less than 620 x 620
+		.maxResultSize(620, 620,true)	//Final image resolution will be less than 620 x 620
 		.createIntent()
     ```
  *  Intercept ImageProvider, Can be used for analytics
