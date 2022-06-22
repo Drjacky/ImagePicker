@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.github.drjacky.imagepicker.ImagePicker
+import com.github.drjacky.imagepicker.constant.ImageProvider
 import com.github.drjacky.imagepicker.sample.util.FileUtil
 import com.github.drjacky.imagepicker.sample.util.IntentUtil
 import com.github.drjacky.imagepicker.util.IntentUtils
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity() {
             .crop()
             .cropOval()
             .maxResultSize(512, 512, true)
+            .provider(ImageProvider.BOTH) // Or bothCameraGallery()
             .createIntentFromDialog { profileLauncher.launch(it) }
     }
 

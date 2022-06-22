@@ -115,6 +115,15 @@ open class ImagePicker {
         }
 
         /**
+         * Capture image using Both Camera and Gallery.
+         */
+        // @Deprecated("Please use provider(ImageProvider.BOTH) instead")
+        fun bothCameraGallery(): Builder {
+            this.imageProvider = ImageProvider.BOTH
+            return this
+        }
+
+        /**
          * Only Capture image using Camera.
          */
         // @Deprecated("Please use provider(ImageProvider.CAMERA) instead")

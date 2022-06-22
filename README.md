@@ -80,8 +80,9 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
 
 ```kotlin
     ImagePicker.with(this)
-       //...
-       .createIntentFromDialog { launcher.launch(it) }
+    //...
+    .provider(ImageProvider.BOTH) //Or bothCameraGallery()
+    .createIntentFromDialog { launcher.launch(it) }
 ```
 
 **Java**
