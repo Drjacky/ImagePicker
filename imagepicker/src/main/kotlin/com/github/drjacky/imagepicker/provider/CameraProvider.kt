@@ -14,6 +14,7 @@ import com.github.drjacky.imagepicker.util.FileUtil
 import com.github.drjacky.imagepicker.util.IntentUtils
 import com.github.drjacky.imagepicker.util.PermissionUtil
 import java.io.File
+import java.io.IOException
 
 /**
  * Capture new image using camera
@@ -147,7 +148,11 @@ class CameraProvider(
 
     fun handleResult(result: ActivityResult) {
         if (result.resultCode == Activity.RESULT_OK) {
-            activity.setImage(mCameraUri!!, isCamera = true)
+            try {
+                activity.setImage(mCameraUri!!, isCamera = true)
+            } catch (ex: IOException) {
+                setError(R.string.error_failed_to_crop_image)
+            }
         } else {
             setResultCancel()
         }

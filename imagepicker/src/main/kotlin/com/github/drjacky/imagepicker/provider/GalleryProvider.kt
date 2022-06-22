@@ -13,6 +13,7 @@ import com.github.drjacky.imagepicker.ImagePickerActivity
 import com.github.drjacky.imagepicker.R
 import com.github.drjacky.imagepicker.util.IntentUtils
 import com.github.drjacky.imagepicker.util.PermissionUtil
+import java.io.IOException
 
 /**
  * Select image from Storage
@@ -151,7 +152,11 @@ class GalleryProvider(
     private fun handleResult(data: Intent?) {
         val uri = data?.data
         if (uri != null) {
-            activity.setImage(uri, isCamera = false)
+            try {
+                activity.setImage(uri, isCamera = false)
+            } catch (ex: IOException) {
+                setError(R.string.error_failed_to_crop_image)
+            }
         } else {
             setError(R.string.error_failed_pick_gallery_image)
         }

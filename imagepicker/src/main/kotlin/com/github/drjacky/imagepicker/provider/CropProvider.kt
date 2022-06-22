@@ -103,6 +103,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     /**
      * Start Crop Activity
      */
+    @Throws(IOException::class)
     fun startIntent(
         uri: Uri,
         cropOval: Boolean,
@@ -198,6 +199,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         }
     }
 
+    @Throws(IOException::class)
     private fun convertBitmapToFile(destinationFile: File, bitmap: Bitmap, extension: String) {
         destinationFile.createNewFile()
         val bos = ByteArrayOutputStream()

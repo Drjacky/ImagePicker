@@ -14,6 +14,7 @@ import com.github.drjacky.imagepicker.provider.CompressionProvider
 import com.github.drjacky.imagepicker.provider.CropProvider
 import com.github.drjacky.imagepicker.provider.GalleryProvider
 import java.io.File
+import java.io.IOException
 
 /**
  * Pick Image
@@ -156,6 +157,7 @@ class ImagePickerActivity : AppCompatActivity() {
      *
      * @param uri Capture/Gallery image file
      */
+    @Throws(IOException::class)
     fun setImage(uri: Uri, isCamera: Boolean) {
         mImageUri = uri
         when {
