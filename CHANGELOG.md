@@ -1,20 +1,29 @@
 # ✔️Changelog
+
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
+adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.1.16] - 2022-06-22
+
+* Improve document on how to provide both camera and gallery
+* List other gallery apps on gallery choose mode
+* Handle an exception on creating a new file while trying to crop the image
+* Add Russian translation
+* Add Italy(italian) translation
+
 ## [2.1.15] - 2021-11-16
 
-  * Update internal dependencies
-  * Improve support for front camera
-  * Target SDK 31
+* Update internal dependencies
+* Improve support for front camera
+* Target SDK 31
 
 ## [2.1.14] - 2021-10-20
 
-  * Migrate to Kotlin 1.5.31
+* Migrate to Kotlin 1.5.31
   * Update internal dependencies
   * Fix an issue if image is corrupted
   * Add Bengali translation
@@ -227,24 +236,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Replace white screen with transparent one.
 
 ## [1.0] - 2019-02-11
-### Added
-  * Pick Gallery Image
-  * Capture Camera Image
-  * Crop Image(Its based on [uCrop](https://github.com/Yalantis/uCrop))
-  * Compress Image(Compress image based on resolution and size)
-  * Handle Runtime Permission for Camera and Storage
-  * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.15...HEAD
+### Added
+
+* Pick Gallery Image
+* Capture Camera Image
+* Crop Image(Its based on [uCrop](https://github.com/Yalantis/uCrop))
+* Compress Image(Compress image based on resolution and size)
+* Handle Runtime Permission for Camera and Storage
+* Retrieve Image Result as File, File Path as String or Uri object
+
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.16...HEAD
+
+[2.1.16]: https://github.com/Drjacky/ImagePicker/compare/v2.1.15...v2.1.16
+
 [2.1.15]: https://github.com/Drjacky/ImagePicker/compare/v2.1.14...v2.1.15
+
 [2.1.14]: https://github.com/Drjacky/ImagePicker/compare/v2.1.13...v2.1.14
+
 [2.1.13]: https://github.com/Drjacky/ImagePicker/compare/v2.1.12...v2.1.13
+
 [2.1.12]: https://github.com/Drjacky/ImagePicker/compare/v2.1.11...v2.1.12
+
 [2.1.11]: https://github.com/Drjacky/ImagePicker/compare/v2.1.10...v2.1.11
+
 [2.1.10]: https://github.com/Drjacky/ImagePicker/compare/v2.1.9...v2.1.10
+
 [2.1.9]: https://github.com/Drjacky/ImagePicker/compare/v2.1.8...v2.1.9
+
 [2.1.8]: https://github.com/Drjacky/ImagePicker/compare/v2.1.7...v2.1.8
+
 [2.1.7]: https://github.com/Drjacky/ImagePicker/compare/v2.1.6...v2.1.7
+
 [2.1.6]: https://github.com/Drjacky/ImagePicker/compare/v2.0.6...v2.1.6
 [2.0.6]: https://github.com/Drjacky/ImagePicker/compare/v2.0.5...v2.0.6
 [2.0.5]: https://github.com/Drjacky/ImagePicker/compare/v2.0.4...v2.0.5

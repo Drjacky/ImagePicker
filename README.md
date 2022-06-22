@@ -91,8 +91,9 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
    ImagePicker.Companion.with(this)
                        .crop()
                        .cropOval()
-                       .maxResultSize(512, 512, true)
-                       .createIntentFromDialog((Function1) (new Function1() {
+        .maxResultSize(512,512,true)
+        .provider(ImageProvider.BOTH) //Or bothCameraGallery()
+        .createIntentFromDialog((Function1)(new Function1(){
                            public Object invoke(Object var1) {
                                this.invoke((Intent) var1);
                                return Unit.INSTANCE;
