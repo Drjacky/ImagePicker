@@ -7,6 +7,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+* Migrate to Kotlin 1.7.0
+* Update internal dependencies
+
 ## [2.1.16] - 2022-06-22
 
 * Improve document on how to provide both camera and gallery
@@ -24,7 +27,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [2.1.14] - 2021-10-20
 
 * Migrate to Kotlin 1.5.31
-  * Update internal dependencies
+* Update internal dependencies
   * Fix an issue if image is corrupted
   * Add Bengali translation
   * Add Dutch translation
