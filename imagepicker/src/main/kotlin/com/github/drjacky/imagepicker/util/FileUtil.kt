@@ -216,11 +216,11 @@ object FileUtil {
      * @return Bitmap CompressFormat
      */
     fun getCompressFormat(extension: String): Bitmap.CompressFormat {
-        return when {
-            extension.contains("png", ignoreCase = true) -> Bitmap.CompressFormat.PNG
-            extension.contains("webp", ignoreCase = true) -> Bitmap.CompressFormat.WEBP
-            else -> Bitmap.CompressFormat.JPEG
-        }
+        val withoutDotExtension = extension.replace(".", "")
+        return safeValueOf<Bitmap.CompressFormat>(
+            name = withoutDotExtension.uppercase(),
+            defaultValue = Bitmap.CompressFormat.JPEG
+        )
     }
 
     /**
@@ -230,5 +230,13 @@ object FileUtil {
      */
     private fun isFileUri(uri: Uri): Boolean {
         return "file".equals(uri.scheme, ignoreCase = true)
+    }
+
+    private inline fun <reified T : Enum<T>> safeValueOf(name: String, defaultValue: T): T {
+        return try {
+            java.lang.Enum.valueOf(T::class.java, name) ?: defaultValue
+        } catch (e: IllegalArgumentException) {
+            defaultValue
+        }
     }
 }

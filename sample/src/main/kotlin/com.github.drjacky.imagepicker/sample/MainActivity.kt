@@ -114,6 +114,7 @@ class MainActivity : AppCompatActivity() {
                 .crop()
                 .galleryOnly()
                 .setMultipleAllowed(true)
+//                .setOutputFormat(Bitmap.CompressFormat.WEBP)
                 .cropFreeStyle()
                 .galleryMimeTypes( // no gif images at all
                     mimeTypes = arrayOf(

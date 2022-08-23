@@ -6,7 +6,7 @@
 [![PRWelcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Drjacky/ImagePicker/pulls)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDrjacky%2FImagePicker.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDrjacky%2FImagePicker?ref=badge_shield)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ImagePicker-green.svg?style=flat)](https://android-arsenal.com/details/1/8208)
-![Language](https://img.shields.io/badge/Kotlin-1.5.31-blue)
+![Language](https://img.shields.io/badge/Kotlin-1.7.10-blue)
 
 Easy to use and configurable library to **Pick an image from the Gallery or Capture image using Camera**. It also allows to **Crop the Image based on Aspect Ratio, Resolution and Image Size**.
 
@@ -123,12 +123,13 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
 
 ```java
         ImagePicker.Companion.with(this)
-        .crop()                       //Crop image(Optional), Check Customization for more option
-        .cropOval()                   //Allow dimmed layer to have a circle inside
-        .cropFreeStyle()           //Let the user to resize crop bounds
-        .setMultipleAllowed(true)  //true or false if you want to pick multiple files or single file in gallery mode
-        .galleryOnly()             //We have to define what image provider we want to use
-        .maxResultSize(1080,1080) //Final image resolution will be less than 1080 x 1080(Optional)
+        .crop()                                         //Crop image(Optional), Check Customization for more option
+        .cropOval()                                     //Allow dimmed layer to have a circle inside
+        .cropFreeStyle()                                //Let the user to resize crop bounds
+        .setMultipleAllowed(true)                       //Let the user to pick multiple files or single file in gallery mode
+        .setOutputFormat(Bitmap.CompressFormat.WEBP)    //Let the user defines the output format
+        .galleryOnly()                                  //We have to define what image provider we want to use
+        .maxResultSize(1080,1080)                       //Final image resolution will be less than 1080 x 1080(Optional)
         .createIntent()
 ```
 

@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import androidx.activity.result.ActivityResult
+import androidx.annotation.Nullable
 import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.ImagePickerActivity
 import com.github.drjacky.imagepicker.R
@@ -46,6 +47,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     private val crop: Boolean
     private val cropAspectX: Float
     private val cropAspectY: Float
+    private val outputFormat: Bitmap.CompressFormat?
 
     private var cropImageUri: Uri? = null
 
@@ -58,6 +60,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
             cropFreeStyle = getBoolean(ImagePicker.EXTRA_CROP_FREE_STYLE, false)
             cropAspectX = getFloat(ImagePicker.EXTRA_CROP_X, 0f)
             cropAspectY = getFloat(ImagePicker.EXTRA_CROP_Y, 0f)
+            outputFormat = this.get(ImagePicker.EXTRA_OUTPUT_FORMAT) as Bitmap.CompressFormat
         }
     }
 
@@ -102,6 +105,14 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
     fun isCropEnabled() = crop
 
     /**
+     * Get the output format if it has been set
+     *
+     * @return Bitmap.CompressFormat?. In case of Null, it will use the extension from the input file
+     */
+    @Nullable
+    fun outputFormat() = outputFormat
+
+    /**
      * Start Crop Activity
      */
     @Throws(IOException::class)
@@ -110,7 +121,8 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         cropOval: Boolean,
         cropFreeStyle: Boolean,
         isCamera: Boolean,
-        isMultipleFiles: Boolean
+        isMultipleFiles: Boolean,
+        outputFormat: Bitmap.CompressFormat?
     ) {
         this.isMultipleFiles = isMultipleFiles
         cropImage(
@@ -118,6 +130,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
             cropOval = cropOval,
             cropFreeStyle = cropFreeStyle,
             isCamera = isCamera,
+            outputFormat = outputFormat
         )
     }
 
@@ -131,13 +144,14 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         cropOval: Boolean,
         cropFreeStyle: Boolean,
         isCamera: Boolean,
+        outputFormat: Bitmap.CompressFormat?
     ) {
         val path = if (isCamera) {
             Environment.DIRECTORY_DCIM
         } else {
             Environment.DIRECTORY_PICTURES
         }
-        val extension = FileUriUtils.getImageExtension(uri)
+        val extension = outputFormat?.let { ".${it.name}" } ?: FileUriUtils.getImageExtension(uri)
         cropImageUri = uri
 
         // Later we will use this bitmap to create the File.

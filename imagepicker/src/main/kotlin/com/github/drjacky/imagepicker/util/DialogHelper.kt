@@ -31,6 +31,9 @@ internal object DialogHelper {
             .setOnCancelListener {
                 listener.onResult(null)
             }
+            .setOnDismissListener {
+                listener.onResult(null)
+            }
             .setNegativeButton(R.string.action_cancel) { _, _ ->
                 listener.onResult(null)
             }

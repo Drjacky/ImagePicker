@@ -51,9 +51,9 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
      *
      * @param uri File to compress
      */
-    fun compress(uri: Uri) {
+    fun compress(uri: Uri, outputFormat: Bitmap.CompressFormat?) {
         activity.lifecycleScope.launch {
-            val res = compressTask(uri)
+            val res = compressTask(uri, outputFormat)
             if (res != null) {
                 ExifDataCopier.copyExif(uri, res)
                 activity.setCompressedImage(res)
@@ -63,7 +63,7 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
         }
     }
 
-    private fun compressTask(uri: Uri): File? {
+    private fun compressTask(uri: Uri, outputFormat: Bitmap.CompressFormat?): File? {
         var bitmap = BitmapFactory.decodeFile(uri.path, BitmapFactory.Options())
         if (maxWidth > 0L && maxHeight > 0L) {
             // resize if desired
@@ -85,7 +85,7 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
             }
         }
 
-        val format = FileUriUtils.getImageExtensionFormat(uri)
+        val format = outputFormat ?: FileUriUtils.getImageExtensionFormat(uri)
         var out: FileOutputStream? = null
         return try {
             val temp = "temp.${format.name}"

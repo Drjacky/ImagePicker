@@ -2,6 +2,7 @@ package com.github.drjacky.imagepicker
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import com.github.drjacky.imagepicker.constant.ImageProvider
@@ -33,6 +34,7 @@ open class ImagePicker {
         internal const val EXTRA_MAX_WIDTH = "extra.max_width"
         internal const val EXTRA_MAX_HEIGHT = "extra.max_height"
         internal const val EXTRA_KEEP_RATIO = "extra.keep_ratio"
+        internal const val EXTRA_OUTPUT_FORMAT = "extra.output_format"
 
         internal const val EXTRA_ERROR = "extra.error"
         const val MULTIPLE_FILES_PATH = "extra.multiple_file_path"
@@ -113,6 +115,7 @@ open class ImagePicker {
         private var crop: Boolean = false
         private var cropOval: Boolean = false
         private var cropFreeStyle: Boolean = false
+        private var outputFormat: Bitmap.CompressFormat? = null
         private var isMultiple: Boolean = false
 
         /*
@@ -220,6 +223,11 @@ open class ImagePicker {
             return this
         }
 
+        fun setOutputFormat(outputFormat: Bitmap.CompressFormat): Builder {
+            this.outputFormat = outputFormat
+            return this
+        }
+
         /**
          * Max Width and Height of final image
          */
@@ -243,7 +251,9 @@ open class ImagePicker {
         fun createIntent(): Intent =
             Intent(activity, ImagePickerActivity::class.java).apply { putExtras(getBundle()) }
 
-        fun createIntentFromDialog(onResult: (Intent) -> Unit) {
+        fun createIntentFromDialog(
+            onResult: (Intent) -> Unit
+        ) {
             if (imageProvider == ImageProvider.BOTH) {
                 DialogHelper.showChooseAppDialog(
                     context = activity,
@@ -274,6 +284,7 @@ open class ImagePicker {
                 putBoolean(MULTIPLE_FILES_ALLOWED, isMultiple)
                 putFloat(EXTRA_CROP_X, cropX)
                 putFloat(EXTRA_CROP_Y, cropY)
+                putSerializable(EXTRA_OUTPUT_FORMAT, outputFormat)
 
                 putInt(EXTRA_MAX_WIDTH, maxWidth)
                 putInt(EXTRA_MAX_HEIGHT, maxHeight)
