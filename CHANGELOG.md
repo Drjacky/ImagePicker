@@ -7,8 +7,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-* Migrate to Kotlin 1.7.0
+## [2.3.17] - 2022-08-23
+
+* Migrate to Kotlin 1.7.10
 * Update internal dependencies
+* Let user pick multiple files in the gallery mode
+* Let user define the output format
 
 ## [2.1.16] - 2022-06-22
 

@@ -63,15 +63,15 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
 **Java**
 
 ```java
-   ActivityResultLauncher<Intent> launcher =
-               registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
-                   if (result.getResultCode() == RESULT_OK) {
-                       Uri uri = result.getData().getData();
-                       // Use the uri to load the image
-                   } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
-                       // Use ImagePicker.Companion.getError(result.getData()) to show an error
-                   }
-               });
+ActivityResultLauncher<Intent> launcher=
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(ActivityResult result)->{
+        if(result.getResultCode()==RESULT_OK){
+        Uri uri=result.getData().getData();
+        // Use the uri to load the image
+        }else if(result.getResultCode()==ImagePicker.RESULT_ERROR){
+        // Use ImagePicker.Companion.getError(result.getData()) to show an error
+        }
+        });
 ```
 
 **If you want both Camera and Gallery:**
@@ -88,22 +88,22 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
 **Java**
 
 ```java
-   ImagePicker.Companion.with(this)
-                       .crop()
-                       .cropOval()
+ImagePicker.Companion.with(this)
+        .crop()
+        .cropOval()
         .maxResultSize(512,512,true)
         .provider(ImageProvider.BOTH) //Or bothCameraGallery()
         .createIntentFromDialog((Function1)(new Function1(){
-                           public Object invoke(Object var1) {
-                               this.invoke((Intent) var1);
-                               return Unit.INSTANCE;
-                           }
+public Object invoke(Object var1){
+        this.invoke((Intent)var1);
+        return Unit.INSTANCE;
+        }
 
-                           public final void invoke(@NotNull Intent it) {
-                               Intrinsics.checkNotNullParameter(it, "it");
-                               launcher.launch(it);
-                           }
-                       }));
+public final void invoke(@NotNull Intent it){
+        Intrinsics.checkNotNullParameter(it,"it");
+        launcher.launch(it);
+        }
+        }));
 ```
 
 **If you want just one option:**
@@ -122,7 +122,7 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
 **Java**
 
 ```java
-        ImagePicker.Companion.with(this)
+ImagePicker.Companion.with(this)
         .crop()                                         //Crop image(Optional), Check Customization for more option
         .cropOval()                                     //Allow dimmed layer to have a circle inside
         .cropFreeStyle()                                //Let the user to resize crop bounds
