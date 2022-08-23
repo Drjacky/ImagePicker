@@ -37,6 +37,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         private const val STATE_CROP_URI = "state.crop_uri"
     }
 
+    private var isMultipleFiles: Boolean = false
     private val maxWidth: Int
     private val maxHeight: Int
 
@@ -108,9 +109,16 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         uri: Uri,
         cropOval: Boolean,
         cropFreeStyle: Boolean,
-        isCamera: Boolean
+        isCamera: Boolean,
+        isMultipleFiles: Boolean
     ) {
-        cropImage(uri, cropOval, cropFreeStyle, isCamera)
+        this.isMultipleFiles = isMultipleFiles
+        cropImage(
+            uri = uri,
+            cropOval = cropOval,
+            cropFreeStyle = cropFreeStyle,
+            isCamera = isCamera,
+        )
     }
 
     /**
@@ -118,7 +126,12 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
      * @throws IOException if failed to crop image
      */
     @Throws(IOException::class)
-    private fun cropImage(uri: Uri, cropOval: Boolean, cropFreeStyle: Boolean, isCamera: Boolean) {
+    private fun cropImage(
+        uri: Uri,
+        cropOval: Boolean,
+        cropFreeStyle: Boolean,
+        isCamera: Boolean,
+    ) {
         val path = if (isCamera) {
             Environment.DIRECTORY_DCIM
         } else {
@@ -172,7 +185,11 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         if (result.resultCode == Activity.RESULT_OK) {
             val uri = UCrop.getOutput(result.data!!)
             if (uri != null) {
-                activity.setCropImage(uri)
+                if (isMultipleFiles) {
+                    activity.setMultipleCropImage(uri)
+                } else {
+                    activity.setCropImage(uri)
+                }
             } else {
                 setError(R.string.error_failed_to_crop_image)
             }

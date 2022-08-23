@@ -2,6 +2,7 @@ package com.github.drjacky.imagepicker
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.github.drjacky.imagepicker.constant.ImageProvider
 import com.github.drjacky.imagepicker.listener.ResultListener
@@ -24,6 +25,7 @@ open class ImagePicker {
 
         internal const val EXTRA_IMAGE_PROVIDER = "extra.image_provider"
         internal const val EXTRA_CROP = "extra.crop"
+        internal const val MULTIPLE_FILES_ALLOWED = "extra.multiple"
         internal const val EXTRA_CROP_X = "extra.crop_x"
         internal const val EXTRA_CROP_Y = "extra.crop_y"
         internal const val EXTRA_CROP_OVAL = "extra.crop_oval"
@@ -33,7 +35,8 @@ open class ImagePicker {
         internal const val EXTRA_KEEP_RATIO = "extra.keep_ratio"
 
         internal const val EXTRA_ERROR = "extra.error"
-        internal const val EXTRA_FILE_PATH = "extra.file_path"
+        const val MULTIPLE_FILES_PATH = "extra.multiple_file_path"
+        const val EXTRA_FILE_PATH = "extra.file_path"
         internal const val EXTRA_MIME_TYPES = "extra.mime_types"
 
         /**
@@ -67,6 +70,11 @@ open class ImagePicker {
             return data?.getStringExtra(EXTRA_FILE_PATH)
         }
 
+        @JvmStatic
+        fun getAllFilePath(data: Intent?): ArrayList<Uri>? {
+            return data?.getParcelableArrayListExtra(MULTIPLE_FILES_PATH)
+        }
+
         /**
          * Get File from intent
          */
@@ -75,6 +83,15 @@ open class ImagePicker {
             val path = getFilePath(data)
             if (path != null) {
                 return File(path)
+            }
+            return null
+        }
+
+        @JvmStatic
+        fun getAllFile(data: Intent?): ArrayList<Uri>? {
+            val path = getAllFilePath(data)
+            if (path != null) {
+                return path
             }
             return null
         }
@@ -96,6 +113,7 @@ open class ImagePicker {
         private var crop: Boolean = false
         private var cropOval: Boolean = false
         private var cropFreeStyle: Boolean = false
+        private var isMultiple: Boolean = false
 
         /*
          * Resize Parameters
@@ -197,6 +215,11 @@ open class ImagePicker {
             return crop(1f, 1f)
         }
 
+        fun setMultipleAllowed(isMultiple: Boolean): Builder {
+            this.isMultiple = isMultiple
+            return this
+        }
+
         /**
          * Max Width and Height of final image
          */
@@ -248,6 +271,7 @@ open class ImagePicker {
                 putBoolean(EXTRA_CROP_OVAL, cropOval)
                 putBoolean(EXTRA_CROP_FREE_STYLE, cropFreeStyle)
                 putBoolean(EXTRA_CROP, crop)
+                putBoolean(MULTIPLE_FILES_ALLOWED, isMultiple)
                 putFloat(EXTRA_CROP_X, cropX)
                 putFloat(EXTRA_CROP_Y, cropY)
 

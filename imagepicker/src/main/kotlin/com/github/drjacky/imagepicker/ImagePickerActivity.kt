@@ -41,8 +41,11 @@ class ImagePickerActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var fileToCrop: java.util.ArrayList<Uri>
+    var selectedNumberOfImages: Int = 0
     private var mGalleryProvider: GalleryProvider? = null
     private var mCameraProvider: CameraProvider? = null
+    private var mCroppedImageList: ArrayList<Uri>? = null
     private lateinit var mCropProvider: CropProvider
     private lateinit var mCompressionProvider: CompressionProvider
 
@@ -100,7 +103,7 @@ class ImagePickerActivity : AppCompatActivity() {
 
         // Create Compression Provider
         mCompressionProvider = CompressionProvider(this)
-
+        mCroppedImageList = ArrayList()
         // Retrieve Image Provider
         val provider: ImageProvider? =
             intent?.getSerializableExtra(ImagePicker.EXTRA_IMAGE_PROVIDER) as ImageProvider?
@@ -165,7 +168,8 @@ class ImagePickerActivity : AppCompatActivity() {
                 uri = uri,
                 cropOval = mCropProvider.isCropOvalEnabled(),
                 cropFreeStyle = mCropProvider.isCropFreeStyleEnabled(),
-                isCamera = isCamera
+                isCamera = isCamera,
+                isMultipleFiles = false
             )
             mCompressionProvider.isResizeRequired(uri) -> mCompressionProvider.compress(uri)
             else -> setResult(uri)
@@ -254,4 +258,49 @@ class ImagePickerActivity : AppCompatActivity() {
         setResult(ImagePicker.RESULT_ERROR, intent)
         finish()
     }
+
+    fun setMultipleImage(fileList: ArrayList<Uri>) {
+        this.fileToCrop = fileList
+
+        if (!fileList.isNullOrEmpty()) {
+            val file = fileList[0]
+            setMultipleCropper(file)
+            try {
+                fileList.remove(fileList[0])
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun setMultipleCropper(uri: Uri) {
+        mImageUri = uri
+        when {
+            mCropProvider.isCropEnabled() -> mCropProvider.startIntent(
+                uri = uri,
+                cropOval = mCropProvider.isCropOvalEnabled(),
+                cropFreeStyle = mCropProvider.isCropFreeStyleEnabled(),
+                isCamera = false,
+                isMultipleFiles = true
+            )
+            mCompressionProvider.isResizeRequired(uri) -> mCompressionProvider.compress(uri)
+        }
+    }
+
+    private fun setMultipleImageResult(uris: ArrayList<Uri>) {
+        val intent = Intent()
+        intent.putExtra(ImagePicker.MULTIPLE_FILES_PATH, uris)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+    }
+
+    fun setMultipleCropImage(uri: Uri) {
+        mCroppedImageList?.add(uri)
+        if (mCroppedImageList?.size == selectedNumberOfImages) {
+            setMultipleImageResult(mCroppedImageList!!)
+        } else {
+            setMultipleImage(fileToCrop)
+        }
+    }
+
 }

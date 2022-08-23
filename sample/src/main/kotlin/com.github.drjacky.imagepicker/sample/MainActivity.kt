@@ -42,9 +42,20 @@ class MainActivity : AppCompatActivity() {
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                val uri = it.data?.data!!
-                mGalleryUri = uri
-                imgGallery.setLocalImage(uri)
+                if (it.data?.hasExtra(ImagePicker.EXTRA_FILE_PATH)!!) {
+                    val uri = it.data?.data!!
+                    mGalleryUri = uri
+                    imgGallery.setLocalImage(uri)
+                } else if (it.data?.hasExtra(ImagePicker.MULTIPLE_FILES_PATH)!!) {
+                    val files = ImagePicker.getAllFile(it.data) as ArrayList<Uri>
+                    if (files.size > 0) {
+                        val uri = files[0] //first image
+                        mGalleryUri = uri
+                        imgGallery.setLocalImage(uri)
+                    }
+                } else {
+                    parseError(it)
+                }
             } else parseError(it)
         }
 
@@ -102,6 +113,7 @@ class MainActivity : AppCompatActivity() {
             ImagePicker.with(this)
                 .crop()
                 .galleryOnly()
+                .setMultipleAllowed(true)
                 .cropFreeStyle()
                 .galleryMimeTypes( // no gif images at all
                     mimeTypes = arrayOf(

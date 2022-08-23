@@ -123,12 +123,13 @@ Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjac
 
 ```java
         ImagePicker.Companion.with(this)
-                .crop()	    			//Crop image(Optional), Check Customization for more option
-                .cropOval()	    		//Allow dimmed layer to have a circle inside
-                .cropFreeStyle()	    //Let the user to resize crop bounds
-                .galleryOnly()          //We have to define what image provider we want to use
-                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-                .createIntent()
+        .crop()                       //Crop image(Optional), Check Customization for more option
+        .cropOval()                   //Allow dimmed layer to have a circle inside
+        .cropFreeStyle()           //Let the user to resize crop bounds
+        .setMultipleAllowed(true)  //true or false if you want to pick multiple files or single file in gallery mode
+        .galleryOnly()             //We have to define what image provider we want to use
+        .maxResultSize(1080,1080) //Final image resolution will be less than 1080 x 1080(Optional)
+        .createIntent()
 ```
 
 ## 🎨Customization

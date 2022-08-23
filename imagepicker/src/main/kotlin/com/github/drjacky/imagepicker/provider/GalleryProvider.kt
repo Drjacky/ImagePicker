@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
@@ -27,6 +28,8 @@ class GalleryProvider(
     private val launcher: (Intent) -> Unit
 ) :
     BaseProvider(activity) {
+
+    private var fileList: ArrayList<Uri>? = null
 
     companion object {
         /**
@@ -53,11 +56,13 @@ class GalleryProvider(
 
     // Mime types restrictions for gallery. By default all mime types are valid
     private val mimeTypes: Array<String>
+    private var mMultipleAllowed: Boolean = false
 
     init {
         val bundle = activity.intent.extras ?: Bundle()
 
         mimeTypes = bundle.getStringArray(ImagePicker.EXTRA_MIME_TYPES) ?: emptyArray()
+        mMultipleAllowed = bundle.getBoolean(ImagePicker.MULTIPLE_FILES_ALLOWED, false)
     }
 
     /**
@@ -86,7 +91,9 @@ class GalleryProvider(
      * Start Gallery Intent
      */
     private fun startGalleryIntent() {
-        launcher.invoke(IntentUtils.getGalleryIntent(activity, mimeTypes))
+        val galleryIntent = IntentUtils.getGalleryIntent(activity, mimeTypes)
+        galleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, mMultipleAllowed)
+        launcher.invoke(galleryIntent)
     }
 
     /**
@@ -150,15 +157,26 @@ class GalleryProvider(
      * This method will be called when final result fot this provider is enabled.
      */
     private fun handleResult(data: Intent?) {
-        val uri = data?.data
-        if (uri != null) {
-            try {
-                activity.setImage(uri, isCamera = false)
-            } catch (ex: IOException) {
-                setError(R.string.error_failed_to_crop_image)
+        data?.clipData?.let { dataClipData ->
+            fileList = ArrayList<Uri>()
+            for (i in 0 until dataClipData.itemCount) {
+                val uri = dataClipData.getItemAt(i).uri
+                fileList!!.add(uri)
             }
-        } else {
-            setError(R.string.error_failed_pick_gallery_image)
+            activity.selectedNumberOfImages = fileList!!.size
+            activity.setMultipleImage(fileList!!)
+        } ?: run {
+            val uri = data?.data
+            if (uri != null) {
+                try {
+                    activity.selectedNumberOfImages = 1
+                    activity.setImage(uri, isCamera = false)
+                } catch (ex: IOException) {
+                    setError(R.string.error_failed_to_crop_image)
+                }
+            } else {
+                setError(R.string.error_failed_pick_gallery_image)
+            }
         }
     }
 }
