@@ -60,7 +60,7 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
             cropFreeStyle = getBoolean(ImagePicker.EXTRA_CROP_FREE_STYLE, false)
             cropAspectX = getFloat(ImagePicker.EXTRA_CROP_X, 0f)
             cropAspectY = getFloat(ImagePicker.EXTRA_CROP_Y, 0f)
-            outputFormat = this.get(ImagePicker.EXTRA_OUTPUT_FORMAT) as Bitmap.CompressFormat
+            outputFormat = this.get(ImagePicker.EXTRA_OUTPUT_FORMAT) as? Bitmap.CompressFormat
         }
     }
 

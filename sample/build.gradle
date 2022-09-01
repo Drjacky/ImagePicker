@@ -35,6 +35,7 @@ android {
         applicationId "com.github.drjacky.imagepicker.sample"
         minSdkVersion 19
         targetSdkVersion 31
+        multiDexEnabled true
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
