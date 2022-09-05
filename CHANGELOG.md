@@ -7,6 +7,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.3.18] - 2022-09-05
+
+* Fix crash on not setting the setOutputFormat (Special Thanks
+  to [Hussein Habibi Juybari](https://github.com/Husseinhj))
+* Add Intercept Dialog dismiss event
+* Improve how to customize the library in the readme file
+
 ## [2.3.17] - 2022-08-23
 
 * Migrate to Kotlin 1.7.10
@@ -253,7 +260,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Handle Runtime Permission for Camera and Storage
 * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.1.16...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.3.18...HEAD
+
+[2.3.18]: https://github.com/Drjacky/ImagePicker/compare/v2.1.17...v2.3.18
+
+[2.3.17]: https://github.com/Drjacky/ImagePicker/compare/v2.1.16...v2.3.17
 
 [2.1.16]: https://github.com/Drjacky/ImagePicker/compare/v2.1.15...v2.1.16
 
