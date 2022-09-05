@@ -12,11 +12,11 @@ Easy to use and configurable library to **Pick an image from the Gallery or Capt
 
 ## ‍🏍Features
 
-* Pick Gallery Image
-* Pick Image from Google Drive
+* Pick Gallery Images
+* Pick Images from Google Drive
 * Capture Camera Image
-* Crop Image(Crop image based on provided aspect ratio or let user choose one)
-* Compress Image(Compress image based on provided resolution and size)
+* Crop Images(Crop image based on provided aspect ratio or let user choose one)
+* Compress Images(Compress image based on provided resolution and size)
 * Retrieve Image Result as File, File Path as String or Uri object
 * Handle Runtime Permission for Camera and Storage
 
@@ -45,17 +45,21 @@ Gradle dependency:
    implementation 'com.github.Drjacky:ImagePicker:$libVersion'
 ```
 
-Where `$libVersion` = [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
+Where `$libVersion`
+= [![libVersion](https://img.shields.io/github/release/drjacky/imagePicker/all.svg?style=flat-square)](https://github.com/drjacky/ImagePicker/releases)
+
+## 🎨Customization
 
 **If you want to get the activity result:**
 
 **Kotlin**
 
 ```kotlin
-   private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-       if (it.resultCode == Activity.RESULT_OK) {
-           val uri = it.data?.data!!
-           // Use the uri to load the image
+   private val launcher =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val uri = it.data?.data!!
+            // Use the uri to load the image
        }
    }
 ```
@@ -74,9 +78,7 @@ ActivityResultLauncher<Intent> launcher=
         });
 ```
 
-**If you want both Camera and Gallery:**
-
-**Kotlin**
+**Both Camera and Gallery:**
 
 ```kotlin
     ImagePicker.with(this)
@@ -85,7 +87,38 @@ ActivityResultLauncher<Intent> launcher=
     .createIntentFromDialog { launcher.launch(it) }
 ```
 
-**Java**
+**Crop image:**
+
+```kotlin
+    .crop()
+```
+
+**Crop image with 16:9 aspect ratio:**
+
+```kotlin
+    .crop(16f, 9f)
+```
+
+**Crop square image(e.g for profile):**
+
+```kotlin
+    .cropSquare()    //Crop square image, its same as crop(1f, 1f)
+```
+
+**Oval crop image:**
+
+```kotlin
+    .crop()     
+    .cropOval() //Allow dimmed layer to have a circle inside
+```
+
+**Set Max Width and Height of final image:**
+
+```kotlin
+    .maxResultSize(512, 512, true) //true: Keep Ratio
+```
+
+**Java sample for using `createIntentFromDialog`:**
 
 ```java
 ImagePicker.Companion.with(this)
@@ -106,9 +139,7 @@ public final void invoke(@NotNull Intent it){
         }));
 ```
 
-**If you want just one option:**
-
-**Kotlin**
+**If you want just one option(camera or gallery):**
 
 ```kotlin
     launcher.launch(
@@ -119,114 +150,68 @@ public final void invoke(@NotNull Intent it){
     )
 ```
 
-**Java**
+**Let the user to resize crop bounds:**
 
-```java
-ImagePicker.Companion.with(this)
-        .crop()                                         //Crop image(Optional), Check Customization for more option
-        .cropOval()                                     //Allow dimmed layer to have a circle inside
-        .cropFreeStyle()                                //Let the user to resize crop bounds
-        .setMultipleAllowed(true)                       //Let the user to pick multiple files or single file in gallery mode
-        .setOutputFormat(Bitmap.CompressFormat.WEBP)    //Let the user defines the output format
-        .galleryOnly()                                  //We have to define what image provider we want to use
-        .maxResultSize(1080,1080)                       //Final image resolution will be less than 1080 x 1080(Optional)
-        .createIntent()
+```kotlin
+        .crop()                                                  
+        .cropFreeStyle()
 ```
 
-## 🎨Customization
+**Let the user to pick multiple files or single file in gallery mode:**
 
- *  Pick image using Gallery
+```kotlin
+        .setMultipleAllowed(true)
+```
 
-    ```kotlin
-	ImagePicker.with(this)
-		.galleryOnly()	//User can only select image from Gallery
-		.createIntent()	//Default Request Code is ImagePicker.REQUEST_CODE
-    ```
+**Let the user defines the output format:**
 
- *  Capture image using Camera
+```kotlin
+        .setOutputFormat(Bitmap.CompressFormat.WEBP)
+```
 
-    ```kotlin
-	ImagePicker.with(this)
-		.cameraOnly()	//User can only capture image using Camera
-		.createIntent()
-    ```
- *  Crop image
+**Intercept ImageProvider; could be used for analytics purposes:**
 
-    ```kotlin
-    ImagePicker.with(this)
-		.crop()	    //Crop image and let user choose aspect ratio.
-		.createIntent()
-    ```
- *  Crop image with fixed Aspect Ratio
-
-    ```kotlin
-    ImagePicker.with(this)
-		.crop(16f, 9f)	//Crop image with 16:9 aspect ratio
-		.createIntent()
-    ```
- *  Crop square image(e.g for profile)
-
-    ```kotlin
-     ImagePicker.with(this)
-         .cropSquare()	//Crop square image, its same as crop(1f, 1f)
-         .createIntent()
-    ```
- *  Compress image size(e.g image should be maximum 1 MB)
-
-    ```kotlin
-    ImagePicker.with(this)
-		.createIntent()
-    ```
- *  Set Resize image resolution
-
-    ```kotlin
-    ImagePicker.with(this)
-		.maxResultSize(620, 620)	//Final image resolution will be less than 620 x 620
-		.createIntent()
-    ```
- *  Intercept ImageProvider, Can be used for analytics
-
-    ```kotlin
-    ImagePicker.with(this)
+```kotlin
+ImagePicker.with(this)
         .setImageProviderInterceptor { imageProvider -> //Intercept ImageProvider
             Log.d("ImagePicker", "Selected ImageProvider: "+imageProvider.name)
         }
         .createIntent()
-    ```
- *  Intercept Dialog dismiss event
+```
 
-    ```kotlin
+**Intercept Dialog dismiss event:**
+
+```kotlin
     ImagePicker.with(this)
     	.setDismissListener {
     		// Handle dismiss event
     		Log.d("ImagePicker", "onDismiss");
     	}
     	.createIntent()
-    ```
- *  Limit MIME types while choosing a gallery image
+```
 
-    ```kotlin
-    ImagePicker.with(this)
+**Limit MIME types while choosing a gallery image:**
+
+```kotlin
         .galleryMimeTypes(  //Exclude gif images
-            mimeTypes = arrayOf(
-              "image/png",
-              "image/jpg",
-              "image/jpeg"
-            )
-          )
-        .createIntent()
-    ```
+                    mimeTypes = arrayOf(
+                      "image/png",
+                      "image/jpg",
+                      "image/jpeg"
+                    )
+                  )
+```
 
- *  Add Following parameters in your **colors.xml** file, If you want to customize uCrop Activity.
+**Add Following parameters in your **colors.xml** file, if you want to customize uCrop Activity:**
 
-    ```xml
+```xml
     <resources>
         <!-- Here you can add color of your choice  -->
         <color name="ucrop_color_toolbar">@color/teal_500</color>
         <color name="ucrop_color_statusbar">@color/teal_700</color>
         <color name="ucrop_color_widget_active">@color/teal_500</color>
     </resources>
-    ```
+```
 
 ## 💥Compatibility
 
