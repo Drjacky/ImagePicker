@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import com.github.drjacky.imagepicker.constant.ImageProvider
+import com.github.drjacky.imagepicker.listener.DismissListener
 import com.github.drjacky.imagepicker.listener.ResultListener
 import com.github.drjacky.imagepicker.util.DialogHelper
 import java.io.File
@@ -128,6 +129,11 @@ open class ImagePicker {
         private var imageProviderInterceptor: ((ImageProvider) -> Unit)? = null
 
         /**
+         * Dialog dismiss event listener
+         */
+        private var dismissListener: DismissListener? = null
+
+        /**
          * Specify Image Provider (Camera, Gallery or Both)
          */
         fun provider(imageProvider: ImageProvider): Builder {
@@ -248,6 +254,26 @@ open class ImagePicker {
             return this
         }
 
+        /**
+         * Sets the callback that will be called when the dialog is dismissed for any reason.
+         */
+        fun setDismissListener(listener: DismissListener): Builder {
+            this.dismissListener = listener
+            return this
+        }
+
+        /**
+         * Sets the callback that will be called when the dialog is dismissed for any reason.
+         */
+        fun setDismissListener(listener: (() -> Unit)): Builder {
+            this.dismissListener = object : DismissListener {
+                override fun onDismiss() {
+                    listener.invoke()
+                }
+            }
+            return this
+        }
+
         fun createIntent(): Intent =
             Intent(activity, ImagePickerActivity::class.java).apply { putExtras(getBundle()) }
 
@@ -265,7 +291,8 @@ open class ImagePicker {
                                 onResult(createIntent())
                             }
                         }
-                    }
+                    },
+                    dismissListener
                 )
             }
         }

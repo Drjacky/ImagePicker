@@ -3,6 +3,7 @@ package com.github.drjacky.imagepicker.sample
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -105,6 +106,9 @@ class MainActivity : AppCompatActivity() {
             .cropOval()
             .maxResultSize(512, 512, true)
             .provider(ImageProvider.BOTH) // Or bothCameraGallery()
+            .setDismissListener {
+                Log.d("ImagePicker", "onDismiss");
+            }
             .createIntentFromDialog { profileLauncher.launch(it) }
     }
 
