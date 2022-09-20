@@ -40,16 +40,6 @@ class CameraProvider(
          * Permission Require for Image Capture using Camera
          */
         private val REQUIRED_PERMISSIONS = arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA
-        )
-
-        /**
-         * Permission Require for Image Capture using Camera
-         */
-        private val REQUIRED_PERMISSIONS_EXTENDED = arrayOf(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA
         )
 
