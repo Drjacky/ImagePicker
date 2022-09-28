@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.20] - 2022-09-28
+
+* Fix ktlint issue
+* Format internal codes
+* Update internal dependencies
+
 ## [2.3.19] - 2022-09-20
 
 * Improve dismiss listener
@@ -264,7 +270,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Handle Runtime Permission for Camera and Storage
 * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.3.19...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.3.20...HEAD
+
+[2.3.20]: https://github.com/Drjacky/ImagePicker/compare/v2.1.19...v2.3.20
 
 [2.3.19]: https://github.com/Drjacky/ImagePicker/compare/v2.1.18...v2.3.19
 

@@ -2,8 +2,8 @@
 buildscript {
     ext {
         kotlin_version = '1.7.10'
-        versionCode = 39
-        versionName = '2.3.19'
+        versionCode = 40
+        versionName = '2.3.20'
     }
 
     repositories {
@@ -13,7 +13,7 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         //jcenter plugins
