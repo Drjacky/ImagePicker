@@ -1,4 +1,4 @@
 root = true
 
 [*.{kt, kts}]
-disabled_rules = no-wildcard-imports, no-blank-line-before-rbrace
+ktlint_disabled_rules = no-wildcard-imports, no-blank-line-before-rbrace, no-blank-lines-in-chained-method-calls

@@ -43,7 +43,9 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
         return if (maxWidth > 0 && maxHeight > 0) {
             val sizes = getImageSize(uri)
             sizes[0] > maxWidth || sizes[1] > maxHeight
-        } else false
+        } else {
+            false
+        }
     }
 
     /**

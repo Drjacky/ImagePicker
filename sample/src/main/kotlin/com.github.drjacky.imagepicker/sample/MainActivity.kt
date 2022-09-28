@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity() {
                 val uri = it.data?.data!!
                 mProfileUri = uri
                 imgProfile.setLocalImage(uri, true)
-            } else parseError(it)
+            } else {
+                parseError(it)
+            }
         }
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -50,14 +52,16 @@ class MainActivity : AppCompatActivity() {
                 } else if (it.data?.hasExtra(ImagePicker.MULTIPLE_FILES_PATH)!!) {
                     val files = ImagePicker.getAllFile(it.data) as ArrayList<Uri>
                     if (files.size > 0) {
-                        val uri = files[0] //first image
+                        val uri = files[0] // first image
                         mGalleryUri = uri
                         imgGallery.setLocalImage(uri)
                     }
                 } else {
                     parseError(it)
                 }
-            } else parseError(it)
+            } else {
+                parseError(it)
+            }
         }
 
     private val cameraLauncher =
@@ -66,7 +70,9 @@ class MainActivity : AppCompatActivity() {
                 val uri = it.data?.data!!
                 mCameraUri = uri
                 imgCamera.setLocalImage(uri, false)
-            } else parseError(it)
+            } else {
+                parseError(it)
+            }
         }
 
     private fun parseError(activityResult: ActivityResult) {
@@ -107,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             .maxResultSize(512, 512, true)
             .provider(ImageProvider.BOTH) // Or bothCameraGallery()
             .setDismissListener {
-                Log.d("ImagePicker", "onDismiss");
+                Log.d("ImagePicker", "onDismiss")
             }
             .createIntentFromDialog { profileLauncher.launch(it) }
     }

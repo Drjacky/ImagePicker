@@ -54,12 +54,14 @@ object PermissionUtil {
         )
         val permissions = packageInfo.requestedPermissions
 
-        if (permissions.isNullOrEmpty())
+        if (permissions.isNullOrEmpty()) {
             return false
+        }
 
         for (perm in permissions) {
-            if (perm == permission)
+            if (perm == permission) {
                 return true
+            }
         }
 
         return false

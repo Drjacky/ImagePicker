@@ -134,15 +134,22 @@ object ImageUtil {
         val canvas = Canvas(scaledBitmap!!)
         canvas.setMatrix(scaleMatrix)
         canvas.drawBitmap(
-            bmp!!, middleX - bmp.width / 2,
-            middleY - bmp.height / 2, Paint(Paint.FILTER_BITMAP_FLAG)
+            bmp!!,
+            middleX - bmp.width / 2,
+            middleY - bmp.height / 2,
+            Paint(Paint.FILTER_BITMAP_FLAG)
         )
         bmp.recycle()
 
         val matrix = Matrix()
         scaledBitmap = Bitmap.createBitmap(
-            scaledBitmap, 0, 0, scaledBitmap.width,
-            scaledBitmap.height, matrix, true
+            scaledBitmap,
+            0,
+            0,
+            scaledBitmap.width,
+            scaledBitmap.height,
+            matrix,
+            true
         )
 
         return scaledBitmap

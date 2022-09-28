@@ -73,49 +73,51 @@ object IntentUtils {
     fun getCameraIntent(uri: Uri, tryFrontCamera: Boolean): Intent {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
-        if (tryFrontCamera) when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
-                intent.putExtra(
+        if (tryFrontCamera) {
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+                    intent.putExtra(
+                        CAMERA_FACING_EXTRA,
+                        CameraCharacteristics.LENS_FACING_FRONT
+                    ) // Tested on API 27 Android version 8.0(Nexus 6P)
+                    intent.putExtra(
+                        "android.intent.extra.USE_FRONT_CAMERA",
+                        true
+                    ) // tested on android 11
+                    intent.putExtra(
+                        "android.intent.extras.CAMERA_FACING",
+                        CameraCharacteristics.LENS_FACING_FRONT
+                    ) // tested on android 11
+                    intent.putExtra(
+                        "android.intent.extras.CAMERA_FACING",
+                        android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT
+                    ) // tested on android 11
+                    intent.putExtra(
+                        "com.google.assistant.extra.USE_FRONT_CAMERA",
+                        true
+                    )
+                    intent.putExtra(
+                        "android.intent.extras.LENS_FACING_FRONT",
+                        1
+                    )
+                    // Samsung
+                    intent.putExtra("camerafacing", "front")
+                    intent.putExtra("previous_mode", "front")
+                    // Huawei
+                    intent.putExtra("default_camera", "1")
+                    intent.putExtra("default_mode", "com.huawei.camera2.mode.photo.PhotoMode")
+                }
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1 && Build.VERSION.SDK_INT < Build.VERSION_CODES.O -> {
+                    intent.putExtra(
+                        CAMERA_FACING_EXTRA,
+                        CameraCharacteristics.LENS_FACING_FRONT
+                    ) // Tested on API 24 Android version 7.0(Samsung S6)
+                }
+                Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1 -> intent.putExtra(
                     CAMERA_FACING_EXTRA,
-                    CameraCharacteristics.LENS_FACING_FRONT
-                ) // Tested on API 27 Android version 8.0(Nexus 6P)
-                intent.putExtra(
-                    "android.intent.extra.USE_FRONT_CAMERA",
-                    true
-                )// tested on android 11
-                intent.putExtra(
-                    "android.intent.extras.CAMERA_FACING",
-                    CameraCharacteristics.LENS_FACING_FRONT
-                )// tested on android 11
-                intent.putExtra(
-                    "android.intent.extras.CAMERA_FACING",
-                    android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT
-                );// tested on android 11
-                intent.putExtra(
-                    "com.google.assistant.extra.USE_FRONT_CAMERA",
-                    true
-                )
-                intent.putExtra(
-                    "android.intent.extras.LENS_FACING_FRONT",
                     1
-                )
-                // Samsung
-                intent.putExtra("camerafacing", "front")
-                intent.putExtra("previous_mode", "front")
-                // Huawei
-                intent.putExtra("default_camera", "1")
-                intent.putExtra("default_mode", "com.huawei.camera2.mode.photo.PhotoMode")
+                ) // Tested API 21 Android version 5.0.1(Samsung S4)
             }
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1 && Build.VERSION.SDK_INT < Build.VERSION_CODES.O -> {
-                intent.putExtra(
-                    CAMERA_FACING_EXTRA,
-                    CameraCharacteristics.LENS_FACING_FRONT
-                ) // Tested on API 24 Android version 7.0(Samsung S6)
-            }
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1 -> intent.putExtra(
-                CAMERA_FACING_EXTRA,
-                1
-            ) // Tested API 21 Android version 5.0.1(Samsung S4)
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

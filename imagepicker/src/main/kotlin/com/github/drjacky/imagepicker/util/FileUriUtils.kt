@@ -32,7 +32,6 @@ object FileUriUtils {
     }
 
     private fun getPathFromLocalUri(context: Context, uri: Uri): String? {
-
         val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
 
         // DocumentProvider
@@ -103,14 +102,17 @@ object FileUriUtils {
             } // MediaProvider
             // DownloadsProvider
         } else if ("content".equals(uri.scheme!!, ignoreCase = true)) {
-
             // Return the remote address
-            return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
-                context,
-                uri,
-                null,
-                null
-            )
+            return if (isGooglePhotosUri(uri)) {
+                uri.lastPathSegment
+            } else {
+                getDataColumn(
+                    context,
+                    uri,
+                    null,
+                    null
+                )
+            }
         } else if ("file".equals(uri.scheme!!, ignoreCase = true)) {
             return uri.path
         } // File
@@ -125,7 +127,6 @@ object FileUriUtils {
         selection: String?,
         selectionArgs: Array<String>?
     ): String? {
-
         var cursor: Cursor? = null
         val column = "_data"
         val projection = arrayOf(column)
@@ -145,7 +146,6 @@ object FileUriUtils {
     }
 
     private fun getFilePath(context: Context, uri: Uri): String? {
-
         var cursor: Cursor? = null
         val projection = arrayOf(MediaStore.MediaColumns.DISPLAY_NAME)
 
