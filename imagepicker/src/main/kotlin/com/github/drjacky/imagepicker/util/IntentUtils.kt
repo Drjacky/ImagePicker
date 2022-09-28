@@ -82,15 +82,15 @@ object IntentUtils {
                 intent.putExtra(
                     "android.intent.extra.USE_FRONT_CAMERA",
                     true
-                )// tested on android 11
+                ) // tested on android 11
                 intent.putExtra(
                     "android.intent.extras.CAMERA_FACING",
                     CameraCharacteristics.LENS_FACING_FRONT
-                )// tested on android 11
+                ) // tested on android 11
                 intent.putExtra(
                     "android.intent.extras.CAMERA_FACING",
                     android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT
-                );// tested on android 11
+                ) // tested on android 11
                 intent.putExtra(
                     "com.google.assistant.extra.USE_FRONT_CAMERA",
                     true
