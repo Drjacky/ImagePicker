@@ -168,7 +168,16 @@ class GalleryProvider(
                 fileList!!.add(uri)
             }
             activity.selectedNumberOfImages = fileList!!.size
-            activity.setMultipleImage(fileList!!)
+
+            try {
+                if (activity.selectedNumberOfImages == 1) {
+                    activity.setImage(fileList!!.single(), isCamera = false)
+                } else {
+                    activity.setMultipleImage(fileList!!)
+                }
+            } catch (ex: IOException) {
+                setError(R.string.error_failed_pick_gallery_image)
+            }
         } ?: run {
             val uri = data?.data
             if (uri != null) {

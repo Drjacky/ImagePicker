@@ -1,6 +1,6 @@
 package com.github.drjacky.imagepicker
 
-import androidx.test.InstrumentationRegistry
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -13,7 +13,7 @@ class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
         // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
         assertEquals("com.github.drjacky.imagepicker.test", appContext.packageName)
     }

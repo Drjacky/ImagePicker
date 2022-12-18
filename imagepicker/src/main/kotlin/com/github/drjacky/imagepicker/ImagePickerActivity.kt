@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.github.drjacky.imagepicker.constant.ImageProvider
@@ -72,6 +73,11 @@ class ImagePickerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
         loadBundle(savedInstanceState)
+
+        onBackPressedDispatcher.addCallback(this) {
+            // Back is pressed... Finishing the activity
+            setResultCancel()
+        }
     }
 
     /**
@@ -144,13 +150,6 @@ class ImagePickerActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         mCameraProvider?.onRequestPermissionsResult(requestCode)
         mGalleryProvider?.onRequestPermissionsResult(requestCode)
-    }
-
-    /**
-     * Handle Activity Back Press
-     */
-    override fun onBackPressed() {
-        setResultCancel()
     }
 
     /**

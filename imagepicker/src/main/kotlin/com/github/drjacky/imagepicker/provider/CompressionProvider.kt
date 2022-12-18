@@ -87,7 +87,7 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
             }
         }
 
-        val format = outputFormat ?: FileUriUtils.getImageExtensionFormat(uri)
+        val format = outputFormat ?: FileUriUtils.getImageExtensionFormat(baseContext, uri)
         var out: FileOutputStream? = null
         return try {
             val temp = "temp.${format.name}"
