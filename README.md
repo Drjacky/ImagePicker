@@ -60,8 +60,15 @@ Where `$libVersion`
         if (it.resultCode == Activity.RESULT_OK) {
             val uri = it.data?.data!!
             // Use the uri to load the image
-       }
-   }
+            // Only if you are not using crop feature:
+            uri?.let { galleryUri ->
+                contentResolver.takePersistableUriPermission(
+                    uri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
+            //////////////
+        }
+    }
 ```
 
 **Java**
