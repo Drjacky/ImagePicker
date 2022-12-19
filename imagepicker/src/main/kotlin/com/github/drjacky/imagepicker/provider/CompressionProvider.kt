@@ -111,14 +111,14 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
 
     /**
      *
-     * @param file File to get Image Size
+     * @param uri File to get Image Size
      * @return Int Array, Index 0 has width and Index 1 has height
      */
     private fun getImageSize(uri: Uri): IntArray {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
 //        BitmapFactory.decodeFile(uri.path, options)
-        BitmapFactory.decodeStream(contentResolver.openInputStream(uri))
+        BitmapFactory.decodeStream(contentResolver.openInputStream(uri), null, options)
         return intArrayOf(options.outWidth, options.outHeight)
     }
 }
