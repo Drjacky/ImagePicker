@@ -203,7 +203,7 @@ object FileUriUtils {
      * @return extension of image with dot, or default .jpg if it none.
      */
     fun getImageExtension(context: Context, uriImage: Uri): String {
-        var extension: String? = null
+        var extension: String?
 
         extension = try {
             val mimeTypeMap = MimeTypeMap.getSingleton()

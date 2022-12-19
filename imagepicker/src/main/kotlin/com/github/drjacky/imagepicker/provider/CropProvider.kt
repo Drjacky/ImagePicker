@@ -151,7 +151,8 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
         } else {
             Environment.DIRECTORY_PICTURES
         }
-        val extension = outputFormat?.let { ".${it.name}" } ?: FileUriUtils.getImageExtension(baseContext, uri)
+        val extension =
+            outputFormat?.let { ".${it.name}" } ?: FileUriUtils.getImageExtension(baseContext, uri)
         cropImageUri = uri
 
         // Later we will use this bitmap to create the File.

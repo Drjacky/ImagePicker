@@ -84,15 +84,15 @@ dependencies {
     androidTestImplementation 'androidx.test:core:1.5.0'
 
     // Image Loading Lib
-    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
 
     // Leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 
     implementation project(':imagepicker')
 
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test:runner:1.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }
