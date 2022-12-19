@@ -10,6 +10,7 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
+import android.webkit.MimeTypeMap
 import java.io.*
 
 /**
@@ -168,7 +169,7 @@ object FileUriUtils {
         var outputStream: OutputStream? = null
         var success = false
         try {
-            val extension = getImageExtension(uri)
+            val extension = getImageExtension(context, uri)
             inputStream = context.contentResolver.openInputStream(uri)
             file = FileUtil.getImageFile(context, context.cacheDir, extension)
             if (file == null) return null
@@ -201,16 +202,14 @@ object FileUriUtils {
      *
      * @return extension of image with dot, or default .jpg if it none.
      */
-    fun getImageExtension(uriImage: Uri): String {
-        var extension: String? = null
+    fun getImageExtension(context: Context, uriImage: Uri): String {
+        var extension: String?
 
-        try {
-            val imagePath = uriImage.path
-            if (imagePath != null && imagePath.lastIndexOf(".") != -1) {
-                extension = imagePath.substring(imagePath.lastIndexOf(".") + 1)
-            }
+        extension = try {
+            val mimeTypeMap = MimeTypeMap.getSingleton()
+            mimeTypeMap.getExtensionFromMimeType(context.contentResolver.getType(uriImage))
         } catch (e: Exception) {
-            extension = null
+            null
         }
 
         if (extension == null || extension.isEmpty()) {
@@ -226,12 +225,12 @@ object FileUriUtils {
      *
      * @return extension of image with dot, or default .jpg if it none.
      */
-    fun getImageExtension(file: File): String {
-        return getImageExtension(Uri.fromFile(file))
+    fun getImageExtension(context: Context, file: File): String {
+        return getImageExtension(context, Uri.fromFile(file))
     }
 
-    fun getImageExtensionFormat(uri: Uri): Bitmap.CompressFormat {
-        val extension = getImageExtension(uri)
+    fun getImageExtensionFormat(context: Context, uri: Uri): Bitmap.CompressFormat {
+        val extension = getImageExtension(context, uri)
         return if (extension == ".png") Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG
     }
 
