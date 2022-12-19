@@ -1,7 +1,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.7.10'
+        kotlin_version = '1.7.21'
         versionCode = 40
         versionName = '2.3.20'
     }
