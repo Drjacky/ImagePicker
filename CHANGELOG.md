@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.21] - 2022-12-19
+
+* Migrate to Kotlin 1.7.21
+* Update internal dependencies
+* Fix FileNotFoundException due to not able to take extension (Special Thanks
+  to [Catlandor](https://github.com/Catlandor))
+* Revert back from ACTION_GET_CONTENT to ACTION_OPEN_DOCUMENT until
+  this [issue](https://github.com/Yalantis/uCrop/issues/857) is resolved.
+* Fix not getting image size correctly
+
 ## [2.3.20] - 2022-09-28
 
 * Fix ktlint issue
@@ -270,7 +280,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Handle Runtime Permission for Camera and Storage
 * Retrieve Image Result as File, File Path as String or Uri object
 
-[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.3.20...HEAD
+[Unreleased]: https://github.com/Drjacky/ImagePicker/compare/v2.3.21...HEAD
+
+[2.3.21]: https://github.com/Drjacky/ImagePicker/compare/v2.1.20...v2.3.21
 
 [2.3.20]: https://github.com/Drjacky/ImagePicker/compare/v2.1.19...v2.3.20
 
