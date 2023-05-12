@@ -39,9 +39,7 @@ class CameraProvider(
         /**
          * Permission Require for Image Capture using Camera
          */
-        private val REQUIRED_PERMISSIONS = arrayOf(
-            Manifest.permission.CAMERA
-        )
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
         private const val PERMISSION_INTENT_REQ_CODE = 4282
     }

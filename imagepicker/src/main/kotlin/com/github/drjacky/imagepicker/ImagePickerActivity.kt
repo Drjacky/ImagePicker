@@ -143,9 +143,7 @@ class ImagePickerActivity : AppCompatActivity() {
      * Dispatch incoming result to the correct provider.
      */
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         mCameraProvider?.onRequestPermissionsResult(requestCode)
@@ -170,8 +168,7 @@ class ImagePickerActivity : AppCompatActivity() {
                 outputFormat = mCropProvider.outputFormat()
             )
             mCompressionProvider.isResizeRequired(uri) -> mCompressionProvider.compress(
-                uri = uri,
-                outputFormat = mCropProvider.outputFormat()
+                uri = uri, outputFormat = mCropProvider.outputFormat()
             )
             else -> setResult(uri)
         }
@@ -180,7 +177,7 @@ class ImagePickerActivity : AppCompatActivity() {
     fun setMultipleImage(fileList: ArrayList<Uri>) {
         this.fileToCrop = fileList
 
-        if (!fileList.isNullOrEmpty()) {
+        if (fileList.isNotEmpty()) {
             val file = fileList[0]
             setMultipleCropper(uri = file)
             try {
@@ -203,8 +200,7 @@ class ImagePickerActivity : AppCompatActivity() {
                 outputFormat = mCropProvider.outputFormat()
             )
             mCompressionProvider.isResizeRequired(uri) -> mCompressionProvider.compress(
-                uri = uri,
-                outputFormat = mCropProvider.outputFormat()
+                uri = uri, outputFormat = mCropProvider.outputFormat()
             )
         }
     }
@@ -255,17 +251,14 @@ class ImagePickerActivity : AppCompatActivity() {
         mCameraProvider?.let {
             // Delete Camera file after Compress. Else there will be two image for the same action.
             // In case of Gallery Provider, we will get original image path, so we will not delete that.
-            file.delete()
-            // it.delete()
+            mImageUri?.path?.let { path ->
+                File(path).delete()
+            }
+            it.delete()
+            mImageUri = null
         }
 
-        // If crop file is not null, Delete it after crop
-        mCropUri?.path?.let {
-            File(it).delete()
-        }
-        mCropUri = null
-
-        setResult(mCropUri!!)
+        setResult(Uri.fromFile(file))
     }
 
     /**

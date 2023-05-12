@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
     fun pickCameraImage(view: View) {
         cameraLauncher.launch(
             ImagePicker.with(this)
-                .crop()
+                //.crop()
                 .cameraOnly()
                 .maxResultSize(1080, 1920, true)
                 .createIntent()

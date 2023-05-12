@@ -10,9 +10,11 @@ import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.ImagePickerActivity
 import com.github.drjacky.imagepicker.util.ExifDataCopier
 import com.github.drjacky.imagepicker.util.FileUriUtils
+import com.github.drjacky.imagepicker.util.ImageUtil.getBitmap
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
+import java.util.*
 
 /**
  * Compress Selected/Captured Image
@@ -66,8 +68,8 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
     }
 
     private fun compressTask(uri: Uri, outputFormat: Bitmap.CompressFormat?): File? {
-        var bitmap = BitmapFactory.decodeFile(uri.path, BitmapFactory.Options())
-        if (maxWidth > 0L && maxHeight > 0L) {
+        var bitmap = getBitmap(activity, uri)
+        if (bitmap != null && maxWidth > 0L && maxHeight > 0L) {
             // resize if desired
             bitmap = if ((bitmap.width > maxWidth || bitmap.height > maxHeight) && keepRatio) {
                 var width = maxWidth
@@ -90,7 +92,7 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
         val format = outputFormat ?: FileUriUtils.getImageExtensionFormat(baseContext, uri)
         var out: FileOutputStream? = null
         return try {
-            val temp = "temp.${format.name}"
+            val temp = "temp${Random().nextInt()}.${format.name}"
             val tempPath = activity.filesDir.toString() + "/$temp"
             with(File(tempPath)) {
                 if (exists()) {
@@ -98,7 +100,7 @@ class CompressionProvider(activity: ImagePickerActivity) : BaseProvider(activity
                 }
             }
             out = activity.openFileOutput(temp, Context.MODE_PRIVATE)
-            bitmap.compress(format, 100, out)
+            bitmap?.compress(format, 100, out)
             File(tempPath)
         } catch (e: Exception) {
             e.printStackTrace()
