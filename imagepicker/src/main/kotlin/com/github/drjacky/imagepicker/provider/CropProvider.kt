@@ -1,13 +1,9 @@
 package com.github.drjacky.imagepicker.provider
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import androidx.activity.result.ActivityResult
@@ -17,6 +13,7 @@ import com.github.drjacky.imagepicker.ImagePickerActivity
 import com.github.drjacky.imagepicker.R
 import com.github.drjacky.imagepicker.util.FileUriUtils
 import com.github.drjacky.imagepicker.util.FileUtil.getCompressFormat
+import com.github.drjacky.imagepicker.util.ImageUtil.getBitmap
 import com.yalantis.ucrop.UCrop
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -210,24 +207,6 @@ class CropProvider(activity: ImagePickerActivity, private val launcher: (Intent)
             }
         } else {
             setResultCancel()
-        }
-    }
-
-    private fun getBitmap(context: Context, imageUri: Uri): Bitmap? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            try {
-                ImageDecoder.decodeBitmap(
-                    ImageDecoder.createSource(context.contentResolver, imageUri)
-                )
-            } catch (e: ImageDecoder.DecodeException) {
-                null
-            }
-        } else {
-            context
-                .contentResolver
-                .openInputStream(imageUri)?.use { inputStream ->
-                    BitmapFactory.decodeStream(inputStream)
-                }
         }
     }
 

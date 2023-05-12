@@ -26,8 +26,7 @@ import java.io.IOException
 class GalleryProvider(
     activity: ImagePickerActivity,
     private val launcher: (Intent) -> Unit
-) :
-    BaseProvider(activity) {
+) : BaseProvider(activity) {
 
     private var fileList: ArrayList<Uri>? = null
 
@@ -46,13 +45,9 @@ class GalleryProvider(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arrayOf(
-                Manifest.permission.READ_MEDIA_IMAGES
-            )
+            arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
         } else {
-            arrayOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
 
         private const val PERMISSION_INTENT_REQ_CODE = 4262
@@ -162,7 +157,7 @@ class GalleryProvider(
      */
     private fun handleResult(data: Intent?) {
         data?.clipData?.let { dataClipData ->
-            fileList = ArrayList<Uri>()
+            fileList = ArrayList()
             for (i in 0 until dataClipData.itemCount) {
                 val uri = dataClipData.getItemAt(i).uri
                 fileList!!.add(uri)
