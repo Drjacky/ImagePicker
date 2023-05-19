@@ -114,23 +114,11 @@ class ImagePickerActivity : AppCompatActivity() {
 
         // Create Gallery/Camera Provider
         when (intent?.getSerializableExtra(ImagePicker.EXTRA_IMAGE_PROVIDER) as ImageProvider?) {
-            ImageProvider.GALLERY -> {
-                mGalleryProvider = GalleryProvider(this) { galleryLauncher.launch(it) }
-                // Pick Gallery Image
-                savedInstanceState ?: mGalleryProvider?.startIntent()
-            }
-            ImageProvider.CAMERA -> {
-                mCameraProvider = CameraProvider(this, false) { cameraLauncher.launch(it) }
-                mCameraProvider?.onRestoreInstanceState(savedInstanceState)
-                // Pick Camera Image
-                savedInstanceState ?: mCameraProvider?.startIntent()
-            }
-            ImageProvider.FRONT_CAMERA -> {
-                mCameraProvider = CameraProvider(this, true) { cameraLauncher.launch(it) }
-                mCameraProvider?.onRestoreInstanceState(savedInstanceState)
-                // Try Pick Front Camera Image
-                savedInstanceState ?: mCameraProvider?.startIntent()
-            }
+            ImageProvider.GALLERY -> pickGalleryImage(savedInstanceState)
+            ImageProvider.GALLERY_WITH_CROP -> pickGalleryImage(savedInstanceState)
+            ImageProvider.CAMERA -> pickCameraImage(savedInstanceState, false)
+            ImageProvider.CAMERA_WITH_CROP -> pickCameraImage(savedInstanceState, false)
+            ImageProvider.FRONT_CAMERA -> pickCameraImage(savedInstanceState, true)
             else -> {
                 // Something went Wrong! This case should never happen
                 Log.e(TAG, "Image provider can not be null")
@@ -139,13 +127,24 @@ class ImagePickerActivity : AppCompatActivity() {
         }
     }
 
+    private fun pickGalleryImage(savedInstanceState: Bundle?) {
+        mGalleryProvider = GalleryProvider(this) { galleryLauncher.launch(it) }
+        // Pick Gallery Image
+        savedInstanceState ?: mGalleryProvider?.startIntent()
+    }
+
+    private fun pickCameraImage(savedInstanceState: Bundle?, tryFrontCamera: Boolean) {
+        mCameraProvider = CameraProvider(this, tryFrontCamera) { cameraLauncher.launch(it) }
+        mCameraProvider?.onRestoreInstanceState(savedInstanceState)
+        // Pick Camera Image
+        savedInstanceState ?: mCameraProvider?.startIntent()
+    }
+
     /**
      * Dispatch incoming result to the correct provider.
      */
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         mCameraProvider?.onRequestPermissionsResult(requestCode)
@@ -170,8 +169,7 @@ class ImagePickerActivity : AppCompatActivity() {
                 outputFormat = mCropProvider.outputFormat()
             )
             mCompressionProvider.isResizeRequired(uri) -> mCompressionProvider.compress(
-                uri = uri,
-                outputFormat = mCropProvider.outputFormat()
+                uri = uri, outputFormat = mCropProvider.outputFormat()
             )
             else -> setResult(uri)
         }
@@ -180,7 +178,7 @@ class ImagePickerActivity : AppCompatActivity() {
     fun setMultipleImage(fileList: ArrayList<Uri>) {
         this.fileToCrop = fileList
 
-        if (!fileList.isNullOrEmpty()) {
+        if (fileList.isNotEmpty()) {
             val file = fileList[0]
             setMultipleCropper(uri = file)
             try {
@@ -203,8 +201,7 @@ class ImagePickerActivity : AppCompatActivity() {
                 outputFormat = mCropProvider.outputFormat()
             )
             mCompressionProvider.isResizeRequired(uri) -> mCompressionProvider.compress(
-                uri = uri,
-                outputFormat = mCropProvider.outputFormat()
+                uri = uri, outputFormat = mCropProvider.outputFormat()
             )
         }
     }
@@ -255,17 +252,14 @@ class ImagePickerActivity : AppCompatActivity() {
         mCameraProvider?.let {
             // Delete Camera file after Compress. Else there will be two image for the same action.
             // In case of Gallery Provider, we will get original image path, so we will not delete that.
-            file.delete()
-            // it.delete()
+            mImageUri?.path?.let { path ->
+                File(path).delete()
+            }
+            it.delete()
+            mImageUri = null
         }
 
-        // If crop file is not null, Delete it after crop
-        mCropUri?.path?.let {
-            File(it).delete()
-        }
-        mCropUri = null
-
-        setResult(mCropUri!!)
+        setResult(Uri.fromFile(file))
     }
 
     /**

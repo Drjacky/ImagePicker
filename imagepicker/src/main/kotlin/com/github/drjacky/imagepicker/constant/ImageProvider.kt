@@ -9,7 +9,9 @@ package com.github.drjacky.imagepicker.constant
  */
 enum class ImageProvider {
     GALLERY,
+    GALLERY_WITH_CROP,
     CAMERA,
+    CAMERA_WITH_CROP,
     FRONT_CAMERA,
     BOTH
 }

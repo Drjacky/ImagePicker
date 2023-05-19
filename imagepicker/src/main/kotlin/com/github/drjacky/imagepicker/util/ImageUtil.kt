@@ -15,7 +15,9 @@
  */
 package com.github.drjacky.imagepicker.util
 
+import android.content.Context
 import android.graphics.*
+import android.net.Uri
 import android.os.Build
 import java.io.File
 import java.io.FileOutputStream
@@ -209,6 +211,25 @@ object ImageUtil {
             Bitmap.Config.RGB_565, Bitmap.Config.ARGB_4444 -> 2
             Bitmap.Config.ALPHA_8 -> 1
             else -> 1
+        }
+    }
+
+    fun getBitmap(context: Context, imageUri: Uri): Bitmap? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            try {
+                ImageDecoder.decodeBitmap(
+                    ImageDecoder.createSource(context.contentResolver, imageUri)
+                )
+            } catch (e: ImageDecoder.DecodeException) {
+                e.printStackTrace()
+                null
+            }
+        } else {
+            context
+                .contentResolver
+                .openInputStream(imageUri)?.use { inputStream ->
+                    BitmapFactory.decodeStream(inputStream)
+                }
         }
     }
 }

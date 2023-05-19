@@ -55,14 +55,12 @@ abstract class BaseProvider(protected val activity: ImagePickerActivity) :
     /**
      * This method will be Call on Error, It can be used for clean up Tasks
      */
-    protected open fun onFailure() {
-    }
+    protected open fun onFailure() {}
 
     /**
      * Save all appropriate provider state.
      */
-    open fun onSaveInstanceState(outState: Bundle) {
-    }
+    open fun onSaveInstanceState(outState: Bundle) {}
 
     /**
      * Restores the saved state for all Providers.
@@ -70,6 +68,5 @@ abstract class BaseProvider(protected val activity: ImagePickerActivity) :
      * @param savedInstanceState the Bundle returned by {@link #onSaveInstanceState()}
      * @see #onSaveInstanceState()
      */
-    open fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-    }
+    open fun onRestoreInstanceState(savedInstanceState: Bundle?) {}
 }
