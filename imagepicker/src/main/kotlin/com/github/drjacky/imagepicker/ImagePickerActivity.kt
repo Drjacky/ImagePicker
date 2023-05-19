@@ -114,29 +114,30 @@ class ImagePickerActivity : AppCompatActivity() {
 
         // Create Gallery/Camera Provider
         when (intent?.getSerializableExtra(ImagePicker.EXTRA_IMAGE_PROVIDER) as ImageProvider?) {
-            ImageProvider.GALLERY -> {
-                mGalleryProvider = GalleryProvider(this) { galleryLauncher.launch(it) }
-                // Pick Gallery Image
-                savedInstanceState ?: mGalleryProvider?.startIntent()
-            }
-            ImageProvider.CAMERA -> {
-                mCameraProvider = CameraProvider(this, false) { cameraLauncher.launch(it) }
-                mCameraProvider?.onRestoreInstanceState(savedInstanceState)
-                // Pick Camera Image
-                savedInstanceState ?: mCameraProvider?.startIntent()
-            }
-            ImageProvider.FRONT_CAMERA -> {
-                mCameraProvider = CameraProvider(this, true) { cameraLauncher.launch(it) }
-                mCameraProvider?.onRestoreInstanceState(savedInstanceState)
-                // Try Pick Front Camera Image
-                savedInstanceState ?: mCameraProvider?.startIntent()
-            }
+            ImageProvider.GALLERY -> pickGalleryImage(savedInstanceState)
+            ImageProvider.GALLERY_WITH_CROP -> pickGalleryImage(savedInstanceState)
+            ImageProvider.CAMERA -> pickCameraImage(savedInstanceState, false)
+            ImageProvider.CAMERA_WITH_CROP -> pickCameraImage(savedInstanceState, false)
+            ImageProvider.FRONT_CAMERA -> pickCameraImage(savedInstanceState, true)
             else -> {
                 // Something went Wrong! This case should never happen
                 Log.e(TAG, "Image provider can not be null")
                 setError(getString(R.string.error_task_cancelled))
             }
         }
+    }
+
+    private fun pickGalleryImage(savedInstanceState: Bundle?) {
+        mGalleryProvider = GalleryProvider(this) { galleryLauncher.launch(it) }
+        // Pick Gallery Image
+        savedInstanceState ?: mGalleryProvider?.startIntent()
+    }
+
+    private fun pickCameraImage(savedInstanceState: Bundle?, tryFrontCamera: Boolean) {
+        mCameraProvider = CameraProvider(this, tryFrontCamera) { cameraLauncher.launch(it) }
+        mCameraProvider?.onRestoreInstanceState(savedInstanceState)
+        // Pick Camera Image
+        savedInstanceState ?: mCameraProvider?.startIntent()
     }
 
     /**

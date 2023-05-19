@@ -47,13 +47,17 @@ internal object DialogHelper {
 
         // Handle Camera option click
         customView.lytCameraPick.setOnClickListener {
-            listener.onResult(ImageProvider.CAMERA)
+            listener.onResult(
+                if (customView.displayCropCheckBox.isChecked) ImageProvider.CAMERA_WITH_CROP else ImageProvider.CAMERA
+            )
             dialog.dismiss()
         }
 
         // Handle Gallery option click
         customView.lytGalleryPick.setOnClickListener {
-            listener.onResult(ImageProvider.GALLERY)
+            listener.onResult(
+                if (customView.displayCropCheckBox.isChecked) ImageProvider.GALLERY_WITH_CROP else ImageProvider.GALLERY
+            )
             dialog.dismiss()
         }
     }

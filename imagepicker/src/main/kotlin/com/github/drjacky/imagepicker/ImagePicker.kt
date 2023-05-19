@@ -277,24 +277,28 @@ open class ImagePicker {
         fun createIntent(): Intent =
             Intent(activity, ImagePickerActivity::class.java).apply { putExtras(getBundle()) }
 
-        fun createIntentFromDialog(
-            onResult: (Intent) -> Unit
-        ) {
+        fun createIntentFromDialog(onResult: (Intent) -> Unit) {
             if (imageProvider == ImageProvider.BOTH) {
                 DialogHelper.showChooseAppDialog(
-                    context = activity,
-                    listener = object : ResultListener<ImageProvider> {
+                    context = activity, listener = object : ResultListener<ImageProvider> {
                         override fun onResult(t: ImageProvider?) {
                             t?.let {
                                 imageProvider = it
+                                setImageProviderInterceptor {
+                                    setCrop(imageProvider)
+                                }
                                 imageProviderInterceptor?.invoke(imageProvider)
                                 onResult(createIntent())
                             }
                         }
-                    },
-                    dismissListener
+                    }, dismissListener
                 )
             }
+        }
+
+        private fun setCrop(imageProvider: ImageProvider) {
+            crop = imageProvider == ImageProvider.CAMERA_WITH_CROP
+                    || imageProvider == ImageProvider.GALLERY_WITH_CROP
         }
 
         /**
@@ -304,7 +308,6 @@ open class ImagePicker {
             return Bundle().apply {
                 putSerializable(EXTRA_IMAGE_PROVIDER, imageProvider)
                 putStringArray(EXTRA_MIME_TYPES, mimeTypes)
-
                 putBoolean(EXTRA_CROP_OVAL, cropOval)
                 putBoolean(EXTRA_CROP_FREE_STYLE, cropFreeStyle)
                 putBoolean(EXTRA_CROP, crop)
@@ -312,10 +315,8 @@ open class ImagePicker {
                 putFloat(EXTRA_CROP_X, cropX)
                 putFloat(EXTRA_CROP_Y, cropY)
                 putSerializable(EXTRA_OUTPUT_FORMAT, outputFormat)
-
                 putInt(EXTRA_MAX_WIDTH, maxWidth)
                 putInt(EXTRA_MAX_HEIGHT, maxHeight)
-
                 putBoolean(EXTRA_KEEP_RATIO, keepRatio)
             }
         }
